@@ -1,6 +1,7 @@
 // var defaultTemplates = require('./default.templates.js');
 var config = require('./config.js'),
-    Tumblr = require('tumblrwks');
+    Tumblr = require('tumblrwks'),
+    poetifier = require('./jgtest.js');
 
 
 var tumblr = new Tumblr(
@@ -15,11 +16,18 @@ var tumblr = new Tumblr(
 
 var onePoem = function() {
 
+  var titlifier = function(text) {
+    // TODO: parse the text somehow
+    return 'untitled';
+  };
+
   try {
 
+    var p = poetifier();
+
     var poem = {
-      title: 'a static poem',
-      text: 'i think that i shall never see\na poem as lovely as a trie'
+      title: titlifier(),
+      text: p
     };
 
     return poem;
