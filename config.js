@@ -9,6 +9,6 @@ module.exports = {
     accessToken:    process.env.token,
     accessSecret:   process.env.token_secret,
 
-    postLive:       (process.env.POST_LIVE.toLowerCase() === 'true')
+    postLive:       (process.env.post_live.toLowerCase() === 'true')
 
 };
