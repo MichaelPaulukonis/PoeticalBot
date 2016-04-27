@@ -57,11 +57,16 @@ var poetifier = function() {
     return result;
   };
 
+  var pick = function(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  };
+
   var random = function(limit){
     var num = Math.floor(Math.random() * limit);
     return num;
   };
 
+  // http://stackoverflow.com/a/6274381/41153
   var shuffle = function (a) {
     var j, x, i;
     for (i = a.length; i; i -= 1) {
@@ -91,15 +96,23 @@ var poetifier = function() {
     return weights;
   };
 
+  var titlifier = function() {
+    return templateName + ' ' + corpora.weights.join(' ');
+  };
+
 
   var jg = new jGnoetry(debug);
   corpora.weights = assignWeights(corpora.texts.length);
+  var templateName = pick(Object.keys(templates));
   // TODO: ugh. that's a lot of ugly parameters
-  var output = jg.generate(randomProperty(templates), options, corpora, existingText);
+  var output = jg.generate(templates[templateName], options, corpora, existingText);
 
   // console.log(output.displayText);
 
-  return output.displayText;
+  return {
+    title: titlifier(),
+    text: output.displayText
+  };
 
 
 };

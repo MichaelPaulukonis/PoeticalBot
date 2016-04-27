@@ -23,12 +23,12 @@ var onePoem = function() {
 
   try {
 
-    var p = poetifier();
+    var poem = poetifier();
 
-    var poem = {
-      title: titlifier(),
-      text: p
-    };
+    // var poem = {
+    //   title: titlifier(),
+    //   text: p
+    // };
 
     return poem;
 
