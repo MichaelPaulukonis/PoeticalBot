@@ -20,7 +20,7 @@
 
 var jGnoetry = function(dbg) {
 
-  var debug = dbg;
+  var debug = dbg || function(msg) { console.log(msg); };
 
   // TODO: corpora should be set PRIOR to calling generate
   this.generate = function(templateText, options, corpora, existingText) {
@@ -313,7 +313,7 @@ var jGnoetry = function(dbg) {
 
   var makeWordsArray = function (numberOfWords, byNewlineOrPunctuation, corpora) {
     // the array that will be returned
-    var toReturn = new Array();
+    var toReturn = [];
 
     // the n-gram history
     var history = ' ';
@@ -429,7 +429,7 @@ var jGnoetry = function(dbg) {
     var punctuationFound = '';
     var nextPunctuationIndex = -1;
     var n;
-    var punctuation = new Array('.', '?', '!');
+    var punctuation = ['.', '?', '!'];
 
     // look through the punctuations, identifying which comes next
     for (var x in punctuation) {
@@ -714,8 +714,8 @@ var jGnoetry = function(dbg) {
   var processTemplate = function (aTemplateText, templateText, corpora, options, existingText) {
     // generate a variable-length array of words
     var initialNumberWords = aTemplateText.length * 2;
-    var aGeneratedWords = new Array();
-    var aGeneratedWordsStatic = new Array();
+    var aGeneratedWords = [];
+    var aGeneratedWordsStatic = [];
 
     // if there are any non-template words in template: generate from that
     //   (i.e. you've pasted in a poem to edit)
@@ -775,11 +775,11 @@ var jGnoetry = function(dbg) {
       for (i = 0; i < aTemplateText.length; i++) {
         templateToken = aTemplateText[i];
 
-        if (templateToken == token.syllable) {
+        if (templateToken === token.syllable) {
           newTemplate += templateToken + ' ';
-        } else if (templateToken == '[n]') {
+        } else if (templateToken === token.linebreak) {
           newTemplate += templateToken + '\n';
-        } else if (templateToken == '\n') {
+        } else if (templateToken === token.hardbreak) {
           newTemplate += '[n]\n';
         } else {
           var x = countSyllables(templateToken, syllableExceptionsAlgorithm);
