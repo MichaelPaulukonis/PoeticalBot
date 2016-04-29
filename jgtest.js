@@ -298,7 +298,8 @@ var poetifier = function() {
 
   var text = output.displayText;
   if (templateName !== 'howl' && coinflip(0.25)) {
-    text = spaces.generate(text);
+    debug('initial spaces', 0);
+    text = spaces.generate(text).replace(/ /g, '&nbsp;');
   }
 
   return {
