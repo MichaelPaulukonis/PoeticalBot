@@ -2,21 +2,21 @@ var poetifier = function() {
 
   var jGnoetry = require('./jgnoetry.headless.js'),
       texts = require('./defaultTexts.js'),
-// {
-//   "handlePunctuation": "noParen",
-//   "byNewlineOrPunctuation": "punctuation",
-//   "capitalize": {
-//     "method": "capitalizeCustom",
-//     "customSentence": true,
-//     "customLine": false,
-//     "customI": false
-//   },
-//   "appendToPoem": "appendExclamation",
-//   "areWordsSelectedBegin": "startSelected",
-//   "thisWordSelectedBegin": "startSelected",
-//   "changeSelectionEffect": "requiresClick",
-//   "statusVerbosity": 1
-// }
+      // {
+      //   "handlePunctuation": "noParen",
+      //   "byNewlineOrPunctuation": "punctuation",
+      //   "capitalize": {
+      //     "method": "capitalizeCustom",
+      //     "customSentence": true,
+      //     "customLine": false,
+      //     "customI": false
+      //   },
+      //   "appendToPoem": "appendExclamation",
+      //   "areWordsSelectedBegin": "startSelected",
+      //   "thisWordSelectedBegin": "startSelected",
+      //   "changeSelectionEffect": "requiresClick",
+      //   "statusVerbosity": 1
+      // }
       options = {
         'handlePunctuation': 'noParen',
         'byNewlineOrPunctuation': 'punctuation',
@@ -79,12 +79,18 @@ var poetifier = function() {
   };
 
   var random = function(max){
-    return getRandomArbitrary(0,max);
+    return getRandomInRange(0,max);
   };
 
-  var getRandomArbitrary = function(min, max) {
+  var getRandomInRange = function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   };
+
+  var coinflip = function(chance) {
+    if (!chance) { chance = 0.5; }
+    return (Math.random() < chance);
+  };
+
 
   // http://stackoverflow.com/a/6274381/41153
   var shuffle = function (a) {
@@ -125,7 +131,7 @@ var poetifier = function() {
         second = random(arr.length);
     arr[first] = 50;
     while (second === first) {
-        second = random(arr.length);
+      second = random(arr.length);
     }
     arr[second] = 50;
     return arr;
@@ -160,9 +166,9 @@ var poetifier = function() {
     for( var i = 0, len = splits.length; i < len; i++) {
       var word = splits[i];
       if (alphanumeric.test(word) && word.length > 3) {
-          if (!wb[word]) {
-            wb[word] = [];
-          }
+        if (!wb[word]) {
+          wb[word] = [];
+        }
         wb[word].push(word);
       }
     }
@@ -223,7 +229,7 @@ var poetifier = function() {
 
     var wordfreqs = sortedArray(wordbag(text));
     if (wordfreqs.length > 4) {
-      var wordCount = getRandomArbitrary(2, wordfreqs.length > 10 ? 10 : 4);
+      var wordCount = getRandomInRange(2, wordfreqs.length > 10 ? 10 : 4);
       title = wordfreqs.slice(0,wordCount).map(function(elem) { return elem.word; }).join(' ');
     } else {
       title = wordfreqs[0].word;
@@ -233,12 +239,56 @@ var poetifier = function() {
 
   };
 
+  // TODO: this should go elsewhere (CRUDE!)
+  // extracted from my modified lexeduct, gh-pages branch
+  var InitialSpaces = function(cfg) {
+
+    if(!(this instanceof InitialSpaces)) {
+      return new InitialSpaces(cfg);
+    }
+
+    var defaultConfig = {
+      offset: 20,
+      offsetVariance: 20,
+      offsetProbability: 0.8
+    };
+
+    this.config = {
+      offset: (cfg && cfg.offset ? cfg.offset : defaultConfig.offset),
+      offsetVariance: (cfg && cfg.offsetVariance ? cfg.offsetVariance : defaultConfig.offsetVariance),
+      offsetProbability: (cfg && cfg.offsetProbability ? cfg.offsetProbability : defaultConfig.offsetProbability)
+    };
+
+    this.generate = function(text) {
+
+      var out = [];
+      var lines = text.split('\n');
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (line.length > 0 && coinflip(this.config.offsetProbability)) {
+          var variance = getRandomInRange(-this.config.offsetVariance, this.config.offsetVariance);
+          // +1, since when you join a 1-length array, you don't get the join-character.
+          var spaceCount = this.config.offset + variance + 1;
+          var spaces = Array(spaceCount).join(' ');
+          line = spaces + line;
+        }
+        out.push(line);
+      }
+
+      return out.join('\n');
+
+    };
+
+  };
+
 
   var jg = new jGnoetry(debug);
   corpora.weights = assignWeights(corpora.texts.length);
   var templateName = pick(Object.keys(templates));
   options.capitalize = assignCapitalization();
   options.appendToPoem = pick(endPuncts);
+  var spaces = new InitialSpaces();
 
   debug(JSON.stringify(options, null, 2), 0);
   debug(templateName, 0);
@@ -246,11 +296,14 @@ var poetifier = function() {
   // TODO: ugh. that's a lot of ugly parameters
   var output = jg.generate(templates[templateName], options, corpora, existingText);
 
-  //console.log(output.displayText);
+  var text = output.displayText;
+  if (templateName !== 'howl' && coinflip(0.25)) {
+    text = spaces.generate(text);
+  }
 
   return {
     title: titlifier(output.displayText),
-    text: output.displayText
+    text: text
   };
 
 
