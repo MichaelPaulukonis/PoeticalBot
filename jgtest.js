@@ -246,7 +246,7 @@ var poetifier = function() {
   // TODO: ugh. that's a lot of ugly parameters
   var output = jg.generate(templates[templateName], options, corpora, existingText);
 
-  console.log(output.displayText);
+  //console.log(output.displayText);
 
   return {
     title: titlifier(output.displayText),

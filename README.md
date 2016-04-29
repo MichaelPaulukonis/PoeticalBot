@@ -14,3 +14,8 @@ So, I'm going to do the Simplest Thing That Could Possibly Work.
 1. text generator becomes non-static
 1. elaborate and iterate on step 2
 1. end-goal includes ingestion of source material from online news
+
+
+SO THAT DIDN'T HAPPEN
+
+See output @ http://poeticalbot.tumblr.com/
