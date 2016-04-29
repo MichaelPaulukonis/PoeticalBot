@@ -91,6 +91,11 @@ var poetifier = function() {
     return (Math.random() < chance);
   };
 
+  var pickRemove = function(arr) {
+    var index = Math.floor(Math.random() * arr.length);
+    return arr.splice(index,1)[0];
+  };
+
 
   // http://stackoverflow.com/a/6274381/41153
   var shuffle = function (a) {
@@ -112,11 +117,25 @@ var poetifier = function() {
 
   };
 
+  // TODO: reduce size of corpora.texts
+  var reduceCorpora = function() {
+    // assume corpora.texts is in-scope
+    var newCorpus = [];
+
+    for (var i = 0, len = corpora.texts.length; i < 7; i++) {
+      newCorpus.push(pickRemove(corpora.texts));
+    }
+
+    corpora.texts = newCorpus;
+  };
+
+
   var initializeArray = function(count) {
     var arr = Array.apply(null, Array(count));
     return arr.map(function(x) { return 0; });
   };
 
+  // TODO: this would be easier if we just prune the texts, and THEN assign weight randomly
   var weightsPickOne = function(count) {
     var arr = initializeArray(count);
     arr[random(arr.length)] = 100;
@@ -224,7 +243,7 @@ var poetifier = function() {
     var title = '';
 
     if (Math.random() > 0.5) {
-      return templateName + ' ' + corpora.weights.join(' ');
+      return templateName.replace(/[0-9]/g, '') + ' ' + corpora.weights.join(' ');
     }
 
     var wordfreqs = sortedArray(wordbag(text));
@@ -284,6 +303,7 @@ var poetifier = function() {
 
 
   var jg = new jGnoetry(debug);
+  reduceCorpora();
   corpora.weights = assignWeights(corpora.texts.length);
   var templateName = pick(Object.keys(templates));
   options.capitalize = assignCapitalization();
@@ -297,9 +317,10 @@ var poetifier = function() {
   var output = jg.generate(templates[templateName], options, corpora, existingText);
 
   var text = output.displayText;
-  if (templateName !== 'howl' && coinflip(0.25)) {
+  var noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
+  if (noLeadingSpaceTemplates.templateName > -1 && coinflip(0.25)) {
     debug('initial spaces', 0);
-    text = spaces.generate(text).replace(/ /g, '&nbsp;');
+    text = spaces.generate(text);
   }
 
   return {

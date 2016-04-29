@@ -52,13 +52,14 @@ var teller = function() {
   if (poem && poem.title && poem.text) {
 
     if (config.postLive) {
+      poem.text = poem.text.replace(/ /g, '&nbsp;'); // "format" for HTML display
       tumblr.post('/post',
                   {type: 'text', title: poem.title, body: poem.text},
                   function(err, json){
                     console.log(err, json);
                   });
     } else {
-      console.log(poem);
+      console.log(JSON.stringify(poem));
     }
 
   }

@@ -1,22 +1,4 @@
 The Project Gutenberg Etext of (some) factorials from 1 to 100,000:
-
-**Welcome To The World of Free Plain Vanilla Electronic Texts**
-
-**Etexts Readable By Both Humans and By Computers, Since 1971**
-
-*These Etexts Prepared By Hundreds of Volunteers and Donations*
-
-Information on contacting Project Gutenberg to get Etexts, and
-further information is included below.  We need your donations.
-
-
-February, 1995
-
-[Etext #212]
-
-[Date last updated: January 11, 2004]
-
-The Project Gutenberg Etext of (some) factorials from 1 to 100,000:
 ** 100! to 900! by 100's
 ** 1000! to 10000! by 1000's
 
