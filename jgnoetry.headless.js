@@ -125,7 +125,7 @@ var jGnoetry = function(dbg) {
           debug('    After adding word: ' + tempWord + ', Syllable Balance is ' + syllableBalance, 2);
 
           // add word for printout and editor buffers
-          var wordToPrint = tempWord;
+          var wordToPrint = tempWord.trim();
 
           // if capitalizing first words in sentence, capitalize
           if (options.capitalize.customSentence == true && isFollowingPunctuation == true) {

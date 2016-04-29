@@ -2,19 +2,31 @@ var poetifier = function() {
 
   var jGnoetry = require('./jgnoetry.headless.js'),
       texts = require('./defaultTexts.js'),
+// {
+//   "handlePunctuation": "noParen",
+//   "byNewlineOrPunctuation": "punctuation",
+//   "capitalize": {
+//     "method": "capitalizeCustom",
+//     "customSentence": true,
+//     "customLine": false,
+//     "customI": false
+//   },
+//   "appendToPoem": "appendExclamation",
+//   "areWordsSelectedBegin": "startSelected",
+//   "thisWordSelectedBegin": "startSelected",
+//   "changeSelectionEffect": "requiresClick",
+//   "statusVerbosity": 1
+// }
       options = {
         'handlePunctuation': 'noParen',
         'byNewlineOrPunctuation': 'punctuation',
         'capitalize': {
-          'method': 'capitalizeCustom',
-          'customSentence':true,
-          'customLine':true,
-          'customI':true
+          'method': 'capitalizeCustom', // capitalizeNone, capitalizeAsCorpus
+          'customSentence': true, // sentence beginning
+          'customLine': true, // line beginnings
+          'customI': true // capitalize "I"
         },
         'appendToPoem': 'appendPeriod',
-        'areWordsSelectedBegin': 'startSelected',
-        'thisWordSelectedBegin': 'startSelected',
-        'changeSelectionEffect': 'requiresClick',
         'statusVerbosity': 0
       },
       existingText = [],
@@ -35,6 +47,10 @@ var poetifier = function() {
     texts: texts,
     weights: []
   };
+
+  var capitalizations = ['capitalizeCustom', 'capitalizeNone', 'capitalizeAsCorpus'],
+      endPuncts = ['appendNothing', 'appendPeriod', 'appendQuestion', 'appendExclamation'];
+
 
   // capture statusVerbosity, and never [for scoped-functions] refer to it again
   var debug = function(msg, level) {
@@ -67,7 +83,7 @@ var poetifier = function() {
   };
 
   var getRandomArbitrary = function(min, max) {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
   };
 
   // http://stackoverflow.com/a/6274381/41153
@@ -81,15 +97,50 @@ var poetifier = function() {
     }
   };
 
+  var assignWeights = function(count) {
+
+    var strategies = [assignWeightsRandom, weightsPickOne, weightsPickTwo],
+        strategy = pick(strategies);
+
+    return strategy(count);
+
+  };
+
+  var initializeArray = function(count) {
+    var arr = Array.apply(null, Array(count));
+    return arr.map(function(x) { return 0; });
+  };
+
+  var weightsPickOne = function(count) {
+    var arr = initializeArray(count);
+    arr[random(arr.length)] = 100;
+    return arr;
+  };
+
+  var weightsPickTwo = function(count) {
+    // TODO: implement
+    // pick one, then do a while loop, do make sure we get a DIFFERENT number...
+    var arr = initializeArray(count);
+    var first = random(arr.length),
+        second = random(arr.length);
+    arr[first] = 50;
+    while (second === first) {
+        second = random(arr.length);
+    }
+    arr[second] = 50;
+    return arr;
+  };
+
   // return an array of length n, where n := texts.lengh
   // and sum(array) := 100
-  var assignWeights = function(count) {
+  var assignWeightsRandom = function(count) {
     var weights = [],
         total = 0;
 
     // naive implementation
     // first value has a greater chance of being > other values
     // last value has a greater chance of being < other value
+    // but then we shuffle 'em all
     for(var i = 0; i < count-1; i++) {
       weights[i] = random(100-total);
       total += weights[i];
@@ -143,15 +194,32 @@ var poetifier = function() {
 
   };
 
+  var assignCapitalization = function() {
+
+    var cap = {
+      method: pick(capitalizations),
+      customSentence: true, // sentence beginning
+      customLine: true, // line beginnings
+      customI: true // capitalize "I"
+    };
+
+    if (cap.method !== 'capitalizeCustom') {
+      cap.customSentence = false;
+      cap.customLine = false;
+      cap.customI = false;
+    }
+
+    return cap;
+
+  };
 
   var titlifier = function(text) {
 
     var title = '';
 
-    // a strategy
-    // return templateName + ' ' + corpora.weights.join(' ');
-
-    //another strategy
+    if (Math.random() > 0.5) {
+      return templateName + ' ' + corpora.weights.join(' ');
+    }
 
     var wordfreqs = sortedArray(wordbag(text));
     if (wordfreqs.length > 4) {
@@ -169,6 +237,12 @@ var poetifier = function() {
   var jg = new jGnoetry(debug);
   corpora.weights = assignWeights(corpora.texts.length);
   var templateName = pick(Object.keys(templates));
+  options.capitalize = assignCapitalization();
+  options.appendToPoem = pick(endPuncts);
+
+  debug(JSON.stringify(options, null, 2), 0);
+  debug(templateName, 0);
+  debug(corpora.weights.join(' '), 0);
   // TODO: ugh. that's a lot of ugly parameters
   var output = jg.generate(templates[templateName], options, corpora, existingText);
 
