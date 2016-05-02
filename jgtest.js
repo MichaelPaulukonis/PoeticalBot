@@ -2,6 +2,7 @@ var poetifier = function() {
 
   var jGnoetry = require('./jgnoetry.headless.js'),
       texts = require('./defaultTexts.js'),
+      transform = require('./transform.js'),
       // {
       //   "handlePunctuation": "noParen",
       //   "byNewlineOrPunctuation": "punctuation",
@@ -238,6 +239,16 @@ var poetifier = function() {
 
   };
 
+  var cleaner = function(text) {
+
+    // remove /r (DOS style)
+    return text.replace(/\r/g, '')
+    // remove leading whitespace
+      .replace(/^\s*/g, '')
+      .replace(/\n\s*/g, '\n');
+
+  };
+
   var titlifier = function(text) {
 
     var title = '';
@@ -258,74 +269,33 @@ var poetifier = function() {
 
   };
 
-  // TODO: this should go elsewhere (CRUDE!)
-  // extracted from my modified lexeduct, gh-pages branch
-  var InitialSpaces = function(cfg) {
-
-    if(!(this instanceof InitialSpaces)) {
-      return new InitialSpaces(cfg);
-    }
-
-    var defaultConfig = {
-      offset: 20,
-      offsetVariance: 20,
-      offsetProbability: 0.8
-    };
-
-    this.config = {
-      offset: (cfg && cfg.offset ? cfg.offset : defaultConfig.offset),
-      offsetVariance: (cfg && cfg.offsetVariance ? cfg.offsetVariance : defaultConfig.offsetVariance),
-      offsetProbability: (cfg && cfg.offsetProbability ? cfg.offsetProbability : defaultConfig.offsetProbability)
-    };
-
-    this.generate = function(text) {
-
-      var out = [];
-      var lines = text.split('\n');
-
-      for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        if (line.length > 0 && coinflip(this.config.offsetProbability)) {
-          var variance = getRandomInRange(-this.config.offsetVariance, this.config.offsetVariance);
-          // +1, since when you join a 1-length array, you don't get the join-character.
-          var spaceCount = this.config.offset + variance + 1;
-          var spaces = Array(spaceCount).join(' ');
-          line = spaces + line;
-        }
-        out.push(line);
-      }
-
-      return out.join('\n');
-
-    };
-
-  };
-
-
   var jg = new jGnoetry(debug);
   reduceCorpora();
   corpora.weights = assignWeights(corpora.texts.length);
   var templateName = pick(Object.keys(templates));
   options.capitalize = assignCapitalization();
   options.appendToPoem = pick(endPuncts);
-  var spaces = new InitialSpaces();
 
   debug(JSON.stringify(options, null, 2), 0);
   debug(templateName, 0);
   debug(corpora.weights.join(' '), 0);
   // TODO: ugh. that's a lot of ugly parameters
   var output = jg.generate(templates[templateName], options, corpora, existingText);
+  var text = cleaner(output.displayText);
 
-  var text = output.displayText;
+  // TODO: move this into index.js
+  // for other post-processing of different algorithms
+  // except.... we won't know the template?
   var noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
-  if (noLeadingSpaceTemplates.templateName > -1 && coinflip(0.25)) {
+  if (noLeadingSpaceTemplates.indexOf(templateName) === -1 && coinflip(0.25)) {
     debug('initial spaces', 0);
-    text = spaces.generate(text);
+    text = transform.initialSpaces().generate(text);
   }
 
   return {
     title: titlifier(output.displayText),
-    text: text
+    text: text,
+    template: templateName
   };
 
 
