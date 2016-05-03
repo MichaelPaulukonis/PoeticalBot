@@ -1,4 +1,4 @@
-http://www.trussel.com/bladerun.htm
+ï»¿http://www.trussel.com/bladerun.htm
 BLADE RUNNER
 Credits
 Early in the 21st Century, THE TYRELL CORPORATION advanced robot evolution into the NEXUS phase - a being virtually identical to a human - known as a Replicant. The NEXUS 6 Replicants were superior in strength and agility, and at least equal in intelligence, to the genetic engineers who created them. Replicants were used Off-World as slave labor, in the hazardous exploration and colonization of other planets. After a bloody mutiny by a NEXUS 6 combat team in an Off-World colony, Replicants were declared illegal on earth - under penalty of death. Special police squads - BLADE RUNNER UNITS - had orders to shoot to kill, upon detection, any trespassing Replicant This was not called execution. It was called retirement.
@@ -300,9 +300,9 @@ Deckard:	I've had people walk out on me before, but not when I was being so char
 Roy:	I don't think so, Mr. Deckard. That's not my kind of place.
 Deckard:	Go someplace else?
 [Deckard returns to Taffy's]
-Announcer:	Ladies and Gentlemen. Taffy Lewis presents Miss Salomé and the snake. Watch her take the pleasures from the serpent that once corrupted man.
-[Miss Salomé's dressing room.]
-Deckard:	Excuse me, Miss Salomé, can I talk to you for a minute? I'm from the American Federation of Variety Artists.
+Announcer:	Ladies and Gentlemen. Taffy Lewis presents Miss SalomÃ© and the snake. Watch her take the pleasures from the serpent that once corrupted man.
+[Miss SalomÃ©'s dressing room.]
+Deckard:	Excuse me, Miss SalomÃ©, can I talk to you for a minute? I'm from the American Federation of Variety Artists.
 Zhora:	Oh, yeah?
 Deckard:	I'm not here to make you join. No ma'am. That's not my department. Actually, uh. I'm from the, uh, Confidential Committee on Moral Abuses.
 Zhora:	Committee of Moral Abuses?
@@ -510,7 +510,7 @@ Roy:	That hurt. That was irrational. Not to mention, unsportsman-like. Ha ha ha.
 [Deckard does some amazing climbing, then jumps to next building. Roy follows, holding a white pigeon.]
 Roy:	Quite an experience to live in fear, isn't it? That's what it is to be a slave.
 [Deckard spits at Roy as he falls; Roy catches him with one hand.]
-Roy:	I've seen things you people wouldn't believe. Attack ships on fire off the shoulder of Orion. I watched C-beams glitter in the darkness at Tannhäuser Gate. All those moments will be lost in time like tears in rain. Time to die.
+Roy:	I've seen things you people wouldn't believe. Attack ships on fire off the shoulder of Orion. I watched C-beams glitter in the darkness at TannhÃ¤user Gate. All those moments will be lost in time like tears in rain. Time to die.
 [Bird flies off...]
 Deckard :	I don't know why he saved my life. Maybe in those last moments he loved life more than he ever had before. Not just his life, anybody's life, my life. All he'd wanted were the same answers the rest of us want. Where did I come from? Where am I going? How long have I got? All I could do was sit there and watch him die.
 Gaff:	You've done a man's job, sir. I guess you're through, huh?
@@ -582,8 +582,8 @@ RIDLEY SCOTT
 Notes
 1.  	M'sieu, aduanon kovershim angam bitte.
 (suggested by Peter Gervai:)
-Most probably the original (what the actor was supposed to say) was like the Hungarian phrase "azonnal kövessen engem", which means "follow me immediately", and "bitte" is German meaning "please".
-Resulting in "Monsieur (French), azonnal kövessen engem (Hungarian), bitte (German)"
+Most probably the original (what the actor was supposed to say) was like the Hungarian phrase "azonnal kÃ¶vessen engem", which means "follow me immediately", and "bitte" is German meaning "please".
+Resulting in "Monsieur (French), azonnal kÃ¶vessen engem (Hungarian), bitte (German)"
 
 Sir, you will please come with me now.
 

@@ -25,11 +25,6 @@ var onePoem = function() {
 
     var poem = poetifier();
 
-    // var poem = {
-    //   title: titlifier(),
-    //   text: p
-    // };
-
     return poem;
 
   } catch(ex) {
@@ -61,7 +56,6 @@ var teller = function() {
     } else {
       console.log(JSON.stringify(poem));
     }
-
   }
 
   console.log('DONE');
