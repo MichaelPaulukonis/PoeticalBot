@@ -99,8 +99,12 @@ var poetifier = function() {
   };
 
   var reduceCorpora = function(texts) {
-    var strategies = [corporaSevenStrategy,
-                      corporaApocalypseOzStrategy],
+    var strategies = [
+      corporaSevenStrategy,
+      corporaApocalypseOzStrategy,
+      corporaShakespeareStrategy,
+      corporaGertrudeSteinStrategy
+    ],
         strategy = pick(strategies);
 
     return strategy(texts);
@@ -120,6 +124,13 @@ var poetifier = function() {
     return corpus.filter(m => m.name.indexOf('The Wonderful Wizard of Oz') > -1 || m.name.indexOf('ApocalypseNow.redux.2001') > -1);
   };
 
+  var corporaShakespeareStrategy = function(corpus) {
+    return corpus.filter(m => m.name.toLowerCase().indexOf('shakespeare') > -1);
+  };
+
+  var corporaGertrudeSteinStrategy = function(corpus) {
+    return corpus.filter(m => m.name.toLowerCase().indexOf('gertrude stein') > -1);
+  };
 
   var initializeArray = function(count) {
     var arr = Array.apply(null, Array(count));
