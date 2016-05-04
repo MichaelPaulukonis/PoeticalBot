@@ -7,52 +7,64 @@ var tester = function() {
   var mocha = require('mocha'),
       chai = require('chai'),
       expect = chai.expect,
-      Util = require('../util.js');
+      Util = require('../util.js'),
+      util = new Util();
 
 
   describe('util tests', function() {
 
     describe('API tests', function() {
 
-
-      it('should return a new instance with new', function() {
-        var nt = new Util();
-        expect(nt).to.be.a('object');
-        expect(nt).to.be.an.instanceof(Util);
+      it('Util should return a new instance with new', function() {
+        var newutil = new Util();
+        expect(newutil).to.be.a('object');
+        expect(newutil).to.be.an.instanceof(Util);
       });
 
-      it('should return a new instance even without new', function() {
-        var t = Util();
-        expect(t).to.be.a('object');
-        expect(t).to.be.an.instanceof(Util);
+      it('Util should return a new instance even without new', function() {
+        var util = Util();
+        expect(util).to.be.a('object');
+        expect(util).to.be.an.instanceof(Util);
       });
 
-      // it('should expose a processText method', function() {
-      //   expect(tagbagify.processText).to.be.a('function');
-      // });
+      it('Util should expose a debug method', function() {
+        expect(util.debug).to.be.a('function');
+      });
+
+      it('Util should expose a debugOutput method', function() {
+        expect(util.debugOutput).to.be.a('function');
+      });
+
+      it('Util should expose a randomProperty method', function() {
+        expect(util.randomProperty).to.be.a('function');
+      });
+
+      it('Util should expose a pick method', function() {
+        expect(util.pick).to.be.a('function');
+      });
+
+      it('Util should expose a random method', function() {
+        expect(util.random).to.be.a('function');
+      });
+
+      it('Util should expose a getRandomInRange method', function() {
+        expect(util.getRandomInRange).to.be.a('function');
+      });
+
+      it('Util should expose a coinflip method', function() {
+        expect(util.coinflip).to.be.a('function');
+      });
+
+      it('Util should expose a pickRemove method', function() {
+        expect(util.pickRemove).to.be.a('function');
+      });
+
+      it('Util should expose a shuffle method', function() {
+        expect(util.shuffle).to.be.a('function');
+      });
+
 
     });
-
-    // describe('processText tests', function() {
-
-    //   // this is a bit unweildly
-    //   // and maybe should be broken out...
-    //   it('should return an object with a non-zero number of properties when provided with non-zero-length text', function() {
-    //     var templ = tagbagify.processText(sample);
-    //     expect(templ).to.be.an('object');
-    //   });
-
-    //   it('should have properties whose values is array of string when provided with non-zero-length text', function() {
-    //     var templ = tagbagify.processText(sample);
-    //     var keys = Object.keys(templ);
-    //     var aProperty = templ[keys[0]];
-    //     expect(aProperty).to.be.an('array');
-    //     expect(aProperty).to.have.length.above(0);
-    //     expect(aProperty[0]).to.be.a('string');
-    //     // TODO: no property will have 0-length
-    //   });
-
-    // });
 
   });
 

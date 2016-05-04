@@ -3,7 +3,7 @@ var config = require('./config.js'),
     Tumblr = require('tumblrwks'),
     poetifier = require('./jgtest.js'),
     mispelr = require('node-mispelr'),
-    util = require('./util.js'),
+    util = new require('./util.js')(),
     transform = require('./transform.js');
 
 var tumblr = new Tumblr(
