@@ -3,7 +3,6 @@ var poetifier = function() {
   var jGnoetry = require('./jgnoetry.headless.js'),
       texts = require('./defaultTexts.js'),
       originalTexts = JSON.parse(JSON.stringify(texts)),
-      transform = require('./transform.js'),
       options = {
         'handlePunctuation': 'noParen',
         'byNewlineOrPunctuation': 'punctuation',
@@ -299,14 +298,6 @@ var poetifier = function() {
   var output = jg.generate(templates[templateName], options, corpora, existingText);
   corpora.texts = originalTexts;
   var text = cleaner(output.displayText);
-
-  // TODO: move this into index.js
-  // for other post-processing of different algorithms
-  var noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
-  if (noLeadingSpaceTemplates.indexOf(templateName) === -1 && coinflip(0.25)) {
-    debug('initial spaces', 0);
-    text = transform.initialSpaces().generate(text);
-  }
 
   return {
     title: titlifier(output.displayText),

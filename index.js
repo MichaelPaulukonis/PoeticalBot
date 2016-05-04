@@ -1,8 +1,10 @@
 // var defaultTemplates = require('./default.templates.js');
 var config = require('./config.js'),
     Tumblr = require('tumblrwks'),
-    poetifier = require('./jgtest.js');
-
+    poetifier = require('./jgtest.js'),
+    mispelr = require('node-mispelr'),
+    util = require('./util.js'),
+    transform = require('./transform.js');
 
 var tumblr = new Tumblr(
   {
@@ -14,16 +16,52 @@ var tumblr = new Tumblr(
   'poeticalbot.tumblr.com'
 );
 
+
+
+var transformer = function(poem) {
+
+  var stragegies = [
+    transformLeadingSpaces,
+    transformMispeller
+  ],
+      strategy = util.pick(stragegies);
+
+  // only applies this 25% of the time
+  return util.coinflip(0.25) ? strategy(poem) : poem;
+
+};
+
+var transformLeadingSpaces = function(poem) {
+
+    var noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
+    if (noLeadingSpaceTemplates.indexOf(poem.template) === -1) {
+      util.debug('initial spaces', 0);
+      poem.text = transform.initialSpaces().generate(poem.text);
+    }
+
+  return poem;
+
+};
+
+var transformMispeller = function(poem) {
+  poem.text = mispelr.respell(poem.text, 'random');
+  return poem;
+};
+
+
 var onePoem = function() {
 
   var titlifier = function(text) {
-    // TODO: parse the text somehow
+    // TODO: make some generic strategies (like common words)
+    // but also allow for poem-generating-specific strategies to be returned
     return 'untitled';
   };
 
   try {
 
     var poem = poetifier();
+
+    poem = transformer(poem);
 
     return poem;
 

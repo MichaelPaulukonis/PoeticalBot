@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "htmlencode": "0.0.4",
+    "node-mispelr": "0.0.1",
     "tumblrwks": "0.3.0"
   },
   "engines": {
