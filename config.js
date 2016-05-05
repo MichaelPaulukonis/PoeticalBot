@@ -2,13 +2,19 @@
 // if you see 'process.env.SOMETHING' that means it's a heroku environment variable
 // heroku plugins:install https://github.com/ddollar/heroku-config.git
 // and will only work with 'foreman start worker'
-module.exports = {
+var config = function() {
 
+  require('dotenv').config();
+
+  return {
     consumerKey:    process.env.consumer_key,
     consumerSecret: process.env.consumer_secret,
     accessToken:    process.env.token,
     accessSecret:   process.env.token_secret,
 
     postLive:       (process.env.post_live.toLowerCase() === 'true')
+  };
 
-};
+}();
+
+module.exports = config;

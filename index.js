@@ -92,7 +92,7 @@ var teller = function() {
                     console.log(err, json);
                   });
     } else {
-      console.log(JSON.stringify(poem));
+      console.log(JSON.stringify(poem), poem.text);
     }
   }
 
