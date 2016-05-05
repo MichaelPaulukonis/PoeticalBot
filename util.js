@@ -6,16 +6,19 @@ var util = function(options) {
 
     options = options || { statusVerbosity: 0 };
 
+    var debugOutput = function(output, statusVerbosity, thisVerbosity) {
+        if (statusVerbosity >= thisVerbosity ) {
+            console.log(output);
+        }
+    };
+
+   this.debugOutput = debugOutput;
+
     // capture statusVerbosity, and never [for scoped-functions] refer to it again
     this.debug = function(msg, level) {
         debugOutput(msg, options.statusVerbosity, level);
     };
 
-    this.debugOutput = function(output, statusVerbosity, thisVerbosity) {
-        if (statusVerbosity >= thisVerbosity ) {
-            console.log(output);
-        }
-    };
 
     this.randomProperty = function(obj) {
         var result;

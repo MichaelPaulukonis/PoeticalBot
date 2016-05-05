@@ -1,9 +1,9 @@
 // var defaultTemplates = require('./default.templates.js');
 var config = require('./config.js'),
     Tumblr = require('tumblrwks'),
-    poetifier = require('./jgtest.js'),
+    poetifier = require('./jgnoetryRunner.js'),
     mispelr = require('node-mispelr'),
-    util = new require('./util.js')(),
+    util = new require('./util.js')({statusVerbosity: 0}),
     transform = require('./transform.js');
 
 var tumblr = new Tumblr(
