@@ -4,7 +4,7 @@
 // and will only work with 'foreman start worker'
 var config = function() {
 
-  require('dotenv').config(); // read .env file IF IT EXISTS - which only be DEV
+  require('dotenv').config({silent: true}); // read .env file IF IT EXISTS - which only s/b DEV
 
   return {
     consumerKey:    process.env.consumer_key,
