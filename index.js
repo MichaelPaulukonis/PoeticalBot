@@ -44,7 +44,9 @@ var transformLeadingSpaces = function(poem) {
 };
 
 var transformMispeller = function(poem) {
-  poem.text = mispelr.respell(poem.text, 'random');
+  var spelltype = util.randomProperty(mispelr.spelltypes);
+  util.debug(`spelltype: ${spelltype}`, 0);
+  poem.text = mispelr.respell(poem.text, spelltype);
   return poem;
 };
 
