@@ -20,7 +20,9 @@
 
 var jGnoetry = function(dbg) {
 
-  var debug = dbg || function(msg) { console.log(msg); };
+  var debug = dbg || function(msg) {
+    console.log(msg); // eslint-disable-line no-console
+  };
 
   // TODO: corpora should be set PRIOR to calling generate
   this.generate = function(templateText, options, corpora, existingText) {

@@ -1,68 +1,72 @@
+'option strict';
+
 var util = function(options) {
 
-    if(!(this instanceof util)) {
-        return new util(options);
+  if(!(this instanceof util)) {
+    return new util(options);
+  }
+
+  options = options || { statusVerbosity: 0 };
+
+  var debugOutput = function(output, statusVerbosity, thisVerbosity) {
+    if (statusVerbosity >= thisVerbosity ) {
+      console.log(output); // eslint-disable-line no-console
     }
+  };
 
-    options = options || { statusVerbosity: 0 };
+  this.debugOutput = debugOutput;
 
-    var debugOutput = function(output, statusVerbosity, thisVerbosity) {
-        if (statusVerbosity >= thisVerbosity ) {
-            console.log(output);
-        }
-    };
-
-   this.debugOutput = debugOutput;
-
-    // capture statusVerbosity, and never [for scoped-functions] refer to it again
-    this.debug = function(msg, level) {
-        debugOutput(msg, options.statusVerbosity, level);
-    };
+  // capture statusVerbosity, and never [for scoped-functions] refer to it again
+  this.debug = function(msg, level) {
+    debugOutput(msg, options.statusVerbosity, level);
+  };
 
 
-    this.randomProperty = function(obj) {
-        var result;
-        var count = 0;
-        for (var prop in obj)
-            if (prop != 'id') {
-                if (Math.random() < 1/++count)
-                    result = obj[prop];
-            }
-        return result;
-    };
+  this.randomProperty = function(obj) {
+    var result;
+    var count = 0;
+    for (var prop in obj)
+      if (prop != 'id') {
+        if (Math.random() < 1/++count)
+          result = obj[prop];
+      }
+    return result;
+  };
 
-    this.pick = function(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    };
+  this.pick = function(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  };
 
-    this.random = function(max){
-        return getRandomInRange(0,max);
-    };
+  this.random = function(max){
+    return getRandomInRange(0,max);
+  };
 
-    this.getRandomInRange = function(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
+  var getRandomInRange = function(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  };
 
-    this.coinflip = function(chance) {
-        if (!chance) { chance = 0.5; }
-        return (Math.random() < chance);
-    };
+  this.getRandomInRange = getRandomInRange;
 
-    this.pickRemove = function(arr) {
-        var index = Math.floor(Math.random() * arr.length);
-        return arr.splice(index,1)[0];
-    };
+  this.coinflip = function(chance) {
+    if (!chance) { chance = 0.5; }
+    return (Math.random() < chance);
+  };
 
-    // http://stackoverflow.com/a/6274381/41153
-    this.shuffle = function (a) {
-        var j, x, i;
-        for (i = a.length; i; i -= 1) {
-            j = Math.floor(Math.random() * i);
-            x = a[i - 1];
-            a[i - 1] = a[j];
-            a[j] = x;
-        }
-    };
+  this.pickRemove = function(arr) {
+    var index = Math.floor(Math.random() * arr.length);
+    return arr.splice(index,1)[0];
+  };
+
+  // http://stackoverflow.com/a/6274381/41153
+  this.shuffle = function (a) {
+    var j, x, i;
+    for (i = a.length; i; i -= 1) {
+      j = Math.floor(Math.random() * i);
+      x = a[i - 1];
+      a[i - 1] = a[j];
+      a[j] = x;
+    }
+  };
 
 };
 

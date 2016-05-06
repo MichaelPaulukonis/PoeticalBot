@@ -2,7 +2,7 @@ var poetifier = function() {
 
   var jGnoetry = require('./jgnoetry.headless.js'),
       texts = require('./defaultTexts.js'),
-      originalTexts = JSON.parse(JSON.stringify(texts)),
+      // originalTexts = JSON.parse(JSON.stringify(texts)),
       options = {
         'handlePunctuation': 'noParen',
         'byNewlineOrPunctuation': 'punctuation',
@@ -48,19 +48,8 @@ var poetifier = function() {
 
   var debugOutput = function(output, statusVerbosity, thisVerbosity) {
     if (statusVerbosity >= thisVerbosity ) {
-      console.log(output);
+      console.log(output); // eslint-disable-line no-console
     }
-  };
-
-  var randomProperty = function(obj) {
-    var result;
-    var count = 0;
-    for (var prop in obj)
-      if (prop != 'id') {
-        if (Math.random() < 1/++count)
-          result = obj[prop];
-      }
-    return result;
   };
 
   var pick = function(arr) {
@@ -73,11 +62,6 @@ var poetifier = function() {
 
   var getRandomInRange = function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
-  };
-
-  var coinflip = function(chance) {
-    if (!chance) { chance = 0.5; }
-    return (Math.random() < chance);
   };
 
   var pickRemove = function(arr) {
@@ -98,12 +82,12 @@ var poetifier = function() {
   };
 
   var reduceCorpora = function(texts) {
-    var strategies = [
-      corporaSevenStrategy,
-      corporaApocalypseOzStrategy,
-      corporaShakespeareStrategy,
-      corporaGertrudeSteinStrategy
-    ],
+    var strategies =
+          [ corporaSevenStrategy,
+            corporaApocalypseOzStrategy,
+            corporaShakespeareStrategy,
+            corporaGertrudeSteinStrategy
+          ],
         strategy = pick(strategies);
 
     return strategy(texts);
@@ -112,8 +96,8 @@ var poetifier = function() {
   var corporaSevenStrategy = function(corpus) {
     var newCorpus = [];
 
-    for (var i = 0, len = texts.length; i < 7; i++) {
-      newCorpus.push(pickRemove(texts));
+    for (var i = 0; i < 7; i++) {
+      newCorpus.push(pickRemove(corpus));
     }
 
     return newCorpus;
@@ -133,7 +117,7 @@ var poetifier = function() {
 
   var initializeArray = function(count) {
     var arr = Array.apply(null, Array(count));
-    return arr.map(function(x) { return 0; });
+    return arr.map(function() { return 0; });
   };
 
   var assignWeights = function(count) {
@@ -284,6 +268,10 @@ var poetifier = function() {
   };
 
   var jg = new jGnoetry(debug);
+
+  // TODO: the corpora should be an array of objects, each of which has a name, a text, and an associated weigth
+  // it shouldn't be separate
+  // should it?
   corpora.texts = reduceCorpora(corpora.texts);
   corpora.weights = assignWeights(corpora.texts.length);
   var templateName = pick(Object.keys(templates));

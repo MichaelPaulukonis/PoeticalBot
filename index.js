@@ -1,9 +1,12 @@
+'option strict';
+
 // var defaultTemplates = require('./default.templates.js');
 var config = require('./config.js'),
     Tumblr = require('tumblrwks'),
     poetifier = require('./jgnoetryRunner.js'),
     mispelr = require('node-mispelr'),
-    util = new require('./util.js')({statusVerbosity: 0}),
+    ALWAYS_PRINT = 0,
+    util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
     transform = require('./transform.js');
 
 var tumblr = new Tumblr(
@@ -16,28 +19,29 @@ var tumblr = new Tumblr(
   'poeticalbot.tumblr.com'
 );
 
-
+var logger = function(msg) {
+  util.debug(msg, ALWAYS_PRINT);
+};
 
 var transformer = function(poem) {
 
-  var stragegies = [
-    transformLeadingSpaces,
-    transformMispeller
-  ],
+  var stragegies = [transformLeadingSpaces,
+                    transformMispeller],
       strategy = util.pick(stragegies);
 
+  var chance = config.transformChance || 0.25;
   // only applies this 25% of the time
-  return util.coinflip(0.25) ? strategy(poem) : poem;
+  return util.coinflip(chance) ? strategy(poem) : poem;
 
 };
 
 var transformLeadingSpaces = function(poem) {
 
-    var noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
-    if (noLeadingSpaceTemplates.indexOf(poem.template) === -1) {
-      util.debug('initial spaces', 0);
-      poem.text = transform.initialSpaces().generate(poem.text);
-    }
+  var noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
+  if (noLeadingSpaceTemplates.indexOf(poem.template) === -1) {
+    logger('initial spaces');
+    poem.text = transform.initialSpaces().generate(poem.text);
+  }
 
   return poem;
 
@@ -45,7 +49,7 @@ var transformLeadingSpaces = function(poem) {
 
 var transformMispeller = function(poem) {
   var spelltype = util.randomProperty(mispelr.spelltypes);
-  util.debug(`spelltype: ${spelltype}`, 0);
+  logger(`spelltype: ${spelltype}`);
   poem.text = mispelr.respell(poem.text, spelltype);
   return poem;
 };
@@ -53,11 +57,11 @@ var transformMispeller = function(poem) {
 
 var onePoem = function() {
 
-  var titlifier = function(text) {
-    // TODO: make some generic strategies (like common words)
-    // but also allow for poem-generating-specific strategies to be returned
-    return 'untitled';
-  };
+  // var titlifier = function(text) {
+  //   // TODO: make some generic strategies (like common words)
+  //   // but also allow for poem-generating-specific strategies to be returned
+  //   return 'untitled';
+  // };
 
   try {
 
@@ -74,7 +78,7 @@ var onePoem = function() {
       msg += ' line: ' + ex.lineNumber + ' col: ' + ex.columnNumber + '\n'
         + ex.stack;
     }
-    console.log(msg);
+    logger(msg);
     return 'An error has occured';
   }
 };
@@ -91,15 +95,34 @@ var teller = function() {
       tumblr.post('/post',
                   {type: 'text', title: poem.title, body: poem.text},
                   function(err, json){
-                    console.log(err, json);
+                    logger(err + ' ' + json); // TODO: should be able to pass in arbitrary args
                   });
     } else {
-      console.log(JSON.stringify(poem), poem.text);
+      logger(JSON.stringify(poem));
+      logger(poem.text);
     }
   }
 
-  console.log('DONE');
-
 };
+
+
+var program = require('commander');
+program
+  .version('0.0.2')
+  .option('-l, --local', 'dump to log, don\'t post to Twitter (overrides environment vars)')
+  .option('-t, --transform [percent]', 'percent chance of text transform (in hundreths, eg 0.25 = 25%')
+  .parse(process.argv);
+
+if (program.local) {
+  config.postLive = false;
+}
+
+if (program.transform) {
+  var chance = parseFloat(program.transform, 10);
+  if (!isNaN(chance)) {
+    config.transformChance = chance;
+  }
+}
+
 
 teller();

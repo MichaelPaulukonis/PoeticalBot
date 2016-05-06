@@ -2,10 +2,9 @@
 
 // exeecute with `mocha test.js`
 
-var tester = function() {
+(function() {
 
-  var mocha = require('mocha'),
-      chai = require('chai'),
+  var chai = require('chai'),
       expect = chai.expect,
       Util = require('../util.js'),
       util = new Util();
@@ -63,9 +62,10 @@ var tester = function() {
         expect(util.shuffle).to.be.a('function');
       });
 
+      // TODO: okay, now actually test the methods!
 
     });
 
   });
 
-}();
+}());

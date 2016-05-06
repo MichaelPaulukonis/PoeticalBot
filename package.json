@@ -4,6 +4,7 @@
   "description": "Tumblr Poetry Generator developed for NaPoGenMo2016",
   "main": "index.js",
   "dependencies": {
+    "commander": "2.9.0",
     "dotenv": "2.0.0",
     "htmlencode": "0.0.4",
     "node-mispelr": "0.0.1",
@@ -14,6 +15,9 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "gulp": "3.9.1",
+    "gulp-eslint": "2.0.0",
+    "gulp-mocha": "2.2.0",
     "mocha": "^2.4.5"
   },
   "scripts": {
