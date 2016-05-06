@@ -251,7 +251,7 @@ var poetifier = function() {
 
     var title = '';
 
-    if (Math.random() > 0.001) {
+    if (Math.random() > 0.5) {
       return templateName.trim() + ' ' + corpora.weights.join(' ');
     }
 
