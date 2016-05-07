@@ -1,3 +1,5 @@
+'option strict';
+
 var poetifier = function() {
 
   var jGnoetry = require('./jgnoetry.headless.js'),

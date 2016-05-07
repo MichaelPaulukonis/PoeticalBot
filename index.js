@@ -54,18 +54,45 @@ var transformMispeller = function(poem) {
   return poem;
 };
 
+var titlefier = function(text) {
+
+  var textutils = require('./lib/textutil.js'),
+      wordfreqs = textutils.wordfreqs(text),
+      title = '';
+
+  if (wordfreqs.length > 4) {
+    var wordCount = util.getRandomInRange(2, wordfreqs.length > 10 ? 10 : 4);
+    title = wordfreqs.slice(0,wordCount).map(function(elem) { return elem.word; }).join(' ');
+  } else {
+    title = wordfreqs[0].word;
+  }
+
+  return title.toUpperCase();
+
+};
+
+var queneaubuckets = function() {
+
+  var buckets = require('./lib/buckets'),
+      qb = new buckets();
+
+  return qb.generate();
+
+};
+
 
 var onePoem = function() {
 
-  // var titlifier = function(text) {
-  //   // TODO: make some generic strategies (like common words)
-  //   // but also allow for poem-generating-specific strategies to be returned
-  //   return 'untitled';
-  // };
-
   try {
 
-    var poem = poetifier();
+    var strategies = [queneaubuckets,
+                      poetifier],
+        strategy = util.pick(strategies),
+        poem = strategy();
+
+    if (poem.title === undefined) {
+      poem.title = titlefier(poem.text);
+    }
 
     poem = transformer(poem);
 

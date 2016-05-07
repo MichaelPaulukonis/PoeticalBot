@@ -8,6 +8,7 @@
     "dotenv": "2.0.0",
     "htmlencode": "0.0.4",
     "node-mispelr": "0.0.1",
+    "queneau-buckets": "1.0.1",
     "tumblrwks": "0.3.0"
   },
   "engines": {
@@ -22,7 +23,8 @@
   },
   "scripts": {
     "test": "mocha test/",
-    "start": "node index.js"
+    "start": "node index.js",
+    "logs": "heroku logs -n 1500 > heroku.log"
   },
   "repository": {
     "type": "git",
