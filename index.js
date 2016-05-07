@@ -122,7 +122,12 @@ var teller = function() {
       tumblr.post('/post',
                   {type: 'text', title: poem.title, body: poem.text},
                   function(err, json){
-                    logger(err + ' ' + json); // TODO: should be able to pass in arbitrary args
+                    if (err) {
+                      logger(`ERROR: ${JSON.stringify(err)}`);
+                    }
+                    if(poem.corpora) {
+                      logger(poem.title + ' : ' + JSON.stringify(poem.corpora));
+                    }
                   });
     } else {
       logger(JSON.stringify(poem));
