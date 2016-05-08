@@ -9,6 +9,7 @@
     "htmlencode": "0.0.4",
     "node-mispelr": "0.0.1",
     "queneau-buckets": "1.0.1",
+    "queneau-letters": "1.0.2",
     "tumblrwks": "0.3.0"
   },
   "engines": {

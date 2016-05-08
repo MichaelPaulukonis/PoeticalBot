@@ -491,7 +491,9 @@ var jGnoetry = function(dbg) {
   var getAWord = function (history, corpora) {
     // identify the corpus to use
     var corpusText = '';
+
     // generate a random number from 1 to 100 (since weights are a percentage)
+    // TODO: replace with optional external rnd generator
     var randomWeight = Math.floor(Math.random() * 100);
     // for each text, get its weight, subtract it from the random number
     // if the total is 0 or less, use that text
@@ -505,7 +507,7 @@ var jGnoetry = function(dbg) {
       }
     }
 
-    // find a random location in the corpusText string
+    // for the first word, find a random location in the corpusText string
     var randomIndex = Math.floor(Math.random() * corpusText.length);
 
     debug('  randomIndex is: ' + randomIndex, 2);
@@ -598,6 +600,12 @@ var jGnoetry = function(dbg) {
     var firstWordAfterHistory = corpusText.substring(indexAfterHistory, firstSpaceAfterHistory);
     debug('  first word after history is: ' + firstWordAfterHistory + '\n', 2);
 
+    // TODO: make this configurable option
+    // plus: other cleanup
+    if(true) {
+      firstWordAfterHistory = firstWordAfterHistory.replace(/\n/g, ' ');
+    }
+
     return firstWordAfterHistory;
   };
 
@@ -677,15 +685,18 @@ var jGnoetry = function(dbg) {
   // remove spaces before in-sentence punctuation such as : and , and .
   var editStringPunctuationOutput = function (inputText) {
     // place spaces at beginning and end of corpus
-    inputText = ' ' + inputText + ' ';
+    // TODO: WHY?!?!?
+    // inputText = ' ' + inputText + ' ';
 
     // place spaces around certain punctuation (but not dashes and apostrophes)
-    inputText = inputText.replace(/ ,/g, ',');
-    inputText = inputText.replace(/ \./g, '\.');
-    inputText = inputText.replace(/ \?/g, '\? ');
-    inputText = inputText.replace(/ !/g, '! ');
-    inputText = inputText.replace(/ ;/g, '; ');
-    inputText = inputText.replace(/ :/g, ': ');
+    inputText = inputText.replace(/ ,/g, ',')
+      .replace(/ \./g, '\.')
+      .replace(/ \?/g, '\? ')
+      .replace(/ !/g, '! ')
+      .replace(/ ;/g, '; ')
+      .replace(/ :/g, ': ')
+      .replace(/\t/g, ' ')
+      .replace(/\ {2,}/g, ' ');
 
     return inputText;
   };

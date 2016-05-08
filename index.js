@@ -54,6 +54,17 @@ var transformMispeller = function(poem) {
   return poem;
 };
 
+var cleaner = function(poem) {
+
+  // a first implementation of a naive cleaner
+  // TODO: we do not want to do this for the ASCII texts, though.
+  // hunh.
+  poem = poem.replace(/["\[\]\(\)]/g, '');
+
+  return poem;
+
+};
+
 var titlefier = function(text) {
 
   var textutils = require('./lib/textutil.js'),
@@ -86,7 +97,8 @@ var onePoem = function() {
   try {
 
     var strategies = [queneaubuckets,
-                      poetifier],
+                      poetifier
+                     ],
         strategy = util.pick(strategies),
         poem = strategy();
 
@@ -95,6 +107,8 @@ var onePoem = function() {
     }
 
     poem = transformer(poem);
+
+    poem.text = cleaner(poem.text);
 
     return poem;
 
