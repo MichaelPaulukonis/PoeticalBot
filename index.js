@@ -59,9 +59,37 @@ var cleaner = function(poem) {
   // a first implementation of a naive cleaner
   // TODO: we do not want to do this for the ASCII texts, though.
   // hunh.
-  poem = poem.replace(/["\[\]\(\)]/g, '');
+  var plines = poem.split('\n'),
+      cleanlines = [];
+  for(var i = 0, len = plines.length; i < len; i++) {
+    var line = plines[i];
 
-  return poem;
+    line = line.replace(/_+/g, '_');
+
+    var leftbrackets = line.match(/\[/g),
+        lbCount = (leftbrackets ? leftbrackets.length : 0),
+        rightbrackets = line.match(/\]/g),
+        rbCount = (rightbrackets ? rightbrackets.length : 0);
+
+    if ((leftbrackets || rightbrackets) && lbCount !== rbCount) {
+      line = line.replace(/[\[\]]/g, '');
+    }
+
+    var leftparens = line.match(/\(/g),
+        lpCount = (leftparens ? leftparens.length : 0),
+        rightparens = line.match(/\)/g),
+        rpCount = (rightparens ? rightparens.length : 0);
+
+    if ((leftparens || rightparens) && lpCount !== rpCount) {
+      line = line.replace(/[\(\)]/g, '');
+    }
+
+
+    cleanlines.push(line);
+
+  }
+
+  return cleanlines.join('\n');
 
 };
 
@@ -97,8 +125,8 @@ var onePoem = function() {
   try {
 
     var strategies = [queneaubuckets,
-                      poetifier
-                     ],
+      poetifier
+    ],
         strategy = util.pick(strategies),
         poem = strategy();
 
@@ -106,6 +134,11 @@ var onePoem = function() {
       poem.title = titlefier(poem.text);
     }
 
+    // do we pass transformers in to the generator?
+    // NO, because that means the generator has to know how to manipulate the transformer
+    // INSTEAD, the generator can pass back params that the transformer can optionally process
+    // the transformer "has" to know about these properties -- but that's sort of the idea
+    // it knows about properties, NOT about specific generators
     poem = transformer(poem);
 
     poem.text = cleaner(poem.text);
@@ -133,6 +166,7 @@ var teller = function() {
 
     if (config.postLive) {
       poem.text = poem.text.replace(/ /g, '&nbsp;'); // "format" for HTML display
+      // TODO: optionally dump in other info for "hidden" display?
       tumblr.post('/post',
                   {type: 'text', title: poem.title, body: poem.text},
                   function(err, json){

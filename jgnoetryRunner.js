@@ -1,6 +1,10 @@
 'option strict';
 
-var poetifier = function() {
+var poetifier = function(config) {
+
+  if(config === undefined) {
+    config = {};
+  };
 
   var jGnoetry = require('./jgnoetry.headless.js'),
       texts = require('./defaultTexts.js'),
@@ -87,10 +91,10 @@ var poetifier = function() {
 
   var reduceCorpora = function(texts) {
     var strategies =
-          [ corporaSevenStrategy,
+          [ // corporaSevenStrategy,
             corporaApocalypseOzStrategy,
-            corporaShakespeareStrategy,
-            corporaGertrudeSteinStrategy
+            // corporaShakespeareStrategy,
+            // corporaGertrudeSteinStrategy
           ],
         strategy = pick(strategies);
 
