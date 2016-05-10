@@ -5,8 +5,10 @@
   var chai = require('chai'),
       expect = chai.expect,
       util = new require('../util.js')({statusVerbosity: -1}),
+      texts = require('../defaultTexts.js'),
       poetifier = require('../jgnoetryRunner.js'),
-      samplePoem = poetifier({util: util});
+      samplePoem = poetifier({util: util,
+                            texts: texts});
 
   describe('jgnoetry tests', function() {
 

@@ -8,9 +8,7 @@ var poetifier = function(config) {
   }
 
   var jGnoetry = require('./jgnoetry.headless.js'),
-      texts = require('./defaultTexts.js'),
       util = config.util,
-      // originalTexts = JSON.parse(JSON.stringify(texts)),
       options = {
         'handlePunctuation': 'noParen',
         'byNewlineOrPunctuation': 'punctuation',
@@ -44,13 +42,16 @@ var poetifier = function(config) {
       };
 
   var corpora = {
-    texts: texts,
+    texts: config.texts,
     weights: []
   };
 
   var capitalizations = ['capitalizeCustom', 'capitalizeNone', 'capitalizeAsCorpus'],
       endPuncts = ['appendNothing', 'appendPeriod', 'appendQuestion', 'appendExclamation'];
 
+  // TODO: all of this corpora stuff should be elsewhere
+  // so it can also be used by other import-generators
+  // hrm. maybe. does anybody else use more than one text?
   var reduceCorpora = function(texts) {
     var strategies = [ corporaSevenStrategy,
                        corporaApocalypseOzStrategy,

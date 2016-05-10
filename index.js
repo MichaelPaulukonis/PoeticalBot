@@ -111,10 +111,10 @@ var titlefier = function(text) {
 
 };
 
-var queneaubuckets = function() {
+var queneaubuckets = function(config) {
 
   var buckets = require('./lib/buckets'),
-      qb = new buckets();
+      qb = new buckets(config);
 
   return qb.generate();
 
@@ -129,11 +129,13 @@ var onePoem = function() {
     // that allows us to have a strategy that includes a specific corpus
     // woo!
 
-    var strategies = [ queneaubuckets,
+    var texts = require('./defaultTexts.js'),
+        strategies = [ queneaubuckets,
                        poetifier
                      ],
         strategy = util.pick(strategies),
-        poem = strategy({util: util});
+        poem = strategy({util: util,
+                        texts: texts});
 
     if (poem.title === undefined) {
       poem.title = titlefier(poem.text);
