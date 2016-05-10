@@ -6,7 +6,8 @@ var config = require('./config.js'),
     poetifier = require('./jgnoetryRunner.js'),
     mispelr = require('node-mispelr'),
     ALWAYS_PRINT = 0,
-    util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
+    // util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
+    util = new require('./util.js')({statusVerbosity: 0}),
     transform = require('./transform.js');
 
 var tumblr = new Tumblr(
@@ -54,6 +55,7 @@ var transformMispeller = function(poem) {
   return poem;
 };
 
+// TODO: drop this into textutils and test it
 var cleaner = function(poem) {
 
   // a first implementation of a naive cleaner
@@ -83,7 +85,6 @@ var cleaner = function(poem) {
     if ((leftparens || rightparens) && lpCount !== rpCount) {
       line = line.replace(/[\(\)]/g, '');
     }
-
 
     cleanlines.push(line);
 
@@ -124,11 +125,15 @@ var onePoem = function() {
 
   try {
 
-    var strategies = [queneaubuckets,
-      poetifier
-    ],
+    // TODO: pick the texts here
+    // that allows us to have a strategy that includes a specific corpus
+    // woo!
+
+    var strategies = [ queneaubuckets,
+                       poetifier
+                     ],
         strategy = util.pick(strategies),
-        poem = strategy();
+        poem = strategy({util: util});
 
     if (poem.title === undefined) {
       poem.title = titlefier(poem.text);
@@ -169,7 +174,7 @@ var teller = function() {
       // TODO: optionally dump in other info for "hidden" display?
       tumblr.post('/post',
                   {type: 'text', title: poem.title, body: poem.text},
-                  function(err, json){
+                  function(err, json) { // eslint-disable-line no-unused-vars
                     if (err) {
                       logger(`ERROR: ${JSON.stringify(err)}`);
                     }

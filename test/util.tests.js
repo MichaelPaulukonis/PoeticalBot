@@ -1,6 +1,6 @@
 'use strict';
 
-// exeecute with `mocha test.js`
+// execute with `mocha test.js`
 
 (function() {
 

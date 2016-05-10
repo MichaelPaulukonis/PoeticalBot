@@ -20,6 +20,10 @@
 
 var jGnoetry = function(dbg) {
 
+  if(!(this instanceof jGnoetry)) {
+    return new jGnoetry(dbg);
+  }
+
   var debug = dbg || function(msg) {
     console.log(msg); // eslint-disable-line no-console
   };
@@ -602,7 +606,7 @@ var jGnoetry = function(dbg) {
 
     // TODO: make this configurable option
     // plus: other cleanup
-    if(true) {
+    if(true) { // eslint-disable-line no-constant-condition
       firstWordAfterHistory = firstWordAfterHistory.replace(/\n/g, ' ');
     }
 

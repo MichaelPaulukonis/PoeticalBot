@@ -1,13 +1,15 @@
+
 'option strict';
 
 var poetifier = function(config) {
 
   if(config === undefined) {
-    config = {};
-  };
+    config = { debug: function(msg) { console.log(msg); } }; // eslint-disable-line no-console
+  }
 
   var jGnoetry = require('./jgnoetry.headless.js'),
       texts = require('./defaultTexts.js'),
+      util = config.util,
       // originalTexts = JSON.parse(JSON.stringify(texts)),
       options = {
         'handlePunctuation': 'noParen',
@@ -37,7 +39,8 @@ var poetifier = function(config) {
         'kb': '[s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [n] [s] [s] [s] [s] [n] [n] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [n] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [n] [s] [s] [s] [s] [s] [s] [s] [n] [n] [s] [s] [s] [s] [n] [n] [s] [s] [s] [s] [s] [s] [s] [n] [n] [s] [s] [s] [s] [s] [s] [n] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [n] [s] [s] [s] [s] [s] [s]',
         '7+4': '[s] [n] [s] [n] [s] [n] [s] [n] [s] [n] [s] [n] [s] [n] [s] [s] [s] [s]',
         'grow': '[s] [n] [s] [s] [n] [s] [s] [s] [n] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] ',
-        'shrink': '[s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [n] [s] [s] [s] [n] [s] [s] [n] [s] [n] '
+        'shrink': '[s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [n] [s] [s] [s] [n] [s] [s] [n] [s] [n] ',
+        'nonnet': '[s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [n] [s] [s] [s] [n] [s] [s] [n] [s] [n]'
       };
 
   var corpora = {
@@ -48,55 +51,13 @@ var poetifier = function(config) {
   var capitalizations = ['capitalizeCustom', 'capitalizeNone', 'capitalizeAsCorpus'],
       endPuncts = ['appendNothing', 'appendPeriod', 'appendQuestion', 'appendExclamation'];
 
-
-  // capture statusVerbosity, and never [for scoped-functions] refer to it again
-  var debug = function(msg, level) {
-    debugOutput(msg, options.statusVerbosity, level);
-  };
-
-  var debugOutput = function(output, statusVerbosity, thisVerbosity) {
-    if (statusVerbosity >= thisVerbosity ) {
-      console.log(output); // eslint-disable-line no-console
-    }
-  };
-
-  var pick = function(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  };
-
-  var random = function(max){
-    return getRandomInRange(0,max);
-  };
-
-  var getRandomInRange = function(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-
-  var pickRemove = function(arr) {
-    var index = Math.floor(Math.random() * arr.length);
-    return arr.splice(index,1)[0];
-  };
-
-
-  // http://stackoverflow.com/a/6274381/41153
-  var shuffle = function (a) {
-    var j, x, i;
-    for (i = a.length; i; i -= 1) {
-      j = Math.floor(Math.random() * i);
-      x = a[i - 1];
-      a[i - 1] = a[j];
-      a[j] = x;
-    }
-  };
-
   var reduceCorpora = function(texts) {
-    var strategies =
-          [ // corporaSevenStrategy,
-            corporaApocalypseOzStrategy,
-            // corporaShakespeareStrategy,
-            // corporaGertrudeSteinStrategy
-          ],
-        strategy = pick(strategies);
+    var strategies = [ corporaSevenStrategy,
+                       corporaApocalypseOzStrategy,
+                       corporaShakespeareStrategy,
+                       corporaGertrudeSteinStrategy
+                     ],
+        strategy = util.pick(strategies);
 
     return strategy(texts);
   };
@@ -105,7 +66,7 @@ var poetifier = function(config) {
     var newCorpus = [];
 
     for (var i = 0; i < 7; i++) {
-      newCorpus.push(pickRemove(corpus));
+      newCorpus.push(util.pickRemove(corpus));
     }
 
     return newCorpus;
@@ -131,7 +92,7 @@ var poetifier = function(config) {
   var assignWeights = function(count) {
 
     var strategies = [assignWeightsRandom, weightsPickOne, weightsPickTwo],
-        strategy = pick(strategies);
+        strategy = util.pick(strategies);
 
     return strategy(count);
 
@@ -140,7 +101,7 @@ var poetifier = function(config) {
   // TODO: this would be easier if we just prune the texts, and THEN assign weight randomly
   var weightsPickOne = function(count) {
     var arr = initializeArray(count);
-    arr[random(arr.length)] = 100;
+    arr[util.random(arr.length)] = 100;
     return arr;
   };
 
@@ -148,11 +109,11 @@ var poetifier = function(config) {
     // TODO: implement
     // pick one, then do a while loop, do make sure we get a DIFFERENT number...
     var arr = initializeArray(count);
-    var first = random(arr.length),
-        second = random(arr.length);
+    var first = util.random(arr.length),
+        second = util.random(arr.length);
     arr[first] = 50;
     while (second === first) {
-      second = random(arr.length);
+      second = util.random(arr.length);
     }
     arr[second] = 50;
     return arr;
@@ -169,11 +130,11 @@ var poetifier = function(config) {
     // last value has a greater chance of being < other value
     // but then we shuffle 'em all
     for(var i = 0; i < count-1; i++) {
-      weights[i] = random(100-total);
+      weights[i] = util.random(100-total);
       total += weights[i];
     }
     weights.push(100-total);
-    shuffle(weights);
+    util.shuffle(weights);
 
     return weights;
   };
@@ -224,7 +185,7 @@ var poetifier = function(config) {
   var assignCapitalization = function() {
 
     var cap = {
-      method: pick(capitalizations),
+      method: util.pick(capitalizations),
       customSentence: true, // sentence beginning
       customLine: true, // line beginnings
       customI: true // capitalize "I"
@@ -265,7 +226,7 @@ var poetifier = function(config) {
 
     var wordfreqs = sortedArray(wordbag(text));
     if (wordfreqs.length > 4) {
-      var wordCount = getRandomInRange(2, wordfreqs.length > 10 ? 10 : 4);
+      var wordCount = util.getRandomInRange(2, wordfreqs.length > 10 ? 10 : 4);
       title = wordfreqs.slice(0,wordCount).map(function(elem) { return elem.word; }).join(' ');
     } else {
       title = wordfreqs[0].word;
@@ -275,20 +236,24 @@ var poetifier = function(config) {
 
   };
 
-  var jg = new jGnoetry(debug);
+  // TODO: oh, g-d, the logging is C-R-A-Z-Y !!!
+  // there's no way to change this value....
+  // because it's shared by everything that gets the same utility
+  // C-R-A-P
+  var jg = new jGnoetry(util.debug);
 
   // TODO: the corpora should be an array of objects, each of which has a name, a text, and an associated weigth
   // it shouldn't be separate
   // should it?
   corpora.texts = reduceCorpora(corpora.texts);
   corpora.weights = assignWeights(corpora.texts.length);
-  var templateName = pick(Object.keys(templates));
+  var templateName = util.pick(Object.keys(templates));
   options.capitalize = assignCapitalization();
-  options.appendToPoem = pick(endPuncts);
+  options.appendToPoem = util.pick(endPuncts);
 
-  debug(JSON.stringify(options, null, 2), 0);
-  debug(templateName, 0);
-  debug(corpora.weights.join(' '), 0);
+  util.debug(JSON.stringify(options, null, 2), 0);
+  util.debug(templateName, 0);
+  util.debug(corpora.weights.join(' '), 0);
 
   var titles = corpora.texts.map(t => t.name);
   corpora.texts = corpora.texts.map(b => b.text);

@@ -8,8 +8,10 @@ var util = function(options) {
 
   options = options || { statusVerbosity: 0 };
 
-  var debugOutput = function(output, statusVerbosity, thisVerbosity) {
-    if (statusVerbosity >= thisVerbosity ) {
+  // TODO: think this through, logging is a mess
+  // this is a result of using inherited logging levels
+  var debugOutput = function(output, verbosity, priority) {
+    if (verbosity >= priority ) {
       console.log(output); // eslint-disable-line no-console
     }
   };
