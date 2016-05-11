@@ -38,6 +38,11 @@
       // TODO: this setup is a pain in the ass!
       // can't there some sort of default stuff built in?
 
+      var options = {'handlePunctuation': 'noParen', 'byNewlineOrPunctuation': 'punctuation', 'capitalize': { 'method': 'capitalizeCustom', 'customSentence': true, 'customLine': true, 'customI': true }, 'appendToPoem': 'appendPeriod', 'areWordsSelectedBegin': 'startSelected', 'thisWordSelectedBegin': 'startSelected', 'changeSelectionEffect': 'requiresClick', 'statusVerbosity': 1},
+          corpora = {texts: ['this is the cat that was over there with the mill.'], weights: [100]},
+          template = '[s] [n] ',
+          existingText = '';
+
       // corpora.texts = reduceCorpora(corpora.texts);
       // corpora.weights = assignWeights(corpora.texts.length);
       // var templateName = util.pick(Object.keys(templates));
@@ -48,9 +53,9 @@
       // util.debug(templateName, 0);
       // util.debug(corpora.weights.join(' '), 0);
 
-      // var titles = corpora.texts.map(t => t.name);
-      // corpora.texts = corpora.texts.map(b => b.text);
-      // var output = jg.generate(templates[templateName], options, corpora, existingText);
+      var output = jg.generate(template, options, corpora, existingText);
+
+      expect(output).to.be.an('object');
 
     });
 
