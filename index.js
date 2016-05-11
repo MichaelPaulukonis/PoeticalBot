@@ -8,7 +8,8 @@ var config = require('./config.js'),
     ALWAYS_PRINT = 0,
     // util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
     util = new require('./util.js')({statusVerbosity: 0}),
-    transform = require('./transform.js');
+    transform = require('./transform.js'),
+    queneauLetters = require('./queneauLetters.js');
 
 var tumblr = new Tumblr(
   {
@@ -26,13 +27,20 @@ var logger = function(msg) {
 
 var transformer = function(poem) {
 
-  var stragegies = [transformLeadingSpaces,
-                    transformMispeller],
+  var stragegies = [ //transformLeadingSpaces,
+                    // transformMispeller,
+                   transformQueneauLetters],
       strategy = util.pick(stragegies);
 
   var chance = config.transformChance || 0.25;
   // only applies this 25% of the time
   return util.coinflip(chance) ? strategy(poem) : poem;
+
+};
+
+var transformQueneauLetters = function(poem) {
+
+  return queneauLetters.queneauLetters().generate(poem);
 
 };
 
