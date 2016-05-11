@@ -27,9 +27,10 @@ var logger = function(msg) {
 
 var transformer = function(poem) {
 
-  var stragegies = [ //transformLeadingSpaces,
-                    // transformMispeller,
-                   transformQueneauLetters],
+  var stragegies = [ transformLeadingSpaces,
+                    transformMispeller,
+                   // transformQueneauLetters
+                   ],
       strategy = util.pick(stragegies);
 
   var chance = config.transformChance || 0.25;
@@ -38,9 +39,12 @@ var transformer = function(poem) {
 
 };
 
+// okay, this is sub-optimal. WAAAAAAY confusing.
 var transformQueneauLetters = function(poem) {
 
-  return queneauLetters.queneauLetters().generate(poem);
+  poem.text = queneauLetters.queneauLetters().generate(poem.text);
+
+  return poem;
 
 };
 
