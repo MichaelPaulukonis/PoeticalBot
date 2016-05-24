@@ -1,7 +1,6 @@
 'option strict';
 
-// var defaultTemplates = require('./default.templates.js');
-var config = require('./config.js'),
+let config = require('./config.js'),
     Tumblr = require('tumblrwks'),
     poetifier = require('./jgnoetryRunner.js'),
     mispelr = require('node-mispelr'),
@@ -11,7 +10,7 @@ var config = require('./config.js'),
     transform = require('./transform.js'),
     queneauLetters = require('./queneauLetters.js');
 
-var tumblr = new Tumblr(
+let tumblr = new Tumblr(
   {
     consumerKey:    config.consumerKey,
     consumerSecret: config.consumerSecret,
@@ -21,26 +20,26 @@ var tumblr = new Tumblr(
   'poeticalbot.tumblr.com'
 );
 
-var logger = function(msg) {
+let logger = function(msg) {
   util.debug(msg, ALWAYS_PRINT);
 };
 
-var transformer = function(poem) {
+let transformer = function(poem) {
 
-  var stragegies = [ transformLeadingSpaces,
+  let stragegies = [ transformLeadingSpaces,
                     transformMispeller,
                    // transformQueneauLetters
                    ],
       strategy = util.pick(stragegies);
 
-  var chance = config.transformChance || 0.25;
+  let chance = config.transformChance || 0.25;
   // only applies this 25% of the time
   return util.coinflip(chance) ? strategy(poem) : poem;
 
 };
 
 // okay, this is sub-optimal. WAAAAAAY confusing.
-var transformQueneauLetters = function(poem) {
+let transformQueneauLetters = function(poem) {
 
   poem.text = queneauLetters.queneauLetters().generate(poem.text);
 
@@ -48,9 +47,9 @@ var transformQueneauLetters = function(poem) {
 
 };
 
-var transformLeadingSpaces = function(poem) {
+let transformLeadingSpaces = function(poem) {
 
-  var noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
+  let noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
   if (noLeadingSpaceTemplates.indexOf(poem.template) === -1) {
     logger('initial spaces');
     poem.text = transform.initialSpaces().generate(poem.text);
@@ -60,27 +59,27 @@ var transformLeadingSpaces = function(poem) {
 
 };
 
-var transformMispeller = function(poem) {
-  var spelltype = util.randomProperty(mispelr.spelltypes);
+let transformMispeller = function(poem) {
+  let spelltype = util.randomProperty(mispelr.spelltypes);
   logger(`spelltype: ${spelltype}`);
   poem.text = mispelr.respell(poem.text, spelltype);
   return poem;
 };
 
 // TODO: drop this into textutils and test it
-var cleaner = function(poem) {
+let cleaner = function(poem) {
 
   // a first implementation of a naive cleaner
   // TODO: we do not want to do this for the ASCII texts, though.
   // hunh.
-  var plines = poem.split('\n'),
+  let plines = poem.split('\n'),
       cleanlines = [];
-  for(var i = 0, len = plines.length; i < len; i++) {
-    var line = plines[i];
+  for(let i = 0, len = plines.length; i < len; i++) {
+    let line = plines[i];
 
     line = line.replace(/_+/g, '_');
 
-    var leftbrackets = line.match(/\[/g),
+    let leftbrackets = line.match(/\[/g),
         lbCount = (leftbrackets ? leftbrackets.length : 0),
         rightbrackets = line.match(/\]/g),
         rbCount = (rightbrackets ? rightbrackets.length : 0);
@@ -89,7 +88,7 @@ var cleaner = function(poem) {
       line = line.replace(/[\[\]]/g, '');
     }
 
-    var leftparens = line.match(/\(/g),
+    let leftparens = line.match(/\(/g),
         lpCount = (leftparens ? leftparens.length : 0),
         rightparens = line.match(/\)/g),
         rpCount = (rightparens ? rightparens.length : 0);
@@ -106,14 +105,14 @@ var cleaner = function(poem) {
 
 };
 
-var titlefier = function(text) {
+let titlefier = function(text) {
 
-  var textutils = require('./lib/textutil.js'),
+  let textutils = require('./lib/textutil.js'),
       wordfreqs = textutils.wordfreqs(text),
       title = '';
 
   if (wordfreqs.length > 4) {
-    var wordCount = util.getRandomInRange(2, wordfreqs.length > 10 ? 10 : 4);
+    let wordCount = util.getRandomInRange(2, wordfreqs.length > 10 ? 10 : 4);
     title = wordfreqs.slice(0,wordCount).map(function(elem) { return elem.word; }).join(' ');
   } else {
     title = wordfreqs[0].word;
@@ -123,9 +122,9 @@ var titlefier = function(text) {
 
 };
 
-var queneaubuckets = function(config) {
+let queneaubuckets = function(config) {
 
-  var buckets = require('./lib/buckets'),
+  let buckets = require('./lib/buckets'),
       qb = new buckets(config);
 
   return qb.generate();
@@ -133,7 +132,7 @@ var queneaubuckets = function(config) {
 };
 
 
-var onePoem = function() {
+let onePoem = function() {
 
   try {
 
@@ -141,7 +140,7 @@ var onePoem = function() {
     // that allows us to have a strategy that includes a specific corpus
     // woo!
 
-    var texts = require('./defaultTexts.js'),
+    let texts = require('./defaultTexts.js'),
         strategies = [ queneaubuckets,
                        poetifier
                      ],
@@ -166,7 +165,7 @@ var onePoem = function() {
 
   } catch(ex) {
     // the last 3 items are non-standard.....
-    var msg = ex.name + ' : ' + ex.message;
+    let msg = ex.name + ' : ' + ex.message;
     if (ex.lineNumber && ex.columnNumber && ex.stack) {
       msg += ' line: ' + ex.lineNumber + ' col: ' + ex.columnNumber + '\n'
         + ex.stack;
@@ -177,9 +176,9 @@ var onePoem = function() {
 };
 
 
-var teller = function() {
+let teller = function() {
 
-  var poem = onePoem();
+  let poem = onePoem();
 
   if (poem && poem.title && poem.text) {
 
@@ -205,7 +204,7 @@ var teller = function() {
 };
 
 
-var program = require('commander');
+let program = require('commander');
 program
   .version('0.0.2')
   .option('-l, --local', 'dump to log, don\'t post to Twitter (overrides environment vars)')
@@ -217,7 +216,7 @@ if (program.local) {
 }
 
 if (program.transform) {
-  var chance = parseFloat(program.transform, 10);
+  let chance = parseFloat(program.transform, 10);
   if (!isNaN(chance)) {
     config.transformChance = chance;
   }

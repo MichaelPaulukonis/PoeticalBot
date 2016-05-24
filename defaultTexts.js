@@ -1,6 +1,7 @@
 var readlib = function() {
 
   var fs = require('fs'),
+      debreak = require('./lib/debreak'),
       root = './corpus',
       books = fs.readdirSync(root),
       texts = [];
@@ -10,7 +11,7 @@ var readlib = function() {
     if (book.charCodeAt(0) === 0xFEFF) {
       book = book.slice(1);
     }
-    texts.push({name: books[i].replace('.txt', ''), text: book});
+    texts.push({name: books[i].replace('.txt', ''), text: debreak(book)});
   }
 
   return texts;
