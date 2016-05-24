@@ -1,4 +1,4 @@
-'option strict';
+'use strict';
 
 let config = require('./config.js'),
     Tumblr = require('tumblrwks'),
