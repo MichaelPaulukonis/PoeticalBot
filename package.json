@@ -7,6 +7,8 @@
     "commander": "2.9.0",
     "dotenv": "2.0.0",
     "htmlencode": "0.0.4",
+    "nlp-pronounce": "0.0.1",
+    "nlp_compromise": "4.10.6",
     "node-mispelr": "0.0.1",
     "queneau-buckets": "1.0.1",
     "queneau-letters": "1.0.3",

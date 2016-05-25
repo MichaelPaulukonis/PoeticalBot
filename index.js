@@ -8,7 +8,8 @@ let config = require('./config.js'),
     // util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
     util = new require('./util.js')({statusVerbosity: 0}),
     transform = require('./transform.js'),
-    queneauLetters = require('./queneauLetters.js');
+    queneauLetters = require('./queneauLetters.js'),
+    fonetik = require('./filter/fonetik');
 
 let tumblr = new Tumblr(
   {
@@ -27,8 +28,9 @@ let logger = function(msg) {
 let transformer = function(poem) {
 
   let stragegies = [ transformLeadingSpaces,
-                    transformMispeller,
-                   // transformQueneauLetters
+                     transformMispeller,
+                     // transformQueneauLetters
+                     transformFonetik
                    ],
       strategy = util.pick(stragegies);
 
@@ -36,6 +38,12 @@ let transformer = function(poem) {
   // only applies this 25% of the time
   return util.coinflip(chance) ? strategy(poem) : poem;
 
+};
+
+
+let transformFonetik = function(poem) {
+  poem.text = fonetik(poem.text);
+  return poem;
 };
 
 // okay, this is sub-optimal. WAAAAAAY confusing.

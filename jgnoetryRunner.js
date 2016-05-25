@@ -1,5 +1,4 @@
-
-'option strict';
+'use strict';
 
 var poetifier = function(config) {
 

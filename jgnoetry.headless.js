@@ -1,3 +1,4 @@
+'use strict';
 /*
  jGnoetry.headless - Michael Paulukonis 2012-2016
 

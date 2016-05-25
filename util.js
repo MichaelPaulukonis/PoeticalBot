@@ -1,4 +1,4 @@
-'option strict';
+'use strict';
 
 var util = function(options) {
 

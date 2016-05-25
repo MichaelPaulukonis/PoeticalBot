@@ -1,3 +1,5 @@
+'use strict';
+
 var readlib = function() {
 
   var fs = require('fs'),

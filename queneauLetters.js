@@ -1,4 +1,4 @@
-'option strict';
+'use strict';
 
 // extracted from my modified lexeduct, gh-pages branch
 var QueneauLetters = function(cfg) {

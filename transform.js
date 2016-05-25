@@ -1,3 +1,5 @@
+'use strict';
+
 // extracted from my modified lexeduct, gh-pages branch
 var InitialSpaces = function(cfg) {
 
