@@ -148,7 +148,7 @@ let onePoem = function() {
     // that allows us to have a strategy that includes a specific corpus
     // woo!
 
-    let Corpora = require('./lib/Corpora.js'),
+    let Corpora = require('./lib/corpora.js'),
         corpora = new Corpora(),
         texts = corpora.texts,
         strategies = [ queneaubuckets,

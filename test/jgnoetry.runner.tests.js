@@ -5,7 +5,7 @@
   var chai = require('chai'),
       expect = chai.expect,
       util = new require('../util.js')({statusVerbosity: -1}),
-      Corpora = require('../lib/Corpora.js'),
+      Corpora = require('../lib/corpora.js'),
       texts = new Corpora().texts,
       poetifier = require('../jgnoetryRunner.js'),
       samplePoem = poetifier({util: util,
