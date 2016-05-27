@@ -263,13 +263,12 @@ var poetifier = function(config) {
   util.debug(corpora.weights.join(' '), 0);
 
   var titles = corpora.texts.map(t => t.name);
-  corpora.texts = corpora.texts.map(b => b.text);
+  corpora.texts = corpora.texts.map(b => b.text());
   var output = jg.generate(templates[templateName], options, corpora, existingText);
-  // corpora.texts = originalTexts;
   var text = cleaner(output.displayText);
 
   return {
-    title: titlifier(output.displayText),
+    title: '', //titlifier(output.displayText),
     text: text,
     template: templateName,
     corpora: titles

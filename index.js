@@ -148,15 +148,17 @@ let onePoem = function() {
     // that allows us to have a strategy that includes a specific corpus
     // woo!
 
-    let texts = require('./defaultTexts.js'),
+    let Corpora = require('./lib/Corpora.js'),
+        corpora = new Corpora(),
+        texts = corpora.texts,
         strategies = [ queneaubuckets,
                        poetifier
                      ],
         strategy = util.pick(strategies),
         poem = strategy({util: util,
-                        texts: texts});
+                         texts: texts});
 
-    if (poem.title === undefined) {
+    if (!poem.title) {
       poem.title = titlefier(poem.text);
     }
 
