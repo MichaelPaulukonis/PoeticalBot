@@ -56,15 +56,20 @@ var poetifier = function(config) {
   var reduceCorpora = function(texts) {
     var strategies = [ corporaSevenStrategy,
                        corporaApocalypseOzStrategy,
-                       corporaShakespeareStrategy,
-                       corporaGertrudeSteinStrategy,
-                       corporaSMSStrategy
+                       corporaFilterStrategy('sms'),
+                       corporaFilterStrategy('shakespeare'),
+                       corporaFilterStrategy('cyberpunk'),
+                       corporaFilterStrategy('gertrudestein'),
+                       corporaFilterStrategy('computerculture'),
+                       corporaFilterStrategy('filmscripts'),
+                       corporaFilterStrategy('spam'),
                      ],
         strategy = util.pick(strategies);
 
     return strategy(texts);
   };
 
+  // TODO: get a generic one to take in a numeric parameter
   var corporaSevenStrategy = function(corpus) {
     var newCorpus = [];
 
@@ -75,27 +80,26 @@ var poetifier = function(config) {
     return newCorpus;
   };
 
-  var corporaSMSStrategy = function(corpus) {
-    return corpus.filter(m => m.name.indexOf('sms') > -1);
+  var corporaFilterStrategy = function(filter) {
+    return function(corpus) {
+      return corpus.filter(m => m.name.indexOf(filter) > -1);
+    };
   };
 
+  // TODO: how to do this with the filter?
   var corporaApocalypseOzStrategy = function(corpus) {
     return corpus.filter(m => m.name.indexOf('The Wonderful Wizard of Oz') > -1 || m.name.indexOf('ApocalypseNow.redux.2001') > -1);
   };
 
-  var corporaShakespeareStrategy = function(corpus) {
-    return corpus.filter(m => m.name.toLowerCase().indexOf('shakespeare') > -1);
-  };
-
-  var corporaGertrudeSteinStrategy = function(corpus) {
-    return corpus.filter(m => m.name.toLowerCase().indexOf('gertrude stein') > -1);
-  };
 
   var initializeArray = function(count) {
     var arr = Array.apply(null, Array(count));
     return arr.map(function() { return 0; });
   };
 
+  // methods: random, even, tilted
+  // ditch the "pick one, pick two" - let that be the domain of the corpora filters
+  // (this is a hold-over from when there were no corpora filters)
   var assignWeights = function(count) {
 
     var strategies = [assignWeightsRandom, weightsPickOne, weightsPickTwo],
