@@ -6,24 +6,12 @@
 
   var chai = require('chai'),
       expect = chai.expect,
-      textutils = require('../lib/textutil.js');;
+      textutils = require('../lib/textutil.js');
 
 
   describe('textutil tests', function() {
 
     describe('API tests', function() {
-
-      // it('Util should return a new instance with new', function() {
-      //   var newutil = new Util();
-      //   expect(newutil).to.be.a('object');
-      //   expect(newutil).to.be.an.instanceof(Util);
-      // });
-
-      // it('Util should return a new instance even without new', function() {
-      //   var util = Util();
-      //   expect(util).to.be.a('object');
-      //   expect(util).to.be.an.instanceof(Util);
-      // });
 
       it('Util should expose a wordfreqs method', function() {
         expect(textutils.wordfreqs).to.be.a('function');

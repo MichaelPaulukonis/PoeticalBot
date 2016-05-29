@@ -25,6 +25,45 @@ let logger = function(msg) {
   util.debug(msg, ALWAYS_PRINT);
 };
 
+var reduceCorpora = function(texts) {
+  var strategies = [ corporaSevenStrategy,
+                     corporaApocalypseOzStrategy,
+                     corporaFilterStrategy('sms'),
+                     corporaFilterStrategy('shakespeare'),
+                     corporaFilterStrategy('cyberpunk'),
+                     corporaFilterStrategy('western'),
+                     corporaFilterStrategy('gertrudestein'),
+                     corporaFilterStrategy('computerculture'),
+                     corporaFilterStrategy('filmscripts'),
+                     corporaFilterStrategy('spam'),
+                     ],
+        strategy = util.pick(strategies);
+
+    return strategy(texts);
+  };
+
+// TODO: get a generic one to take in a numeric parameter
+var corporaSevenStrategy = function(corpus) {
+  var newCorpus = [];
+
+  for (var i = 0; i < 7; i++) {
+    newCorpus.push(util.pickRemove(corpus));
+  }
+
+  return newCorpus;
+};
+
+var corporaFilterStrategy = function(filter) {
+  return function(corpus) {
+    return corpus.filter(m => m.name.indexOf(filter) > -1);
+  };
+};
+
+// TODO: how to do this with the filter?
+var corporaApocalypseOzStrategy = function(corpus) {
+  return corpus.filter(m => m.name.indexOf('The Wonderful Wizard of Oz') > -1 || m.name.indexOf('ApocalypseNow.redux.2001') > -1);
+};
+
 let transformer = function(poem) {
 
   let stragegies = [ transformLeadingSpaces,
@@ -131,26 +170,18 @@ let titlefier = function(text) {
 };
 
 let queneaubuckets = function(config) {
-
   let buckets = require('./lib/buckets'),
       qb = new buckets(config);
 
   return qb.generate();
-
 };
 
-
 let onePoem = function() {
-
   try {
-
-    // TODO: pick the texts here
-    // that allows us to have a strategy that includes a specific corpus
-    // woo!
 
     let Corpora = require('./lib/corpora.js'),
         corpora = new Corpora(),
-        texts = corpora.texts,
+        texts = reduceCorpora(corpora.texts),
         strategies = [ queneaubuckets,
                        poetifier
                      ],

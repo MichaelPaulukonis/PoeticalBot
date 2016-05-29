@@ -21,6 +21,7 @@ var poetifier = function(config) {
         'statusVerbosity': 0
       },
       existingText = [],
+      // TODO: randomized template (generated)
       templates = {
         'couplet': '[s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] ',
         'quatrain': '[s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s] [n] [s] [s] [s] [s] [s] [s] [s] [s] [s] [s]',
@@ -50,48 +51,6 @@ var poetifier = function(config) {
   var capitalizations = ['capitalizeCustom', 'capitalizeNone', 'capitalizeAsCorpus'],
       endPuncts = ['appendNothing', 'appendPeriod', 'appendQuestion', 'appendExclamation'];
 
-  // TODO: all of this corpora stuff should be elsewhere
-  // so it can also be used by other import-generators
-  // hrm. maybe. does anybody else use more than one text?
-  var reduceCorpora = function(texts) {
-    var strategies = [ corporaSevenStrategy,
-                       corporaApocalypseOzStrategy,
-                       corporaFilterStrategy('sms'),
-                       corporaFilterStrategy('shakespeare'),
-                       corporaFilterStrategy('cyberpunk'),
-                       corporaFilterStrategy('gertrudestein'),
-                       corporaFilterStrategy('computerculture'),
-                       corporaFilterStrategy('filmscripts'),
-                       corporaFilterStrategy('spam'),
-                     ],
-        strategy = util.pick(strategies);
-
-    return strategy(texts);
-  };
-
-  // TODO: get a generic one to take in a numeric parameter
-  var corporaSevenStrategy = function(corpus) {
-    var newCorpus = [];
-
-    for (var i = 0; i < 7; i++) {
-      newCorpus.push(util.pickRemove(corpus));
-    }
-
-    return newCorpus;
-  };
-
-  var corporaFilterStrategy = function(filter) {
-    return function(corpus) {
-      return corpus.filter(m => m.name.indexOf(filter) > -1);
-    };
-  };
-
-  // TODO: how to do this with the filter?
-  var corporaApocalypseOzStrategy = function(corpus) {
-    return corpus.filter(m => m.name.indexOf('The Wonderful Wizard of Oz') > -1 || m.name.indexOf('ApocalypseNow.redux.2001') > -1);
-  };
-
-
   var initializeArray = function(count) {
     var arr = Array.apply(null, Array(count));
     return arr.map(function() { return 0; });
@@ -101,12 +60,10 @@ var poetifier = function(config) {
   // ditch the "pick one, pick two" - let that be the domain of the corpora filters
   // (this is a hold-over from when there were no corpora filters)
   var assignWeights = function(count) {
-
     var strategies = [assignWeightsRandom, weightsPickOne, weightsPickTwo],
         strategy = util.pick(strategies);
 
     return strategy(count);
-
   };
 
   // TODO: this would be easier if we just prune the texts, and THEN assign weight randomly
@@ -254,9 +211,6 @@ var poetifier = function(config) {
   var jg = new jGnoetry(util.debug);
 
   // TODO: the corpora should be an array of objects, each of which has a name, a text, and an associated weigth
-  // it shouldn't be separate
-  // should it?
-  corpora.texts = reduceCorpora(corpora.texts);
   corpora.weights = assignWeights(corpora.texts.length);
   var templateName = util.pick(Object.keys(templates));
   options.capitalize = assignCapitalization();
