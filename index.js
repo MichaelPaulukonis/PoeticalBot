@@ -2,11 +2,11 @@
 
 let config = require('./config.js'),
     Tumblr = require('tumblrwks'),
-    poetifier = require('./jgnoetryRunner.js'),
+    poetifier = require('./lib/jgnoetryRunner.js'),
     mispelr = require('node-mispelr'),
     ALWAYS_PRINT = 0,
     // util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
-    util = new require('./util.js')({statusVerbosity: 0}),
+    util = new require('./lib/util.js')({statusVerbosity: 0}),
     fonetik = require('./filter/fonetik');
 
 let tumblr = new Tumblr(
@@ -89,7 +89,7 @@ let transformLeadingSpaces = function(poem) {
                  offsetProbability: util.randomInRange(5,10)/10,
                  util: util
                },
-      transform = new require('./transform.js')(config),
+      transform = new require('./filter/transform.js')(config),
       noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
   if (noLeadingSpaceTemplates.indexOf(poem.template) === -1) {
     logger('initial spaces');

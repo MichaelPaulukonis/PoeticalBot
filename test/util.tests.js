@@ -6,7 +6,7 @@
 
   var chai = require('chai'),
       expect = chai.expect,
-      Util = require('../util.js'),
+      Util = require('../lib/util.js'),
       util = new Util();
 
 

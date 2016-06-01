@@ -6,9 +6,9 @@
 
   var chai = require('chai'),
       expect = chai.expect,
-      Util = require('../util.js'),
+      Util = require('../lib/util.js'),
       util = new Util(),
-      jGnoetry = require('../jgnoetry.headless.js'),
+      jGnoetry = require('../lib/jgnoetry.headless.js'),
       jg = new jGnoetry(util.debug);
 
   describe('util tests', function() {

@@ -1,7 +1,8 @@
 {
   "name": "tumblrbot-poetical-2016",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Tumblr Poetry Generator developed for NaPoGenMo2016",
+  "homepage": "https://poeticalbot.tumblr.com",
   "main": "index.js",
   "dependencies": {
     "commander": "2.9.0",
