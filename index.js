@@ -219,7 +219,7 @@ var prepForPublish = function(poem) {
   for(var i = 0, len = lines.length; i < len; i++) {
     var line = lines[i],
         matches = line.match(leadingspacere);
-    var nbsps = matches[0].replace(/ /g, 'nbsp;');
+    var nbsps = matches[0].replace(/ /g, '&nbsp;');
     line = line.replace(matches[0], nbsps);
     clean.push(line);
   };
