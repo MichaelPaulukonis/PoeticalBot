@@ -7,7 +7,6 @@ let config = require('./config.js'),
     ALWAYS_PRINT = 0,
     // util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
     util = new require('./util.js')({statusVerbosity: 0}),
-    queneauLetters = require('./queneauLetters.js'),
     fonetik = require('./filter/fonetik');
 
 let tumblr = new Tumblr(
