@@ -205,7 +205,7 @@ var poetifier = function(config) {
 
     var wordfreqs = sortedArray(wordbag(text));
     if (wordfreqs.length > 4) {
-      var wordCount = util.getRandomInRange(2, wordfreqs.length > 10 ? 10 : 4);
+      var wordCount = util.randomInRange(2, wordfreqs.length > 10 ? 10 : 4);
       title = wordfreqs.slice(0,wordCount).map(function(elem) { return elem.word; }).join(' ');
     } else {
       title = wordfreqs[0].word;

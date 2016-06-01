@@ -47,8 +47,6 @@ var util = function(options) {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
-  // TODO: deprecate
-  this.getRandomInRange = randomInRange;
   this.randomInRange = randomInRange;
 
   this.coinflip = function(chance) {

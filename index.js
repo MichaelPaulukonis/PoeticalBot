@@ -7,7 +7,6 @@ let config = require('./config.js'),
     ALWAYS_PRINT = 0,
     // util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
     util = new require('./util.js')({statusVerbosity: 0}),
-    transform = require('./transform.js'),
     queneauLetters = require('./queneauLetters.js'),
     fonetik = require('./filter/fonetik');
 
@@ -95,11 +94,17 @@ let transformQueneauLetters = function(poem) {
 };
 
 let transformLeadingSpaces = function(poem) {
+  let config = { offset: util.randomInRange(5,25),
+                 offsetVariance: util.randomInRange(10,25),
+                 offsetProbability: util.randomInRange(5,10)/10,
+                 util: util
+               },
+      transform = new require('./transform.js')({ util: util});
 
   let noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
   if (noLeadingSpaceTemplates.indexOf(poem.template) === -1) {
     logger('initial spaces');
-    poem.text = transform.initialSpaces().generate(poem.text);
+    poem.text = transform.generate(poem.text);
   }
 
   return poem;
@@ -159,7 +164,7 @@ let titlefier = function(text) {
       title = '';
 
   if (wordfreqs.length > 4) {
-    let wordCount = util.getRandomInRange(2, wordfreqs.length > 10 ? 10 : 4);
+    let wordCount = util.randomInRange(2, wordfreqs.length > 10 ? 10 : 4);
     title = wordfreqs.slice(0,wordCount).map(function(elem) { return elem.word; }).join(' ');
   } else {
     title = wordfreqs[0].word;
