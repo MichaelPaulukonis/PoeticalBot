@@ -211,6 +211,21 @@ let onePoem = function() {
 };
 
 
+var prepForPublish = function(poem) {
+  var lines = poem.split('\n'),
+      clean = [],
+      leadingspacere = /^ */;
+
+  for(var i = 0, len = lines.length; i < len; i++) {
+    var line = lines[i],
+        matches = line.match(leadingspacere);
+    var nbsps = matches[0].replace(/ /g, 'nbsp;');
+    line = line.replace(matches[0], nbsps);
+    clean.push(line);
+  };
+  return clean.join('\n');
+};
+
 let teller = function() {
 
   let poem = onePoem();
@@ -218,7 +233,7 @@ let teller = function() {
   if (poem && poem.title && poem.text) {
 
     if (config.postLive) {
-      poem.text = poem.text.replace(/ /g, '&nbsp;'); // "format" for HTML display
+      poem.text = prepForPublish(poem.text);
       // TODO: optionally dump in other info for "hidden" display?
       tumblr.post('/post',
                   {type: 'text', title: poem.title, body: poem.text},
