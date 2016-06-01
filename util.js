@@ -40,14 +40,16 @@ var util = function(options) {
   };
 
   this.random = function(max){
-    return getRandomInRange(0,max);
+    return randomInRange(0,max);
   };
 
-  var getRandomInRange = function(min, max) {
+  var randomInRange = function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
-  this.getRandomInRange = getRandomInRange;
+  // TODO: deprecate
+  this.getRandomInRange = randomInRange;
+  this.randomInRange = randomInRange;
 
   this.coinflip = function(chance) {
     if (!chance) { chance = 0.5; }

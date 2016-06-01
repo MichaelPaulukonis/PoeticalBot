@@ -60,35 +60,46 @@ var poetifier = function(config) {
   // ditch the "pick one, pick two" - let that be the domain of the corpora filters
   // (this is a hold-over from when there were no corpora filters)
   var assignWeights = function(count) {
-    var strategies = [assignWeightsRandom, weightsPickOne, weightsPickTwo],
+    var strategies = [assignWeightsRandom, assignWeightsEven, assignWeightsTentpole],
         strategy = util.pick(strategies);
 
     return strategy(count);
   };
 
-  // TODO: this would be easier if we just prune the texts, and THEN assign weight randomly
-  var weightsPickOne = function(count) {
-    var arr = initializeArray(count);
-    arr[util.random(arr.length)] = 100;
-    return arr;
-  };
+  // one item will be much more significant than the others
+  var assignWeightsTentpole = function(count) {
+    if (count==1) { return [100]; }
 
-  var weightsPickTwo = function(count) {
-    // TODO: implement
-    // pick one, then do a while loop, do make sure we get a DIFFERENT number...
-    var arr = initializeArray(count);
-    var first = util.random(arr.length),
-        second = util.random(arr.length);
-    arr[first] = 50;
-    while (second === first) {
-      second = util.random(arr.length);
+    var weights = [],
+        total = 0;
+
+    weights.push(util.randomInRange(60,100));
+    total += weights[0];
+
+    for(var i = 0; i < count-1; i++) {
+      weights[i] = util.random(100-total);
+      total += weights[i];
     }
-    arr[second] = 50;
-    return arr;
+    util.shuffle(weights);
+
+    return weights;
   };
 
   // return an array of length n, where n := texts.lengh
-  // and sum(array) := 100
+  // and sum(array) := 100 and array[0] == a[1] == a[1.length]
+  var assignWeightsEven = function(count) {
+    var weights = [],
+        total = 0;
+
+    for(var i = 0; i < count; i++) {
+      weights[i] = 100/count;
+    }
+
+    return weights;
+  };
+
+  // return an array of length n, where n := texts.lengh
+  // sum(array) := 100
   var assignWeightsRandom = function(count) {
     var weights = [],
         total = 0;

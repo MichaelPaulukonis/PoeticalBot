@@ -50,6 +50,10 @@
         expect(util.getRandomInRange).to.be.a('function');
       });
 
+      it('Util should expose a randomInRange method', function() {
+        expect(util.getRandomInRange).to.be.a('function');
+      });
+
       it('Util should expose a coinflip method', function() {
         expect(util.coinflip).to.be.a('function');
       });
