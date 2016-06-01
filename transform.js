@@ -23,21 +23,25 @@ var InitialSpaces = function(cfg) {
 
   this.generate = function(text) {
 
-    var out = [];
-    var lines = text.split('\n');
+    util.log(JSON.stringify(this.config));
 
-    for (var i = 0; i < lines.length; i++) {
-      var line = lines[i];
-      if (line.length > 0 && util.coinflip(this.config.offsetProbability)) {
-        var variance = util.randomInRange(-this.config.offsetVariance, this.config.offsetVariance);
-        // +1, since when you join a 1-length array, you don't get the join-character.
-        var spaceCount = this.config.offset + variance + 1;
-        var spaces = Array(spaceCount).join(' ');
-        line = spaces + line;
+    var out = [],
+        lines = text.split('\n');
+    try {
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (line.length > 0 && util.coinflip(this.config.offsetProbability)) {
+          var variance = util.randomInRange(-this.config.offsetVariance, this.config.offsetVariance);
+          // +1, since when you join a 1-length array, you don't get the join-character.
+          var spaceCount = this.config.offset + variance + 1;
+          var spaces = Array(spaceCount).join(' ');
+          line = spaces + line;
+        }
+        out.push(line);
       }
-      out.push(line);
+    } catch(ex) {
+      util.log(JSON.stringify(ex));
     }
-
     return out.join('\n');
 
   };

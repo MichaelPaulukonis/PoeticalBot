@@ -23,6 +23,7 @@ let tumblr = new Tumblr(
 let logger = function(msg) {
   util.debug(msg, ALWAYS_PRINT);
 };
+util.log = logger;
 
 var reduceCorpora = function(texts) {
   var strategies = [ corporaSevenStrategy,
@@ -34,12 +35,12 @@ var reduceCorpora = function(texts) {
                      corporaFilterStrategy('gertrudestein'),
                      corporaFilterStrategy('computerculture'),
                      corporaFilterStrategy('filmscripts'),
-                     corporaFilterStrategy('spam'),
-                     ],
-        strategy = util.pick(strategies);
+                     corporaFilterStrategy('spam')
+                   ],
+      strategy = util.pick(strategies);
 
-    return strategy(texts);
-  };
+  return strategy(texts);
+};
 
 // TODO: get a generic one to take in a numeric parameter
 var corporaSevenStrategy = function(corpus) {
@@ -67,7 +68,6 @@ let transformer = function(poem) {
 
   let stragegies = [ transformLeadingSpaces,
                      transformMispeller,
-                     // transformQueneauLetters
                      transformFonetik
                    ],
       strategy = util.pick(stragegies);
@@ -84,24 +84,14 @@ let transformFonetik = function(poem) {
   return poem;
 };
 
-// okay, this is sub-optimal. WAAAAAAY confusing.
-let transformQueneauLetters = function(poem) {
-
-  poem.text = queneauLetters.queneauLetters().generate(poem.text);
-
-  return poem;
-
-};
-
 let transformLeadingSpaces = function(poem) {
   let config = { offset: util.randomInRange(5,25),
                  offsetVariance: util.randomInRange(10,25),
                  offsetProbability: util.randomInRange(5,10)/10,
                  util: util
                },
-      transform = new require('./transform.js')({ util: util});
-
-  let noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
+      transform = new require('./transform.js')(config),
+      noLeadingSpaceTemplates = ['howl', 'haiku', 'couplet'];
   if (noLeadingSpaceTemplates.indexOf(poem.template) === -1) {
     logger('initial spaces');
     poem.text = transform.generate(poem.text);
