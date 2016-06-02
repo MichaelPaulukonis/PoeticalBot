@@ -1,3 +1,5 @@
+'use strict';
+
 let program = require('commander'),
     config = {};
 
