@@ -8,7 +8,8 @@
       Corpora = require('../lib/corpora.js'),
       texts = new Corpora().texts,
       poetifier = require('../lib/jgnoetryRunner.js'),
-      samplePoem = poetifier({util: util,
+      samplePoem = poetifier({config: {},
+                              util: util,
                             texts: texts});
 
   describe('jgnoetry tests', function() {

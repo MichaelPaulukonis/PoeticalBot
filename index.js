@@ -32,16 +32,16 @@ var prepForPublish = function(poem) {
     var nbsps = matches[0].replace(/ /g, '&nbsp;');
     line = line.replace(matches[0], nbsps);
     clean.push(line);
-  };
+  }
   return clean.join('\n');
 };
 
 let teller = function() {
 
 
-let poetifier = new require('./lib/poetifier.js')({config: config});
+  let poetifier = new require('./lib/poetifier.js')({config: config});
 
-let poem = poetifier.poem();
+  let poem = poetifier.poem();
 
   if (poem && poem.title && poem.text) {
 
