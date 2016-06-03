@@ -9,9 +9,9 @@
       textutils = require('../lib/textutil.js');
 
 
-  describe('textutil tests', function() {
+  describe('textutil', function() {
 
-    describe('API tests', function() {
+    describe('API', function() {
 
       it('Util should expose a wordfreqs method', function() {
         expect(textutils.wordfreqs).to.be.a('function');
@@ -21,9 +21,13 @@
         expect(textutils.wordbag).to.be.a('function');
       });
 
+      it('should expose a cleaner method', function() {
+        expect(textutils.cleaner).to.be.a('function');
+      });
+
     });
 
-    describe('wordbag tests', function() {
+    describe('wordbag', function() {
       var bag = textutils.wordbag('this is some text');
 
       it('should return an object', function() {
@@ -35,7 +39,7 @@
       });
     });
 
-    describe('wordfreqs tests', function() {
+    describe('wordfreqs', function() {
       var wf = textutils.wordfreqs('this is some text');
       it('should return an array', function() {
         expect(wf).to.be.instanceOf(Array);
@@ -48,6 +52,29 @@
       });
       it('shouls have a count property that is a number', function() {
         expect(wf[0].count).to.be.an('number');
+      });
+    });
+
+    describe('cleaner', function() {
+      var unbalancedParens = 'some text(that needs[cleaning]',
+          unbalancedBrackets = 'some text(that needs[cleaning)',
+          cleanParens = textutils.cleaner(unbalancedParens),
+          cleanBrackets = textutils.cleaner(unbalancedBrackets);
+      it('should return a string', function() {
+        expect(cleanParens).to.be.a('string');
+        expect(cleanBrackets).to.be.a('string');
+      });
+      it('should remove unbalancedParens', function() {
+        expect(cleanParens.match(/\(|\)/g)).to.be.null;
+      });
+      it('should remove unbalancedBrackets', function() {
+        expect(cleanBrackets.match(/\[|\]/g)).to.be.null;
+      });
+      it('should not remove balanced parens', function() {
+        expect(cleanBrackets.match(/\(|\)/g)).to.not.be.null;
+      });
+      it('should not remove balanced brackets', function() {
+        expect(cleanParens.match(/\[|\]/g)).to.not.be.null;
       });
     });
 
