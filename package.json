@@ -24,12 +24,14 @@
     "gulp": "3.9.1",
     "gulp-eslint": "2.0.0",
     "gulp-mocha": "2.2.0",
+    "istanbul": "^0.4.3",
     "mocha": "^2.4.5"
   },
   "scripts": {
     "test": "mocha test/",
     "start": "node index.js",
-    "logs": "heroku logs -n 1500 > heroku.log"
+    "logs": "heroku logs -n 1500 > heroku.log",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha test/"
   },
   "repository": {
     "type": "git",
