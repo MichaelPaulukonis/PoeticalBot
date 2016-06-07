@@ -25,8 +25,13 @@
         expect(textutils.cleaner).to.be.a('function');
       });
 
+      // TODO: test the splitwords method
+      // contractions, and things like that
+
     });
 
+    // TODO: test for stop words
+    // "hey we're the monkeys. Aren't we?" => { hey: [ 'hey' ], monkeys: [ 'monkeys' ] }
     describe('wordbag', function() {
       var bag = textutils.wordbag('this is some text');
 
@@ -34,9 +39,6 @@
         expect(bag).to.be.an('object');
       });
 
-      it('should have a "text" property', function() {
-        expect(bag.text).to.be.instanceOf(Array);
-      });
     });
 
     describe('wordfreqs', function() {
