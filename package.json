@@ -31,7 +31,7 @@
     "test": "mocha test/",
     "start": "node index.js",
     "logs": "heroku logs -n 1500 > heroku.log",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha test/"
+    "cover": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha test/"
   },
   "repository": {
     "type": "git",

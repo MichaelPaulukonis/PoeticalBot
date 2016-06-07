@@ -1,6 +1,7 @@
 .env
 node_modules/
 output/
+coverage/
 demo.js
 wn.js
 *.log
