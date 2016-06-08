@@ -25,20 +25,40 @@
         expect(textutils.cleaner).to.be.a('function');
       });
 
-      // TODO: test the splitwords method
-      // contractions, and things like that
-
+      it('should expose a splitwords method', function() {
+        expect(textutils.splitwords).to.be.a('function');
+      });
     });
 
-    // TODO: test for stop words
-    // "hey we're the monkeys. Aren't we?" => { hey: [ 'hey' ], monkeys: [ 'monkeys' ] }
+    describe('splitwords', function() {
+      let  splits = textutils.splitwords("Hey we're the monkeys. Aren't we?");
+      it('should return an array (of 6 words)', function() {
+        expect(splits).to.be.instanceOf(Array);
+        expect(splits.length).to.equal(6);
+      });
+      it('should not split contractions (we\'re, aren\'t)', function() {
+        expect(splits[1]).to.equal("we're");
+        expect(splits[4]).to.equal("Aren't");
+      });
+    });
+
     describe('wordbag', function() {
-      var bag = textutils.wordbag('this is some text');
+      let bag = textutils.wordbag('this is some text'),
+          keys = Object.keys(bag);
 
       it('should return an object', function() {
         expect(bag).to.be.an('object');
       });
 
+      it("should ignore common stop words(we're, the, aren't, we)", function() {
+        let commonStops = ["we're", "the", "aren't", "we"];
+        expect(commonStops.filter(sw => keys.indexOf(sw) > -1).length).to.equal(0);
+      });
+
+      it('should contain the two non-stop words', function() {
+        let expectedWords = ['hey', 'monkeys'];
+        expect(keys.filter(key => expectedWords.indexOf(key) > -1).length).to.equal(2);
+      });
     });
 
     describe('wordfreqs', function() {
