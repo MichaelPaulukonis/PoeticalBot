@@ -3,6 +3,7 @@
 var fone = function(text) {
 
   var nlp = require('nlp_compromise'),
+      textutil = require('../lib/textutil'),
       nlpPronounce = require('nlp-pronounce'),
       lines = text.split('\n');
 
@@ -12,7 +13,7 @@ var fone = function(text) {
   // so maybe..... word by word?
   for(var i = 0, len = lines.length; i < len; i++) {
     var t = nlp.text(lines[i]);
-    lines[i] = t.pronounce().replace(/\b0|0\b/g, 'th');
+    lines[i] = textutil.fonetikfix(t.pronounce());
   }
   text = lines.join('\n');
 

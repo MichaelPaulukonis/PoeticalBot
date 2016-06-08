@@ -12,7 +12,6 @@
   describe('textutil', function() {
 
     describe('API', function() {
-
       it('Util should expose a wordfreqs method', function() {
         expect(textutils.wordfreqs).to.be.a('function');
       });
@@ -27,6 +26,28 @@
 
       it('should expose a splitwords method', function() {
         expect(textutils.splitwords).to.be.a('function');
+      });
+
+      it('should expose a fonetikfix method', function() {
+        expect(textutils.fonetikfix).to.be.a('function');
+      });
+    });
+
+    describe('fonetikfix', function() {
+      it('should replace 0s at the beginning of words with \'th\'', function() {
+        let ftext = '0e',
+            cleantext = 'the';
+        expect(textutils.fonetikfix(ftext)).to.equal(cleantext);
+      });
+      it('should replace 0s at the middle of words with \'th\'', function() {
+        let ftext = 'o0er',
+            cleantext = 'other';
+        expect(textutils.fonetikfix(ftext)).to.equal(cleantext);
+      });
+      it('should replace 0s at the end of words with \'th\'', function() {
+        let ftext = 'wi0',
+            cleantext = 'with';
+        expect(textutils.fonetikfix(ftext)).to.equal(cleantext);
       });
     });
 
@@ -43,7 +64,7 @@
     });
 
     describe('wordbag', function() {
-      let bag = textutils.wordbag('this is some text'),
+      let bag = textutils.wordbag("Hey we're the monkeys. Aren't we?"),
           keys = Object.keys(bag);
 
       it('should return an object', function() {
@@ -56,7 +77,7 @@
       });
 
       it('should contain the two non-stop words', function() {
-        let expectedWords = ['hey', 'monkeys'];
+        let expectedWords = ['Hey', 'monkeys'];
         expect(keys.filter(key => expectedWords.indexOf(key) > -1).length).to.equal(2);
       });
     });
