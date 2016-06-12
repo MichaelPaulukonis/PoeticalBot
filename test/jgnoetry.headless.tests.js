@@ -13,22 +13,27 @@
 
   describe('util tests', function() {
 
-    describe('API tests', function() {
+    describe('jGnoetry API tests', function() {
 
-      it('jGneotry should return a new instance with new', function() {
+      it('should return a new instance with new', function() {
         var jg = new jGnoetry();
         expect(jg).to.be.a('object');
         expect(jg).to.be.an.instanceof(jGnoetry);
       });
 
-      it('jGneotry should return a new instance even without new', function() {
+      it('should return a new instance even without new', function() {
         var jg = jGnoetry();
         expect(jg).to.be.a('object');
         expect(jg).to.be.an.instanceof(jGnoetry);
       });
 
-      it('jGneotry should expose a generate method', function() {
+      it('should expose a generate method', function() {
         expect(jg.generate).to.be.a('function');
+      });
+
+      // TODO: makeTemplate exposure
+      it('should expose a makeTemplate method', function() {
+        expect(jg.makeTemplate).to.be.a('function');
       });
 
     });
@@ -57,6 +62,22 @@
 
       expect(output).to.be.an('object');
 
+    });
+
+    it('should keep existingText when told', function() {
+
+var options = {'handlePunctuation': 'noParen', 'byNewlineOrPunctuation': 'punctuation', 'capitalize': { 'method': 'capitalizeCustom', 'customSentence': true, 'customLine': true, 'customI': true }, 'appendToPoem': 'appendPeriod', 'areWordsSelectedBegin': 'startSelected', 'thisWordSelectedBegin': 'startSelected', 'changeSelectionEffect': 'requiresClick', 'statusVerbosity': 1},
+    corpora = { texts: ['the cat the dog the oboe and the mill were in the dob barn with the rat'], weights: [100]},
+          template = '[s] [s] [n] ',
+    existingText = [ { text: 'the', keep: true }, { text: 'the', keep: false } ];
+
+      var output = jg.generate(template, options, corpora, existingText),
+          // hrm. we've got a leading-space issue in jgnoetry....
+          words = output.displayText.trim().split(' ');
+
+      expect(output).to.be.an('object');
+      expect(output.displayText).to.be.a('string');
+      expect(words[0].toLowerCase()).to.equal(existingText[0].text.toLowerCase());
     });
 
   });

@@ -37,6 +37,9 @@ See output @ http://poeticalbot.tumblr.com/
  - heijinian leading spaces
  - mesostics
  - news-text importer (one of the original ideas)
+ - (optionally) replace the syllable-detection algorithm in jgnoetry
+  - at a minimum, extract it for unit-testing
+
 
 Boringly, I continue to work with unit-tests and code-coverage, and other dull things instead of the "cool" poetry generation _all the time_. So sue me.
 
@@ -49,7 +52,14 @@ It usually pays off in the long run, when I return to a project after a while no
  - https://github.com/rossgoodwin/sonnetizer
  - https://github.com/rossgoodwin/lyricist
  - https://github.com/rossgoodwin/wikipoet (30 minutes to gen a poem!!!)
-
+ - https://www.npmjs.com/package/syllable
+ - https://github.com/nlp-compromise - what else can it do that would be... interesting?
+ - better text cleanup - see [ebook_ebooks](https://github.com/scotthammack/ebook_ebooks/blob/master/ebook_ebooks.py) - _a few features to improve readability, such as chapter numbering, paragraph breaks, and parenthesis/quotation mark balancing_
+ - https://github.com/matthewsklar/PoetryBot
+ - aparrish's [linear-systems poetry](https://github.com/aparrish/linear-lsystem-poetry) Hard to get good results, butwith practice, weird things can emerge.
+ - topic analysis? I played around with a lib, but the results were not promising. these "poems" are too weird to be coherent for topics, usually. And not sure what to do with the output.
+ - I tried using nlp-compromise's simple-english module, but it didn't do much, very often
+ - more meta-data on the poems/words/etc. So transforms can be done with more granularity?
 
 
 
