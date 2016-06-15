@@ -36,6 +36,10 @@
         expect(jg.makeTemplate).to.be.a('function');
       });
 
+      it('should expose a countSyllables method', function() {
+        expect(jg.countSyllables).to.be.a('function');
+      });
+
     });
 
     it('should return a string when called with proper params', function() {
@@ -73,6 +77,7 @@ var options = {'handlePunctuation': 'noParen', 'byNewlineOrPunctuation': 'punctu
 
       var output = jg.generate(template, options, corpora, existingText),
           // hrm. we've got a leading-space issue in jgnoetry....
+          // hey... displayText is a STUPID NAME for a headless module...
           words = output.displayText.trim().split(' ');
 
       expect(output).to.be.an('object');
