@@ -10,10 +10,11 @@
     "htmlencode": "0.0.4",
     "in-a-nutshell": "0.1.2",
     "nlp-pronounce": "0.0.1",
-    "nlp_compromise": "4.10.6",
+    "nlp_compromise": "6.1.4",
     "node-mispelr": "0.0.1",
     "queneau-buckets": "1.0.1",
-    "queneau-letters": "1.0.3",
+    "random-seed": "0.3.0",
+    "rhymes": "1.0.1",
     "tumblrwks": "0.3.0"
   },
   "engines": {
