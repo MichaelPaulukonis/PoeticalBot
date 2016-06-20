@@ -7,7 +7,7 @@ var InitialSpaces = function(cfg) {
     return new InitialSpaces(cfg);
   }
 
-  let util = (cfg && cfg.util) ? cfg.util : { log: (msg) => console.log(msg) },
+  let util = cfg.util,
       pos = require('pos'), // these are dependencies required from another module
       lexer = new pos.Lexer(),
       stopwords = require('../lib/stopwords.js'),
@@ -29,10 +29,9 @@ var InitialSpaces = function(cfg) {
           // if this word is puncations or stopword, don't do it
           let word = words[j],
               r = ' ';
-          console.log(`word: ${word} - indexOf: ${stopwords.indexOf(word)}`);
           if (stopwords.indexOf(word) === -1) {
             let ro = rhymes(word);
-            r = ro.length == 0 ? '' : ro.filter(w => w.word !== word && w.word.indexOf(word) === -1)[0].word + ' ';
+            r = ro.length == 0 ? '' : util.pick(ro.filter(w => w.word !== word && w.word.indexOf(word) === -1)).word + ' ';
             // clean it
             r = '-' + r.replace(/\([0-9]\)/g, '');
           }
@@ -41,7 +40,7 @@ var InitialSpaces = function(cfg) {
         out.push(newwords.trim());
       }
     } catch(ex) {
-      return util.log(JSON.stringify(ex));
+      return util.debug(JSON.stringify(ex));
     }
     return out.join('\n');
 
