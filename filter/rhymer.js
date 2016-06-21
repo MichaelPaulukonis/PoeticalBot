@@ -1,20 +1,21 @@
 'use strict';
 
 // extracted from my modified lexeduct, gh-pages branch
-var InitialSpaces = function(cfg) {
-
-  if(!(this instanceof InitialSpaces)) {
-    return new InitialSpaces(cfg);
+var Rhymer = function(cfg) {
+  if(!(this instanceof Rhymer)) {
+    return new Rhymer(cfg);
   }
 
   let util = cfg.util,
-      pos = require('pos'), // these are dependencies required from another module
-      lexer = new pos.Lexer(),
+      pos = require('pos'),
+      lexer = new pos.Lexer(), // dependency required from another module
+      cleaner = require('tagspewer').cleaner,
       stopwords = require('../lib/stopwords.js'),
-      rhymes = require('rhymes');
+      rhymes = require('rhymes'),
+      isalpha = (t) => t.search(/[^a-z(\-a-z)?$]/i) === -1,
+      contains = (arr, elem) => arr.indexOf(elem) !== -1;
 
   this.generate = function(text) {
-
     let out = [],
         lines = text.split('\n');
     try {
@@ -29,23 +30,27 @@ var InitialSpaces = function(cfg) {
           // if this word is puncations or stopword, don't do it
           let word = words[j],
               r = ' ';
-          if (stopwords.indexOf(word) === -1) {
+          // console.log(`word: ${word} isalphs: ${isalpha(word)} stopword: ${contains(stopwords, word)} `);
+          if (isalpha(word) && !contains(stopwords, word)) {
             let ro = rhymes(word);
             r = ro.length == 0 ? '' : util.pick(ro.filter(w => w.word !== word && w.word.indexOf(word) === -1)).word + ' ';
             // clean it
-            r = '-' + r.replace(/\([0-9]\)/g, '');
+            r = (r === '') ? ' ' : '-' + r.replace(/\([0-9]\)/g, '');
           }
           newwords += word + r;
         }
-        out.push(newwords.trim());
+        out.push(cleaner(newwords));
       }
     } catch(ex) {
-      return util.debug(JSON.stringify(ex));
+      console.log(JSON.stringify(ex));
+      // return util.debug(JSON.stringify(ex));
     }
     return out.join('\n');
 
   };
 
+  this.rhymes = (word) => rhymes(word);
+
 };
 
-module.exports = InitialSpaces;
+module.exports = Rhymer;
