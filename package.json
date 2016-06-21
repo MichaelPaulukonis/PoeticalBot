@@ -16,6 +16,7 @@
     "random-seed": "0.3.0",
     "rhymes": "1.0.1",
     "tagspewer": "0.3.1",
+    "pos": "~0.1.7-2",
     "tumblrwks": "0.3.0"
   },
   "engines": {
