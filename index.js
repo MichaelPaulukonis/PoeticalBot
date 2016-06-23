@@ -45,10 +45,10 @@ let teller = function() {
 
   let poem = poetifier.poem();
 
-  if (poem && poem.title && poem) {
+  if (poem && poem.title && poem.text) {
 
     if (config.postLive) {
-      poem.text = prepForPublish(poem.text);
+      poem.text = prepForPublish(poem);
 
       // TODO: optionally dump in other info for "hidden" display?
       tumblr.post('/post',
