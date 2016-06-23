@@ -9,19 +9,19 @@
       Util = require('../lib/util.js'),
       util = new Util(),
       jGnoetry = require('../lib/jgnoetry.headless.js'),
-      jg = new jGnoetry(util.debug);
+      jg = new jGnoetry(util);
 
   describe('jGnoetry.headless tests', function() {
 
     describe('API tests', function() {
       it('should return a new instance with new', function() {
-        var jg = new jGnoetry();
+        var jg = new jGnoetry(util);
         expect(jg).to.be.a('object');
         expect(jg).to.be.an.instanceof(jGnoetry);
       });
 
       it('should return a new instance even without new', function() {
-        var jg = jGnoetry();
+        var jg = jGnoetry(util);
         expect(jg).to.be.a('object');
         expect(jg).to.be.an.instanceof(jGnoetry);
       });
