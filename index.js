@@ -22,9 +22,10 @@ let logger = function(msg) {
 util.log = logger;
 
 var prepForPublish = function(poem) {
-  var lines = poem.split('\n'),
+  let lines = poem.text.split('\n'),
       clean = [],
-      leadingspacere = /^ */;
+      leadingspacere = /^ */,
+      seedline = `<!-- seed: ${poem.seed} -->`;
 
   for(var i = 0, len = lines.length; i < len; i++) {
     var line = lines[i],
@@ -33,7 +34,8 @@ var prepForPublish = function(poem) {
     line = line.replace(matches[0], nbsps);
     clean.push(line);
   }
-  return clean.join('\n');
+
+  return clean.join('\n') + seedline;
 };
 
 let teller = function() {
@@ -46,7 +48,8 @@ let teller = function() {
   if (poem && poem.title && poem.text) {
 
     if (config.postLive) {
-      poem.text = prepForPublish(poem.text);
+      poem.text = prepForPublish(poem);
+
       // TODO: optionally dump in other info for "hidden" display?
       tumblr.post('/post',
                   {type: 'text', title: poem.title, body: poem.text},

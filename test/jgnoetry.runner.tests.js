@@ -7,8 +7,8 @@
       util = new require('../lib/util.js')({statusVerbosity: -1}),
       Corpora = require('../lib/corpora.js'),
       texts = new Corpora().texts,
-      poetifier = require('../lib/jgnoetryRunner.js'),
-      samplePoem = poetifier({config: {},
+      jgRunner = require('../lib/jgnoetryRunner.js'),
+      samplePoem = jgRunner({config: {},
                               util: util,
                             texts: texts});
 

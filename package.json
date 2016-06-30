@@ -7,14 +7,17 @@
   "dependencies": {
     "commander": "2.9.0",
     "dotenv": "2.0.0",
+    "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",
+    "in-a-nutshell": "0.1.2",
     "nlp-pronounce": "0.0.1",
-    "nlp_compromise": "4.10.6",
+    "nlp_compromise": "6.1.4",
     "node-mispelr": "0.0.1",
-    "queneau-buckets": "1.0.1",
-    "queneau-letters": "1.0.3",
-    "tumblrwks": "0.3.0",
-    "in-a-nutshell": "0.1.2"
+    "pos": "~0.1.7-2",
+    "random-seed": "0.3.0",
+    "rhymes": "1.0.1",
+    "tagspewer": "0.3.1",
+    "tumblrwks": "0.3.0"
   },
   "engines": {
     "node": "4.1.2"
@@ -31,7 +34,7 @@
     "test": "mocha test/",
     "start": "node index.js",
     "logs": "heroku logs -n 1500 > heroku.log",
-    "cover": "node_modules/.bin/istanbul cover --include-all-sources node_modules/mocha/bin/_mocha test/"
+    "cover": "istanbul cover --include-all-sources node_modules/mocha/bin/_mocha test/"
   },
   "repository": {
     "type": "git",

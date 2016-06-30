@@ -73,12 +73,14 @@
 
       it("should ignore common stop words(we're, the, aren't, we)", function() {
         let commonStops = ["we're", "the", "aren't", "we"];
-        expect(commonStops.filter(sw => keys.indexOf(sw) > -1).length).to.equal(0);
+        expect(commonStops.filter(sw => keys.indexOf('_' + sw) > -1).length).to.equal(0);
       });
 
       it('should contain the two non-stop words', function() {
         let expectedWords = ['Hey', 'monkeys'];
-        expect(keys.filter(key => expectedWords.indexOf(key) > -1).length).to.equal(2);
+        // keys now have a leading underscore, to get around JS reserved word issues
+        // ("constructor" was the known issue)
+        expect(keys.filter(key => expectedWords.indexOf(key.slice(1)) > -1).length).to.equal(2);
       });
     });
 
