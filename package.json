@@ -10,6 +10,7 @@
     "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",
     "in-a-nutshell": "0.1.2",
+    "nlp-ngram": "0.0.2",
     "nlp-pronounce": "0.0.1",
     "nlp_compromise": "6.1.4",
     "node-mispelr": "0.0.1",
@@ -28,7 +29,8 @@
     "gulp-eslint": "2.0.0",
     "gulp-mocha": "2.2.0",
     "istanbul": "^0.4.3",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "simple-timer": "0.0.5"
   },
   "scripts": {
     "test": "mocha test/",
