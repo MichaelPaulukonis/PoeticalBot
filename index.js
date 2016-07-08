@@ -77,6 +77,8 @@ program
   .option('-m, --method [jgnoetry, buckets]', 'specify poem generate method')
   .option('-t, --templateName [jgnoetry template name]', 'specify jgnoetry template to use')
   .option('-c, --corporaFilter [string]', 'filename substring filter (non-case sensitive)')
+  .option('-s --seed [string]', 'seed for random generator')
+  .option('-r --reduce', 'force line-reduce')
   .parse(process.argv);
 
 if (program.log) {
@@ -100,6 +102,14 @@ if (program.method) {
 
 if (program.corporaFilter) {
   config.corporaFilter = program.corporaFilter;
+}
+
+if (program.seed) {
+  config.seed = program.seed;
+}
+
+if (program.reduce) {
+  config.reduce = true;
 }
 
 teller();
