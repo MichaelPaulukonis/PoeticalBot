@@ -18,7 +18,8 @@
     "random-seed": "0.3.0",
     "rhymes": "1.0.1",
     "tagspewer": "0.3.1",
-    "tumblrwks": "0.3.0"
+    "tumblrwks": "0.3.0",
+    "simple-timer": "0.0.5"
   },
   "engines": {
     "node": "4.1.2"
