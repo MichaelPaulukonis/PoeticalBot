@@ -10,16 +10,16 @@
     "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",
     "in-a-nutshell": "0.1.2",
-    "nlp-ngram": "0.0.2",
+    "nlp-ngram": "0.0.3",
     "nlp-pronounce": "0.0.1",
     "nlp_compromise": "6.1.4",
     "node-mispelr": "0.0.1",
     "pos": "~0.1.7-2",
     "random-seed": "0.3.0",
     "rhymes": "1.0.1",
+    "simple-timer": "0.0.5",
     "tagspewer": "0.3.1",
-    "tumblrwks": "0.3.0",
-    "simple-timer": "0.0.5"
+    "tumblrwks": "0.3.0"
   },
   "engines": {
     "node": "4.1.2"
