@@ -14,9 +14,11 @@ program
   .option('-r --reduce', 'force line-reduce')
   .parse(process.argv);
 
-if (program.log) {
+// if (program.log) {
+// of COURSE we dump to log
+// maybe make a param for something more detailed?
   config.log = true;
-}
+// }
 
 if (program.xform) {
   let chance = parseFloat(program.xform, 10);
