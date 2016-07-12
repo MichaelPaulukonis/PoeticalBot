@@ -14,51 +14,55 @@
 
     describe('API tests', function() {
 
-      it('Util should return a new instance with new', function() {
+      it('should return a new instance with new', function() {
         var newutil = new Util();
         expect(newutil).to.be.a('object');
         expect(newutil).to.be.an.instanceof(Util);
       });
 
-      it('Util should return a new instance even without new', function() {
+      it('should return a new instance even without new', function() {
         var util = Util();
         expect(util).to.be.a('object');
         expect(util).to.be.an.instanceof(Util);
       });
 
-      it('Util should expose a debug method', function() {
+      it('should expose a debug method', function() {
         expect(util.debug).to.be.a('function');
       });
 
-      it('Util should expose a debugOutput method', function() {
+      it('should expose a debugOutput method', function() {
         expect(util.debugOutput).to.be.a('function');
       });
 
-      it('Util should expose a randomProperty method', function() {
+      it('should expose a randomProperty method', function() {
         expect(util.randomProperty).to.be.a('function');
       });
 
-      it('Util should expose a pick method', function() {
+      it('should expose a pick method', function() {
         expect(util.pick).to.be.a('function');
       });
 
-      it('Util should expose a random method', function() {
+      it('should expose a pickCount method', function() {
+        expect(util.pickCount).to.be.a('function');
+      });
+
+      it('should expose a random method', function() {
         expect(util.random).to.be.a('function');
       });
 
-      it('Util should expose a randomInRange method', function() {
+      it('should expose a randomInRange method', function() {
         expect(util.randomInRange).to.be.a('function');
       });
 
-      it('Util should expose a coinflip method', function() {
+      it('should expose a coinflip method', function() {
         expect(util.coinflip).to.be.a('function');
       });
 
-      it('Util should expose a pickRemove method', function() {
+      it('should expose a pickRemove method', function() {
         expect(util.pickRemove).to.be.a('function');
       });
 
-      it('Util should expose a shuffle method', function() {
+      it('should expose a shuffle method', function() {
         expect(util.shuffle).to.be.a('function');
       });
 
