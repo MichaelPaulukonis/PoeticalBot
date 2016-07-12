@@ -12,12 +12,17 @@ See output @ http://poeticalbot.tumblr.com/
   - TODO: on-the-fly generated templates
   - TODO: templates can have pre-populated text and spacing ?
   - TODO: rewire for multi-pass with saved-text (and post sequences)
+- [Harvard Sentences](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/fgdata/OldFiles/Recorder.app/utterances/Type1/harvsents.txt) drone
+ - TODO: the drone structure seems like it would work for other generators, if they output sentences/lines.
 
 ## transformers
  - random leading spaces
  - sort (ascending/descending)
  - mispelr
  - phonetic
+ - rhyme appender
+   - more proof-of-concept than anything.
+   - existing implementation is sub-optimal
 
 ## titles
  - first/last/random line
@@ -60,6 +65,7 @@ It usually pays off in the long run, when I return to a project after a while no
  - topic analysis? I played around with a lib, but the results were not promising. these "poems" are too weird to be coherent for topics, usually. And not sure what to do with the output.
  - I tried using nlp-compromise's simple-english module, but it didn't do much, very often
  - more meta-data on the poems/words/etc. So transforms can be done with more granularity?
+  - at the very least, try to keep re-processing the texts and poems into sentences and words multiple times.
 
 
 
@@ -77,4 +83,5 @@ So, I'm going to do the Simplest Thing That Could Possibly Work.
 1. end-goal includes ingestion of source material from online news
 
 
-SO THAT DIDN'T HAPPEN
+SO 1-3 HAPPENED THAT'S GOOD
+And 3 continues to happen....
