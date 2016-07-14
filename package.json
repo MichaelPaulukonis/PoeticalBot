@@ -22,7 +22,7 @@
     "tumblrwks": "0.3.0"
   },
   "engines": {
-    "node": "4.1.2"
+    "node": "6.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
