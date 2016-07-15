@@ -282,7 +282,7 @@ module.exports = [
 'The shelves were bare of both jam or crackers.',
 'A joy to every child is the swan boat.',
 'All sat frozen and watched the screen.',
-'ii cloud of dust stung his tender eyes.',
+'A cloud of dust stung his tender eyes.',
 'To reach the end he needs much courage.',
 'Shape the clay gently into block form.',
 'The ridge on a smooth surface is a bump or flaw.',
@@ -718,5 +718,5 @@ module.exports = [
 'The blind man counted his old coins.',
 'A severe storm tore down the barn.',
 'She called his name many times.',
-'When you hear the bell, come quickly.',
+'When you hear the bell, come quickly.'
 ];
