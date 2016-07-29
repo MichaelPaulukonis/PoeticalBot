@@ -74,7 +74,7 @@ program
   .version('0.0.2')
   .option('-l, --log', 'dump to log')
   .option('-x, --xform [percent]', 'percent chance of text transform (in hundreths, eg 0.25 = 25%')
-  .option('-m, --method [jgnoetry, buckets]', 'specify poem generate method')
+  .option('-m, --method [jgnoetry, buckets, drone]', 'specify poem generate method')
   .option('-t, --templateName [jgnoetry template name]', 'specify jgnoetry template to use')
   .option('-c, --corporaFilter [string]', 'filename substring filter (non-case sensitive)')
   .option('-s --seed [string]', 'seed for random generator')
