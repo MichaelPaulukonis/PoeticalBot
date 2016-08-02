@@ -17,7 +17,7 @@ program
 // if (program.log) {
 // of COURSE we dump to log
 // maybe make a param for something more detailed?
-  config.log = true;
+config.log = true;
 // }
 
 if (program.xform) {

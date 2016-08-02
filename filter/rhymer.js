@@ -42,11 +42,10 @@ var Rhymer = function(cfg) {
         out.push(cleaner(newwords));
       }
     } catch(ex) {
-      console.log(JSON.stringify(ex));
-      // return util.debug(JSON.stringify(ex));
+      console.log(JSON.stringify(ex)); // eslint-disable-line no-console
+      console.log(ex.stack || ex); // eslint-disable-line no-console
     }
     return out.join('\n');
-
   };
 
   this.rhymes = (word) => rhymes(word);
