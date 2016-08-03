@@ -26,11 +26,30 @@
         expect(titlifier).to.be.an.instanceof(Titlifier);
       });
 
+      it('should throw a TypeError if not provided with a util', function() {
+        expect(function() {
+          var titlifier = new Titlifier();
+        }).to.throw(Error);
+      });
+
       it('should expose a generate method', function() {
         expect(titlifier.generate).to.be.a('function');
       });
 
       // TODO: okay, now actually test the methods!
+
+    });
+
+    describe('generate title', function() {
+
+      it('should return [UNTITLED] if provided with empty string', function() {
+        expect(titlifier.generate('')).to.equal('[UNTITLED]');
+      });
+
+      it('should return [UNTITLED] if provided with no text', function() {
+        expect(titlifier.generate()).to.equal('[UNTITLED]');
+      });
+
 
     });
 
