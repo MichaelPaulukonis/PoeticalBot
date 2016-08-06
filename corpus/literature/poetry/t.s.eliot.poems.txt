@@ -276,7 +276,7 @@ A Cooking Egg
        Her grandfather and great great aunts,
      Supported on the mantelpiece
        An Invitation to the Dance.
-      .    .    .    .    .    .
+
      I shall not want Honour in Heaven
        For I shall meet Sir Philip Sidney
      And have talk with Coriolanus
@@ -296,8 +296,6 @@ A Cooking Egg
        Madame Blavatsky will instruct me
      In the Seven Sacred Trances;
        Piccarda de Donati will conduct me.
-
-      .    .    .    .    .    .
 
      But where is the penny world I bought
        To eat with Pipit behind the screen?
@@ -523,8 +521,6 @@ Whispers of Immortality
      No contact possible to flesh
      Allayed the fever of the bone.
 
-    .    .    .    .    .
-
      Grishkin is nice: her Russian eye
      Is underlined for emphasis;
      Uncorseted, her friendly bust
@@ -574,7 +570,7 @@ Mr. Eliot's Sunday Morning Service
      Still shine the unoffending feet
      And there above the painter set
      The Father and the Paraclete.
-    .    .    .    .    .
+
      The sable presbyters approach
      The avenue of penitence;
      The young are red and pustular
@@ -743,14 +739,13 @@ The Love Song of J. Alfred Prufrock
      Arms that lie along a table, or wrap about a shawl.
        And should I then presume?
        And how should I begin?
-    .    .    .    .    .    .    .    .    .
+
      Shall I say, I have gone at dusk through narrow streets
      And watched the smoke that rises from the pipes
      Of lonely men in shirt-sleeves, leaning out of windows?
 
      I should have been a pair of ragged claws
      Scuttling across the floors of silent seas.
-    .    .    .    .    .    .    .    .    .
 
      And the afternoon, the evening, sleeps so peacefully!
      Smoothed by long fingers,
@@ -791,7 +786,7 @@ The Love Song of J. Alfred Prufrock
      And turning toward the window, should say:
        "That is not it at all,
        That is not what I meant, at all."
-    .    .    .    .    .    .    .    .    .
+
      No! I am not Prince Hamlet, nor was meant to be;
      Am an attendant lord, one that will do
      To swell a progress, start a scene or two,
