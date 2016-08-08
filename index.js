@@ -79,6 +79,7 @@ program
   .option('-c, --corporaFilter [string]', 'filename substring filter (non-case sensitive)')
   .option('-s --seed [string]', 'seed for random generator')
   .option('-r --reduce', 'force line-reduce')
+  .option('-f --file [string]', 'external source file')
   .parse(process.argv);
 
 if (program.log) {
@@ -110,6 +111,10 @@ if (program.seed) {
 
 if (program.reduce) {
   config.reduce = true;
+}
+
+if (program.file) {
+  config.file = program.file;
 }
 
 teller();
