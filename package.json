@@ -9,6 +9,7 @@
     "dotenv": "2.0.0",
     "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",
+    "iconv-lite": "0.4.13",
     "in-a-nutshell": "0.1.2",
     "nlp-ngram": "0.0.3",
     "nlp-pronounce": "0.0.1",
