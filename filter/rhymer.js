@@ -9,12 +9,15 @@ var Rhymer = function(cfg) {
   let util = cfg.util,
       pos = require('pos'),
       lexer = new pos.Lexer(), // dependency required from another module
+      // is the tagspewer cleaner the same cleaner thats in textutils?
+      // shouldn't isAlpha and contains be in general tools?
       cleaner = require('tagspewer').cleaner,
       stopwords = require('../lib/stopwords.js'),
       rhymes = require('rhymes'),
       isalpha = (t) => t.search(/[^a-z(\-a-z)?$]/i) === -1,
       contains = (arr, elem) => arr.indexOf(elem) !== -1;
 
+  // optionally intake an array of lines, so we don't need to split
   this.generate = function(text) {
     let out = [],
         lines = text.split('\n');
@@ -33,7 +36,8 @@ var Rhymer = function(cfg) {
           // console.log(`word: ${word} isalphs: ${isalpha(word)} stopword: ${contains(stopwords, word)} `);
           if (isalpha(word) && !contains(stopwords, word)) {
             let ro = rhymes(word);
-            r = ro.length == 0 ? '' : util.pick(ro.filter(w => w.word !== word && w.word.indexOf(word) === -1)).word + ' ';
+            r = ro.length == 0 ? '' : util.pick(ro.filter(w => w.word.toLowerCase() !== word.toLowerCase()
+                                                          && w.word.indexOf(word) === -1)).word + ' ';
             // clean it
             r = (r === '') ? ' ' : '-' + r.replace(/\([0-9]\)/g, '');
           }
@@ -49,6 +53,8 @@ var Rhymer = function(cfg) {
   };
 
   this.rhymes = (word) => rhymes(word);
+
+  return this;
 
 };
 
