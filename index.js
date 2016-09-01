@@ -60,7 +60,7 @@ let teller = function() {
                   {type: 'text', title: poem.title, body: poem.printable},
                   function(err, json) { // eslint-disable-line no-unused-vars
                     if (err) {
-                      logger(ex.stack || ex);
+                      logger(JSON.stringify(err));
                     }
                     if(poem.corpora) {
                       logger(poem.title + ' : ' + JSON.stringify(poem.corpora));
