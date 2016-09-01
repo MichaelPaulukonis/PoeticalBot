@@ -25,7 +25,6 @@ var prepForPublish = function(poem) {
   let lines = poem.text.split('\n'),
       clean = [],
       leadingspacere = /^ */,
-      seedline = `<!-- seed: ${poem.seed} -->`,
       data,
       dataline;
 
@@ -33,7 +32,6 @@ var prepForPublish = function(poem) {
   delete data.text;
 
   dataline = `<!-- data: ${JSON.stringify(data)} -->`;
-
 
   for(var i = 0, len = lines.length; i < len; i++) {
     var line = lines[i],
@@ -43,11 +41,10 @@ var prepForPublish = function(poem) {
     clean.push(line);
   }
 
-  return clean.join('\n') + seedline + dataline;
+  return clean.join('\n') + dataline;
 };
 
 let teller = function() {
-
 
   let poetifier = new require('./lib/poetifier.js')({config: config});
 
@@ -55,22 +52,21 @@ let teller = function() {
 
   if (poem && poem.title && poem.text) {
 
-    if (config.postLive) {
-      poem.text = prepForPublish(poem);
+      poem.printable = prepForPublish(poem);
 
+    if (config.postLive) {
       // TODO: optionally dump in other info for "hidden" display?
       tumblr.post('/post',
-                  {type: 'text', title: poem.title, body: poem.text},
+                  {type: 'text', title: poem.title, body: poem.printable},
                   function(err, json) { // eslint-disable-line no-unused-vars
                     if (err) {
-                      logger(`ERROR: ${JSON.stringify(err)}`);
+                      logger(ex.stack || ex);
                     }
                     if(poem.corpora) {
                       logger(poem.title + ' : ' + JSON.stringify(poem.corpora));
                     }
                   });
     } else {
-      poem.text = prepForPublish(poem);
       logger(JSON.stringify(poem));
       logger(poem.text);
     }
