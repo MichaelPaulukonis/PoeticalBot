@@ -25,7 +25,15 @@ var prepForPublish = function(poem) {
   let lines = poem.text.split('\n'),
       clean = [],
       leadingspacere = /^ */,
-      seedline = `<!-- seed: ${poem.seed} -->`;
+      seedline = `<!-- seed: ${poem.seed} -->`,
+      data,
+      dataline;
+
+  data = JSON.parse(JSON.stringify(poem));
+  delete data.text;
+
+  dataline = `<!-- data: ${JSON.stringify(data)} -->`;
+
 
   for(var i = 0, len = lines.length; i < len; i++) {
     var line = lines[i],
@@ -35,7 +43,7 @@ var prepForPublish = function(poem) {
     clean.push(line);
   }
 
-  return clean.join('\n') + seedline;
+  return clean.join('\n') + seedline + dataline;
 };
 
 let teller = function() {
@@ -62,6 +70,7 @@ let teller = function() {
                     }
                   });
     } else {
+      poem.text = prepForPublish(poem);
       logger(JSON.stringify(poem));
       logger(poem.text);
     }
