@@ -61,6 +61,7 @@ let teller = function() {
                   function(err, json) { // eslint-disable-line no-unused-vars
                     if (err) {
                       logger(JSON.stringify(err));
+                      logger(err);
                     }
                     if(poem.corpora) {
                       logger(poem.title + ' : ' + JSON.stringify(poem.corpora));
