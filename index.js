@@ -21,8 +21,6 @@ let logger = function(msg) {
 };
 util.log = logger;
 
-logger(tumblr);
-
 var prepForPublish = function(poem) {
   let lines = poem.text.split('\n'),
       clean = [],
@@ -32,8 +30,9 @@ var prepForPublish = function(poem) {
 
   data = JSON.parse(JSON.stringify(poem));
   delete data.text;
+  delete data.lines;
 
-  dataline = `<!-- data: ${JSON.stringify(data)} -->`;
+  dataline = `<!-- config: ${JSON.stringify(data)} -->`;
 
   for(var i = 0, len = lines.length; i < len; i++) {
     var line = lines[i],
@@ -43,8 +42,7 @@ var prepForPublish = function(poem) {
     clean.push(line);
   }
 
-  // return clean.join('\n') + dataline;
-  return clean.join('\n');
+  return clean.join('\n') + dataline;
 };
 
 let teller = function() {
