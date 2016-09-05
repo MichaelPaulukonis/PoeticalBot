@@ -53,7 +53,7 @@ let teller = function() {
 
   if (poem && poem.title && poem.text) {
 
-      poem.printable = prepForPublish(poem);
+    poem.printable = prepForPublish(poem);
 
     if (config.postLive) {
       // TODO: optionally dump in other info for "hidden" display?
