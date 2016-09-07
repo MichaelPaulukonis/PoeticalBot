@@ -25,13 +25,13 @@
         expect(br).to.be.an.instanceof(BucketRunner);
       });
 
-      it('should throw a TypeError if not provided with a util', function() {
+      it('should throw a custom error if not provided with a util', function() {
         expect(function() {
           new BucketRunner({texts: [newcorpora.texts[2]]});
         }).to.throw('util must be supplied as part of config');
       });
 
-      it('should throw a TypeError if not provided with an array of text objects', function() {
+      it('should throw a custom error if not provided with an array of text objects', function() {
         expect(function() {
           new BucketRunner({util: util});
         }).to.throw('texts array must be supplied as part of config');
