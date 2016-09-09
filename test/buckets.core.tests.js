@@ -26,9 +26,7 @@
       });
 
       it('should throw a custom error if not provided with a util', function() {
-        expect(function() {
-          var q = queneauBuckets();
-        }).to.throw('util.pick must be supplied as part of config');
+        expect(() => queneauBuckets()).to.throw('util.pick must be supplied as part of config');
       });
 
       it('should expose a seed method', function() {

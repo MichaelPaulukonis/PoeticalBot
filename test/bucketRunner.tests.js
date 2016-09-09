@@ -44,11 +44,17 @@
 
     // TODO: a) this is slow b) atomize the tests
     describe('generate tests', function() {
+      let poem = bucketRunner.generate();
       it('should return text', function() {
-        let poem = bucketRunner.generate();
         expect(poem).to.be.an('object');
         expect(poem.text).to.be.a('string');
       });
+
+      // HRM - this is a tricky one. can we return a single line?
+      it('should return multiple lines', function() {
+        expect(poem.text.split('\n')).to.have.length.above(2);
+      });
+
 
     });
 
