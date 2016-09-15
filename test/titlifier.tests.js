@@ -74,14 +74,16 @@
         expect(titlifier.generate(punctpoem, titlifierTypes.LineLast)).to.equal(lastLine);
       });
 
-      it('should return the last line when indicated', function() {
-        expect(titlifier.generate(punctpoem, titlifierTypes.Random)).to.have.length.above(lastLine.length-1);
+      it('should return a random line when indicated', function() {
+        expect(titlifier.generate(punctpoem, titlifierTypes.RandomLine)).to.have.length.above(lastLine.length-1);
       });
 
       it('should not fail when summary indicated', function() {
-        // TODO: THIS FAILS
-        // expect(titlifier.generate(punctpoem, 'Summary')).to.have.length.above(lastLine.length-1);
-        expect(() => titlifier.generate(punctpoem, titlifierTypes.Summary)).to.throw(Error);
+        expect(() => titlifier.generate(punctpoem, titlifierTypes.Summary)).to.not.throw(Error);
+      });
+
+      it('should not fail when summary indicated', function() {
+        expect(titlifier.generate(punctpoem, titlifierTypes.Summary)).to.equal('[UNTITLED]');
       });
 
     });
