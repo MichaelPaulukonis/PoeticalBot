@@ -2,10 +2,10 @@
 
 var fone = function(text) {
 
-  var nlp = require('nlp_compromise'),
-      textutil = require('../lib/textutil'),
-      nlpPronounce = require('nlp-pronounce'),
-      lines = text.split('\n');
+  var nlp = require(`nlp_compromise`),
+      textutil = require(`../lib/textutil`),
+      nlpPronounce = require(`nlp-pronounce`),
+      lines = text.split(`\n`);
 
   nlp.plugin(nlpPronounce);
 
@@ -15,7 +15,7 @@ var fone = function(text) {
     var t = nlp.text(lines[i]);
     lines[i] = textutil.fonetikfix(t.pronounce());
   }
-  text = lines.join('\n');
+  text = lines.join(`\n`);
 
   return text;
 

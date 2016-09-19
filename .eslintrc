@@ -6,8 +6,8 @@
             {"VariableDeclarator": 2}
         ],
         "quotes": [
-            2,
-            "single"
+            "error",
+            "backtick"
         ],
         "linebreak-style": [
             2,

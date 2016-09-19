@@ -4,7 +4,7 @@
 // and will only work with 'foreman start worker'
 var config = function() {
 
-  require('dotenv').config({silent: true}); // read .env file IF IT EXISTS - which only s/b DEV
+  require(`dotenv`).config({silent: true}); // read .env file IF IT EXISTS - which only s/b DEV
 
   return {
     consumerKey:    process.env.consumer_key,
@@ -12,7 +12,7 @@ var config = function() {
     accessToken:    process.env.token,
     accessSecret:   process.env.token_secret,
 
-    postLive:       (process.env.post_live.toLowerCase() === 'true')
+    postLive:       (process.env.post_live.toLowerCase() === `true`)
   };
 
 }();
