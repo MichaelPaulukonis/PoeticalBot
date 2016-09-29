@@ -44,10 +44,22 @@
 
     // TODO: a) this is slow b) atomize the tests
     describe(`generate tests`, function() {
+
       let poem = bucketRunner.generate();
-      it(`should return text`, function() {
+
+      it(`should return an object (poem)`, function() {
         expect(poem).to.be.an(`object`);
+      });
+      it(`poem should contain text`, function() {
         expect(poem.text).to.be.a(`string`);
+      });
+
+      it(`poem should contain lines`,  function() {
+        expect(poem.lines).to.be.an(`array`);
+      });
+
+      it(`poem should contain config object`,  function() {
+        expect(poem.config).to.be.an(`object`);
       });
 
       // HRM - this is a tricky one. can we return a single line?
@@ -55,6 +67,13 @@
         expect(poem.text.split(`\n`)).to.have.length.above(2);
       });
 
+      // TODO: this should apply to each and every type of output from the runner
+      it(`should end every line with a punctuation mark`, function() {
+        // TODO: implement a test, then implement code
+        var re = /[.?!]$|^$/;
+        console.log(poem.lines);
+        expect(poem.lines.reduce((p,c) => p && re.test(c), true)).to.be.true;
+      });
 
     });
 
