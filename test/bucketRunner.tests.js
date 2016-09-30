@@ -9,7 +9,7 @@
       // must provide util AND texts
       // texts 0 (history of art, > 2000ms) ,1 are a bit long. ugh. this is awkward
       // 2 is Ginsberg's Howl
-      bucketRunner = new BucketRunner({util: util, texts: [newcorpora.texts[2]]});
+      bucketRunner = new BucketRunner({util: util, config: {}, texts: [newcorpora.texts[2]]});
 
   describe(`bucketRunner tests`, function() {
     describe(`API`, function() {
@@ -28,13 +28,13 @@
       it(`should throw a custom error if not provided with a util`, function() {
         expect(function() {
           new BucketRunner({texts: [newcorpora.texts[2]]});
-        }).to.throw(`util must be supplied as part of config`);
+        }).to.throw(`util must be supplied as part of opts`);
       });
 
       it(`should throw a custom error if not provided with an array of text objects`, function() {
         expect(function() {
           new BucketRunner({util: util});
-        }).to.throw(`texts array must be supplied as part of config`);
+        }).to.throw(`texts array must be supplied as part of opts`);
       });
 
       it(`should expose a generate method`, function() {

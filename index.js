@@ -87,6 +87,7 @@ program
   .option(`-s --seed [string]`, `seed for random generator`)
   .option(`-r --reduce`, `force line-reduce`)
   .option(`-f --file [string]`, `external source file`)
+  .option(`--subStrategy [string]`, `method strategy`)
   .parse(process.argv);
 
 if (program.log) {
@@ -122,6 +123,10 @@ if (program.reduce) {
 
 if (program.file) {
   config.file = program.file;
+}
+
+if (program.subStrategy) {
+  config.subStrategy = program.subStrategy;
 }
 
 teller();
