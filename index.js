@@ -90,6 +90,9 @@ program
   .option(`--subStrategy [string]`, `method strategy`)
   .parse(process.argv);
 
+// TODO: option to NOT post
+// TODO: the corpora reducer should be playable with from the command-line, as well...
+
 if (program.log) {
   config.log = true;
 }
