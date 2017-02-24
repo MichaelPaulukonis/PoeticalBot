@@ -6,6 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "commander": "2.9.0",
+    "common-corpus": "github:michaelpaulukonis/common-corpus",
     "dotenv": "2.0.0",
     "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",
