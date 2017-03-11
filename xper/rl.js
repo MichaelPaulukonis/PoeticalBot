@@ -2,7 +2,7 @@
 
 let util = new require('../lib/util.js')(),
     timer = require('simple-timer'),
-    Corpora = require('../lib/corpora.js'),
+    Corpora = require('common-corpus'),
     corpora = new Corpora(),
     lines = { lines: [] },
     nlp = require('nlp_compromise'),

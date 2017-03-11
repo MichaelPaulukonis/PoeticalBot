@@ -4,7 +4,7 @@
 
   let expect = require(`chai`).expect,
       util = new require(`../lib/util.js`)(),
-      newcorpora = new require(`../lib/corpora`)(),
+      newcorpora = new require(`common-corpus`)(),
       config = {util: util, texts: [newcorpora.texts[2]]},
       queneauBuckets = require(`../lib/queneau-buckets-modified`);
   // bucketCore = queneauBuckets(config).seed(

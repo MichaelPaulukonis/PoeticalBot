@@ -5,7 +5,7 @@
   var chai = require(`chai`),
       expect = chai.expect,
       util = new require(`../lib/util.js`)({statusVerbosity: -1}),
-      Corpora = require(`../lib/corpora.js`),
+      Corpora = require(`common-corpus`),
       texts = new Corpora().texts,
       jgRunner = require(`../lib/jgnoetryRunner.js`),
       samplePoem = jgRunner({config: {},

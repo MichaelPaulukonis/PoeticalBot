@@ -4,7 +4,7 @@
 
   let expect = require(`chai`).expect,
       util = new require(`../lib/util.js`)(),
-      newcorpora = new require(`../lib/corpora`)(),
+      newcorpora = new require(`common-corpus`)(),
       BucketRunner = require(`../lib/bucketRunner.js`),
       // must provide util AND texts
       // texts 0 (history of art, > 2000ms) ,1 are a bit long. ugh. this is awkward
