@@ -54,11 +54,34 @@
 
     describe(`functional tests`, function() {
       let poem = newpoetifier.poem();
+      console.log(`IN THE TEST`, JSON.stringify(poem,null,2));
       it(`returns an object`, function() {
         expect(poem).to.be.an(`object`);
       });
-      describe(`that has lines`, function() {
-        it(`which is an array`, function() {
+      describe(`which`, function() {
+        it(`has a "lines" property`, function() {
+          expect(poem.lines).to.exist;
+        });
+        it(`has a "title" property`, function() {
+          expect(poem.title).to.exist;
+        });
+        it(`has a "seed" property`, function() {
+          expect(poem.seed).to.exist;
+        });
+        it(`has a "source" property`, function() {
+          expect(poem.source).to.exist;
+        });
+        // TODO: sometimes it DOES have a "config" property
+        // WHEN using the bucketRunner (at least)
+        // contains meta-data on the strategy
+        // not a bad thing, but not consistent. hunh.
+        // "config": {
+        //   "strategy": "decrementinglines",
+        //   "lineCount": 15
+        // },
+      });
+      describe(`lines`, function() {
+        it(`are an array`, function() {
           expect(poem.lines).to.be.an(`array`);
         });
         // NOTE: as it currently stands, the lib will sometimes return an empty poem
@@ -75,8 +98,8 @@
         });
       });
 
-      describe(`that has text`, function() {
-        it(`which is a string`, function() {
+      describe(`text`, function() {
+        it(`is a string`, function() {
           expect(poem.text).to.be.a(`string`);
         });
         // NOTE: as it currently stands, the lib will sometimes return an empty poem
@@ -87,15 +110,6 @@
           expect(poem.text).to.have.length.above(0);
         });
       });
-
-// properties to test for
-  // "config",
-  // "title",
-  // "seed",
-  // "source", - optional?
-  // "corpora" - optional
-
-
     });
 
     //   describe(`that has metadata`, function() {

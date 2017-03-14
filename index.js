@@ -64,9 +64,6 @@ let teller = function() {
                       logger(JSON.stringify(err));
                       logger(err);
                     }
-                    if(poem.corpora) {
-                      logger(poem.title + ` : ` + JSON.stringify(poem.corpora));
-                    }
                   });
     } else {
       logger(JSON.stringify(poem));
