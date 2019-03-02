@@ -4,6 +4,22 @@
   "description": "Tumblr Poetry Generator developed for NaPoGenMo2016",
   "homepage": "https://poeticalbot.tumblr.com",
   "main": "index.js",
+  "scripts": {
+    "test:original": "mocha test/",
+    "start": "node index.js",
+    "logs": "heroku logs -n 1500 > heroku.log",
+    "cover": "istanbul cover --include-all-sources node_modules/mocha/bin/_mocha test/",
+    "coretest": "mocha test/poetifier.tests.js",
+    "test": "standard --fix && npm run test:js",
+    "test:js": "mocha --timeout 50000 --recursive ./test/*.tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MichaelPaulukonis/napogenmo2016"
+  },
+  "author": "Michael Paulukonis",
+  "license": "MIT",
+  "readmeFilename": "README.md",
   "dependencies": {
     "commander": "2.9.0",
     "common-corpus": "github:michaelpaulukonis/common-corpus",
@@ -18,7 +34,7 @@
     "node-mispelr": "0.0.1",
     "pos": "~0.1.7-2",
     "random-seed": "0.3.0",
-    "rhymes": "1.0.1",
+    "rhymes": "^1.0.2",
     "simple-timer": "0.0.5",
     "tagspewer": "0.3.1",
     "tumblrwks": "0.3.0"
@@ -28,26 +44,23 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "dirty-chai": "^2.0.1",
     "gulp": "3.9.1",
     "gulp-eslint": "2.0.0",
-    "gulp-mocha": "2.2.0",
     "gulp-if": "2.0.1",
+    "gulp-mocha": "2.2.0",
     "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
-    "simple-timer": "0.0.5"
+    "simple-timer": "0.0.5",
+    "standard": "^12.0.1"
   },
-  "scripts": {
-    "test": "mocha test/",
-    "start": "node index.js",
-    "logs": "heroku logs -n 1500 > heroku.log",
-    "cover": "istanbul cover --include-all-sources node_modules/mocha/bin/_mocha test/",
-    "coretest": "mocha test/poetifier.tests.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MichaelPaulukonis/napogenmo2016"
-  },
-  "author": "Michael Paulukonis",
-  "license": "MIT",
-  "readmeFilename": "README.md"
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after"
+    ]
+  }
 }

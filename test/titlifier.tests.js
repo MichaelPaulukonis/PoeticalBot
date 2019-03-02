@@ -1,93 +1,83 @@
-'use strict';
+let expect = require(`chai`).expect
+let util = new (require(`../lib/util.js`))()
+let Titlifier = require(`../lib/titlifier`).Titlifier
+let titlifierTypes = require(`../lib/titlifier`).types
+let titlifier = new (require(`../lib/titlifier`)).Titlifier({ util: util })
 
-(function() {
+describe(`titlefier tests`, function () {
+  describe(`API`, function () {
+    it(`should return a new instance with new`, function () {
+      var newtitlifier = new Titlifier({ util: util })
+      expect(newtitlifier).to.be.a(`object`)
+      expect(newtitlifier).to.be.an.instanceof(Titlifier)
+    })
 
-  let expect = require(`chai`).expect,
-      util = new require(`../lib/util.js`)(),
-      Titlifier = require(`../lib/titlifier`).Titlifier,
-      titlifierTypes = require(`../lib/titlifier`).types,
-      titlifier = new require(`../lib/titlifier`).Titlifier({util: util});
+    it(`should return a new instance even without new`, function () {
+      var titlifier = Titlifier({ util: util })
+      expect(titlifier).to.be.a(`object`)
+      expect(titlifier).to.be.an.instanceof(Titlifier)
+    })
 
-  describe(`titlefier tests`, function() {
+    it(`should throw a TypeError if not provided with a util`, function () {
+      expect(function () {
+        (() => new Titlifier())()
+      }).to.throw(Error)
+    })
 
-    describe(`API`, function() {
+    it(`should expose a generate method`, function () {
+      expect(titlifier.generate).to.be.a(`function`)
+    })
 
-      it(`should return a new instance with new`, function() {
-        var newtitlifier = new Titlifier({util: util});
-        expect(newtitlifier).to.be.a(`object`);
-        expect(newtitlifier).to.be.an.instanceof(Titlifier);
-      });
+    it(`should expose types`, function () {
+      expect(titlifierTypes).to.be.an(`object`)
+    })
+  })
 
-      it(`should return a new instance even without new`, function() {
-        var titlifier = Titlifier({util: util});
-        expect(titlifier).to.be.a(`object`);
-        expect(titlifier).to.be.an.instanceof(Titlifier);
-      });
+  describe(`generate title`, function () {
+    it(`should return [UNTITLED] if provided with empty string`, function () {
+      expect(titlifier.generate(``)).to.equal(`[UNTITLED]`)
+    })
 
-      it(`should throw a TypeError if not provided with a util`, function() {
-        expect(function() {
-          new Titlifier();
-        }).to.throw(Error);
-      });
+    it(`should return [UNTITLED] if provided with no text`, function () {
+      expect(titlifier.generate()).to.equal(`[UNTITLED]`)
+    })
+  })
 
-      it(`should expose a generate method`, function() {
-        expect(titlifier.generate).to.be.a(`function`);
-      });
+  describe(`generate title with explicit methods from all-punct blob`, function () {
+    let puncts = [`..............................................`,
+      `.........................................`,
+      `...................................`,
+      `..............................`,
+      `.........................`,
+      `....................`,
+      `...............`,
+      `..........`,
+      `.....`]
 
-      it(`should expose types`, function() {
-        expect(titlifierTypes).to.be.an(`object`);
-      });
+    let punctpoem = puncts.join(`\n`)
 
-    });
+    let firstLine = puncts[0]
 
-    describe(`generate title`, function() {
+    let lastLine = puncts[puncts.length - 1]
 
-      it(`should return [UNTITLED] if provided with empty string`, function() {
-        expect(titlifier.generate(``)).to.equal(`[UNTITLED]`);
-      });
+    it(`should return the first line when indicated`, function () {
+      expect(titlifier.generate(punctpoem, titlifierTypes.LineFirst)).to.equal(firstLine)
+    })
 
-      it(`should return [UNTITLED] if provided with no text`, function() {
-        expect(titlifier.generate()).to.equal(`[UNTITLED]`);
-      });
-    });
+    it(`should return the last line when indicated`, function () {
+      expect(titlifier.generate(punctpoem, titlifierTypes.LineLast)).to.equal(lastLine)
+    })
 
-    describe(`generate title with explicit methods from all-punct blob`, function() {
+    it(`should return a random line when indicated`, function () {
+      expect(titlifier.generate(punctpoem, titlifierTypes.RandomLine)).to.have.length.above(lastLine.length - 1)
+    })
 
-      let puncts = [`..............................................`,
-                       `.........................................`,
-                       `...................................`,
-                       `..............................`,
-                       `.........................`,
-                       `....................`,
-                       `...............`,
-                       `..........`,
-                       `.....`],
-          punctpoem = puncts.join(`\n`),
-          firstLine = puncts[0],
-          lastLine = puncts[puncts.length-1];
+    it(`should not fail when summary indicated`, function () {
+      expect(() => titlifier.generate(punctpoem, titlifierTypes.Summary)).to.not.throw(Error)
+    })
 
-      it(`should return the first line when indicated`, function() {
-        expect(titlifier.generate(punctpoem, titlifierTypes.LineFirst)).to.equal(firstLine);
-      });
-
-      it(`should return the last line when indicated`, function() {
-        expect(titlifier.generate(punctpoem, titlifierTypes.LineLast)).to.equal(lastLine);
-      });
-
-      it(`should return a random line when indicated`, function() {
-        expect(titlifier.generate(punctpoem, titlifierTypes.RandomLine)).to.have.length.above(lastLine.length-1);
-      });
-
-      it(`should not fail when summary indicated`, function() {
-        expect(() => titlifier.generate(punctpoem, titlifierTypes.Summary)).to.not.throw(Error);
-      });
-
-      it(`should not fail when summary indicated`, function() {
-        expect(titlifier.generate(punctpoem, titlifierTypes.Summary)).to.equal(`[UNTITLED]`);
-      });
-
-    });
-
-  });
-
-}());
+    it(`should not fail when summary indicated`, function () {
+      expect(titlifier.generate(punctpoem, titlifierTypes.Summary)).to.equal(`[UNTITLED]`)
+    })
+  })
+})

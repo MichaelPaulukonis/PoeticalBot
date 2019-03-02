@@ -1,79 +1,85 @@
-'use strict';
+'use strict'
 
-let config = require(`./config.js`),
-    Tumblr = require(`tumblrwks`),
-    ALWAYS_PRINT = 0,
-    // util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
-    util = new require(`./lib/util.js`)({statusVerbosity: 0});
+let config = require(`./config.js`)
+
+let Tumblr = require(`tumblrwks`)
+
+let ALWAYS_PRINT = 0
+
+// util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
+
+let util = new (require(`./lib/util.js`))({ statusVerbosity: 0 })
 
 let tumblr = new Tumblr(
   {
-    consumerKey:    config.consumerKey,
+    consumerKey: config.consumerKey,
     consumerSecret: config.consumerSecret,
-    accessToken:    config.accessToken,
-    accessSecret:   config.accessSecret
+    accessToken: config.accessToken,
+    accessSecret: config.accessSecret
   },
   `poeticalbot.tumblr.com`
-);
+)
 
-let logger = function(msg) {
-  util.debug(msg, ALWAYS_PRINT);
-};
-util.log = logger;
+let logger = function (msg) {
+  util.debug(msg, ALWAYS_PRINT)
+}
+util.log = logger
 
-var prepForPublish = function(poem) {
-  let lines = poem.text.split(`\n`),
-      clean = [],
-      leadingspacere = /^ */,
-      data,
-      dataline;
+var prepForPublish = function (poem) {
+  let lines = poem.text.split(`\n`)
 
-  data = JSON.parse(JSON.stringify(poem));
-  delete data.text;
-  delete data.lines;
+  let clean = []
 
-  dataline = `<!-- config: ${JSON.stringify(data)} -->`;
+  let leadingspacere = /^ */
 
-  for(var i = 0, len = lines.length; i < len; i++) {
-    var line = lines[i],
-        matches = line.match(leadingspacere);
-    var nbsps = matches[0].replace(/ /g, `&nbsp;`);
-    line = line.replace(matches[0], nbsps);
-    clean.push(line);
+  let data
+
+  let dataline
+
+  data = JSON.parse(JSON.stringify(poem))
+  delete data.text
+  delete data.lines
+
+  dataline = `<!-- config: ${JSON.stringify(data)} -->`
+
+  for (var i = 0, len = lines.length; i < len; i++) {
+    var line = lines[i]
+
+    var matches = line.match(leadingspacere)
+    var nbsps = matches[0].replace(/ /g, `&nbsp;`)
+    line = line.replace(matches[0], nbsps)
+    clean.push(line)
   }
 
-  return clean.join(`\n`) + dataline;
-};
+  return clean.join(`\n`) + dataline
+}
 
-let teller = function() {
+let teller = function () {
+  let poetifier = new (require(`./lib/poetifier.js`))({ config: config })
 
-  let poetifier = new require(`./lib/poetifier.js`)({config: config});
-
-  let poem = poetifier.poem();
+  let poem = poetifier.poem()
 
   if (poem && poem.title && poem.text) {
-
-    poem.printable = prepForPublish(poem);
+    poem.printable = prepForPublish(poem)
 
     if (config.postLive) {
       // TODO: optionally dump in other info for "hidden" display?
       tumblr.post(`/post`,
-                  {type: `text`, title: poem.title, body: poem.printable},
-                  function(err, json) { // eslint-disable-line no-unused-vars
-                    if (err) {
-                      logger(JSON.stringify(err));
-                      logger(err);
-                    }
-                  });
+        { type: `text`, title: poem.title, body: poem.printable },
+        function (err, json) { // eslint-disable-line no-unused-vars
+          if (err) {
+            logger(JSON.stringify(err))
+            logger(err)
+          }
+        })
     } else {
-      logger(JSON.stringify(poem));
-      logger(poem.text);
+      logger(JSON.stringify(poem))
+      logger(poem.text)
     }
   }
+}
 
-};
-
-let program = require(`commander`);
+let program = require(`commander`)
 program
   .version(`0.0.2`)
   .option(`-l, --log`, `dump to log`)
@@ -85,48 +91,48 @@ program
   .option(`-r --reduce`, `force line-reduce`)
   .option(`-f --file [string]`, `external source file`)
   .option(`--subStrategy [string]`, `method strategy`)
-  .parse(process.argv);
+  .parse(process.argv)
 
 // TODO: option to NOT post
 // TODO: the corpora reducer should be playable with from the command-line, as well...
 
 if (program.log) {
-  config.log = true;
+  config.log = true
 }
 
 if (program.xform) {
-  let chance = parseFloat(program.xform, 10);
+  let chance = parseFloat(program.xform, 10)
   if (!isNaN(chance)) {
-    config.transformChance = chance;
+    config.transformChance = chance
   }
 }
 
 if (program.templateName) {
-  config.templateName = program.templateName;
+  config.templateName = program.templateName
 }
 
 if (program.method) {
-  config.method = program.method;
+  config.method = program.method
 }
 
 if (program.corporaFilter) {
-  config.corporaFilter = program.corporaFilter;
+  config.corporaFilter = program.corporaFilter
 }
 
 if (program.seed) {
-  config.seed = program.seed;
+  config.seed = program.seed
 }
 
 if (program.reduce) {
-  config.reduce = true;
+  config.reduce = true
 }
 
 if (program.file) {
-  config.file = program.file;
+  config.file = program.file
 }
 
 if (program.subStrategy) {
-  config.subStrategy = program.subStrategy;
+  config.subStrategy = program.subStrategy
 }
 
-teller();
+teller()
