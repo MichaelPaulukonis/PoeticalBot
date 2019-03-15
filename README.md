@@ -9,6 +9,12 @@ See output @ http://poeticalbot.tumblr.com/
 
 `node test/manualrunners/writepoem.js`
 
+## testing
+`npm t`
+
+## publishing
+`git push heroku master`
+
 ## poem generators
  - queaneau-buckets
  - jgnoetry (headless)
