@@ -35,7 +35,10 @@ describe(`poetifier`, function () {
   })
 
   describe(`functional tests`, function () {
-    let poem = newpoetifier.poem()
+    // TODO: do I have tests for the config object?
+    // TODO: this test fails on jGnoetry, which does NOT have lines???
+    // let poem = new Poetifier({ options: { config: { method: 'jgnoetry' } } }).poem({})
+    let poem = newpoetifier.poem({})
     console.log(`IN THE TEST`, JSON.stringify(poem, null, 2))
     it(`returns an object`, function () {
       expect(poem).to.be.an(`object`)

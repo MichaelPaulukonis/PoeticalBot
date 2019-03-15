@@ -5,6 +5,10 @@ See output @ http://poeticalbot.tumblr.com/
 
 [my notes](https://github.com/NaPoGenMo/NaPoGenMo2016/issues/3)
 
+## running
+
+`node test/manualrunners/writepoem.js`
+
 ## poem generators
  - queaneau-buckets
  - jgnoetry (headless)
