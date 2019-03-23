@@ -7,20 +7,16 @@ chai.use(dirtyChai)
 let Poetifier = require(`../lib/poetifier.js`)
 
 let config = require(`../config.js`)
-
-let newpoetifier = Poetifier({ config: config })
+config.method = 'incrementingLines' // need to test every method, of course.....
+// TODO: set a NON jGnoetry method
+// incrementngLines
+let newpoetifier = new Poetifier({ config: config })
 
 describe(`poetifier`, function () {
   describe(`API`, function () {
     it(`returns a new instance with new`, function () {
       expect(newpoetifier).to.be.a(`object`)
       expect(newpoetifier).to.be.an.instanceof(Poetifier)
-    })
-
-    it(`returns a new instance even without new`, function () {
-      var poetifier = Poetifier({ config: config })
-      expect(poetifier).to.be.a(`object`)
-      expect(poetifier).to.be.an.instanceof(Poetifier)
     })
 
     it(`throws an error if config not supplied as parameter`, function () {

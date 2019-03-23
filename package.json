@@ -5,13 +5,13 @@
   "homepage": "https://poeticalbot.tumblr.com",
   "main": "index.js",
   "scripts": {
-    "test:original": "mocha test/",
     "start": "node index.js",
     "logs": "heroku logs -n 1500 > heroku.log",
     "cover": "istanbul cover --include-all-sources node_modules/mocha/bin/_mocha test/",
     "coretest": "mocha test/poetifier.tests.js",
     "test": "standard --fix && npm run test:js",
-    "test:js": "mocha --timeout 50000 --recursive ./test/*.tests.js"
+    "test:js": "mocha --timeout 50000 --recursive ./test/*.tests.js",
+    "update": "npx npm-check -u"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "dependencies": {
     "commander": "^2.19.0",
     "common-corpus": "github:michaelpaulukonis/common-corpus",
+    "compromise": "^11.13.2",
     "dotenv": "^7.0.0",
     "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",
@@ -33,6 +34,7 @@
     "nlp_compromise": "6.1.4",
     "node-mispelr": "0.0.1",
     "pos": "~0.1.7-2",
+    "ramda": "^0.26.1",
     "random-seed": "0.3.0",
     "rhymes": "^1.0.2",
     "simple-timer": "0.0.5",
