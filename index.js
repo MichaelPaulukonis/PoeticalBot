@@ -1,12 +1,8 @@
 'use strict'
 
 let config = require(`./config.js`)
-
 let Tumblr = require(`tumblrwks`)
-
 let ALWAYS_PRINT = 0
-
-// util = new require('./util.js')({statusVerbosity: ALWAYS_PRINT}),
 
 let util = new (require(`./lib/util.js`))({ statusVerbosity: 0 })
 
@@ -20,50 +16,37 @@ let tumblr = new Tumblr(
   `poeticalbot.tumblr.com`
 )
 
-let logger = function (msg) {
+let logger = (msg) => {
   util.debug(msg, ALWAYS_PRINT)
 }
 util.log = logger
 
-var prepForPublish = function (poem) {
+var prepForPublish = (poem) => {
   let lines = poem.text.split(`\n`)
-
-  let clean = []
-
   let leadingspacere = /^ */
 
-  let data
-
-  let dataline
-
-  data = JSON.parse(JSON.stringify(poem))
+  let data = JSON.parse(JSON.stringify(poem))
   delete data.text
   delete data.lines
 
-  dataline = `<!-- config: ${JSON.stringify(data)} -->`
-
-  for (var i = 0, len = lines.length; i < len; i++) {
-    var line = lines[i]
-
+  let clean = lines.map(line => {
     var matches = line.match(leadingspacere)
     var nbsps = matches[0].replace(/ /g, `&nbsp;`)
-    line = line.replace(matches[0], nbsps)
-    clean.push(line)
-  }
+    return line.replace(matches[0], nbsps)
+  })
+  let dataline = `<!-- config: ${JSON.stringify(data)} -->`
 
   return clean.join(`\n`) + dataline
 }
 
 let teller = function () {
   let poetifier = new (require(`./lib/poetifier.js`))({ config: config })
-
   let poem = poetifier.poem()
 
   if (poem && poem.title && poem.text) {
     poem.printable = prepForPublish(poem)
 
     if (config.postLive) {
-      // TODO: optionally dump in other info for "hidden" display?
       tumblr.post(`/post`,
         { type: `text`, title: poem.title, body: poem.printable },
         function (err, json) { // eslint-disable-line no-unused-vars
@@ -91,10 +74,10 @@ program
   .option(`-r --reduce`, `force line-reduce`)
   .option(`-f --file [string]`, `external source file`)
   .option(`--subStrategy [string]`, `method strategy`)
+  .option(`--no-publish`, `do NOT publish (live)`)
   .parse(process.argv)
 
-// TODO: option to NOT post
-// TODO: the corpora reducer should be playable with from the command-line, as well...
+config.postLive = config.postLive && program.publish
 
 if (program.log) {
   config.log = true

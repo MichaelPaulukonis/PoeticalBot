@@ -21,9 +21,9 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "commander": "2.9.0",
+    "commander": "^2.19.0",
     "common-corpus": "github:michaelpaulukonis/common-corpus",
-    "dotenv": "2.0.0",
+    "dotenv": "^7.0.0",
     "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",
     "iconv-lite": "0.4.13",
@@ -43,14 +43,14 @@
     "node": "6.1.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
     "dirty-chai": "^2.0.1",
     "gulp": "3.9.1",
     "gulp-eslint": "2.0.0",
     "gulp-if": "2.0.1",
     "gulp-mocha": "2.2.0",
     "istanbul": "^0.4.3",
-    "mocha": "^2.4.5",
+    "mocha": "^6.0.2",
     "pre-commit": "^1.2.2",
     "simple-timer": "0.0.5",
     "standard": "^12.0.1"

@@ -7,13 +7,19 @@ See output @ http://poeticalbot.tumblr.com/
 
 ## running
 
-`node test/manualrunners/writepoem.js`
+LOCAL - `node test/manualrunners/writepoem.js`
+REMOTE - `heroku run node index.js`
+
+TODO: index should take option to NOT publish
+TODO: some things log, some things don't - it's erratic and the logs can be confusing
 
 ## testing
 `npm t`
 
 ## publishing
 `git push heroku master`
+
+TODO: look into automatic github hooks - https://devcenter.heroku.com/articles/github-integration
 
 ## poem generators
  - queaneau-buckets
