@@ -8,28 +8,12 @@ let Poetifier = require(`../lib/poetifier.js`)
 
 let config = require(`../config.js`)
 config.method = 'incrementingLines' // need to test every method, of course.....
+config.reduce = true
 // TODO: set a NON jGnoetry method
 // incrementngLines
 let newpoetifier = new Poetifier({ config: config })
 
-describe(`poetifier`, () => {
-  describe(`API`, () => {
-    it(`returns a new instance with new`, () => {
-      expect(newpoetifier).to.be.a(`object`)
-      expect(newpoetifier).to.be.an.instanceof(Poetifier)
-    })
-
-    it(`throws an error if config not supplied as parameter`, () => {
-      expect(() => {
-        (() => new Poetifier())()
-      }).to.throw(Error)
-    })
-
-    it(`exposes a poem method`, () => {
-      expect(newpoetifier.poem).to.be.a(`function`)
-    })
-  })
-
+describe.only(`poetifier incrementingLines with lrRunner`, () => {
   describe(`functional tests`, () => {
     // TODO: do I have tests for the config object?
     // TODO: this test fails on jGnoetry, which does NOT have lines???
@@ -92,36 +76,4 @@ describe(`poetifier`, () => {
       })
     })
   })
-
-  //   describe(`that has metadata`, function() {
-  //     // TODO: test for specific meta-data items
-  //     // will become important as we pass in paramas and expect certain results
-  //     it(`which is an object`, function() {
-  //       expect(poem.metadata).to.be.an(`object`);
-  //     });
-  //     let md = poem.metadata;
-  //     describe(`metadata properties`, function() {
-  //       // TODO: this might be optional, if generated from data, not text?
-  //       // but for now, source blob is provided BEFORE generation method is "known"
-  //       // (leaving parameters aside)
-  //       it(`has a source property`, function() {
-  //         expect(md.source).to.be.a(`string`);
-  //       });
-  //       it(`has a strategy property`, function() {
-  //         expect(md.strategy).to.be.a(`string`);
-  //       });
-  //       it(`has a title property`, function() {
-  //         expect(md.title).to.be.a(`string`);
-  //       });
-  //       // this is a silly/stupid/poorly-named property
-  //       // and replicates the length of the array
-  //       // was created purely for convenience
-  //       it(`has a length property`, function() {
-  //         expect(md[`length`]).to.be.an(`number`);
-  //       });
-
-  //     });
-
-  //   });
-  // });
 })
