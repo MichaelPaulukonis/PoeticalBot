@@ -1,14 +1,15 @@
 var chai = require('chai')
 var dirtyChai = require('dirty-chai')
 var expect = chai.expect
-
 chai.use(dirtyChai)
 
 let Poetifier = require(`../lib/poetifier.js`)
 
 let config = require(`../config.js`)
-config.method = 'incrementingLines' // need to test every method, of course.....
+config.method = `drone` // need to test every method, of course..... (poorly named)
 config.reduce = true
+config.corporaFilter = 'eliot'
+config.transform = false
 // TODO: set a NON jGnoetry method
 // incrementngLines
 let newpoetifier = new Poetifier({ config: config })

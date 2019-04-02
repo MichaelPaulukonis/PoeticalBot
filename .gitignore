@@ -5,3 +5,4 @@ coverage/
 demo.js
 wn.js
 *.log
+.nyc_output/

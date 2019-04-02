@@ -14,7 +14,25 @@
                 "999999",
                 "--colors",
                 "--recursive",
-                "${workspaceFolder}/test/poetifier.lineReduce.tests.js"
+                "${workspaceFolder}/test/*.tests.js"
+            ],
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "<node_internals>/**/*.js"
+            ],
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Mocha adhoc",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "--timeout",
+                "999999",
+                "--colors",
+                "--recursive",
+                "${workspaceFolder}/test/poetifier.jgnoetry.tests.js"
             ],
             "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [

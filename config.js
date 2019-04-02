@@ -7,7 +7,9 @@ var config = (function () {
     accessToken: process.env.token,
     accessSecret: process.env.token_secret,
 
-    postLive: (process.env.post_live.toLowerCase() === `true`)
+    postLive: (process.env.post_live.toLowerCase() === `true`),
+
+    transform: true
   }
 }())
 

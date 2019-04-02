@@ -6,7 +6,7 @@ chai.use(dirtyChai)
 
 var textutils = require(`../lib/textutil.js`)
 
-describe(`textutil`, function () {
+describe.only(`textutil`, function () {
   describe(`API`, function () {
     it(`Util should expose a wordfreqs method`, function () {
       expect(textutils.wordfreqs).to.be.a(`function`)
