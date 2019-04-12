@@ -32,7 +32,7 @@
                 "999999",
                 "--colors",
                 "--recursive",
-                "${workspaceFolder}/test/poetifier.jgnoetry.tests.js"
+                "${workspaceFolder}/test/linereduce.tests.js"
             ],
             "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [

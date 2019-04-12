@@ -4,13 +4,11 @@ var expect = chai.expect
 
 chai.use(dirtyChai)
 
-let Poetifier = require(`../lib/poetifier.js`)
-
 let config = require(`../config.js`)
-config.method = 'incrementingLines' // need to test every method, of course.....
-// TODO: set a NON jGnoetry method
-// incrementngLines
-let newpoetifier = new Poetifier({ config: config })
+const Poetifier = require(`../lib/poetifier.js`)
+
+let newpoetifier
+let poem
 
 describe(`poetifier`, () => {
   describe(`API`, () => {
@@ -30,12 +28,21 @@ describe(`poetifier`, () => {
     })
   })
 
-  describe(`functional tests`, () => {
+  before(() => {
     // TODO: do I have tests for the config object?
     // TODO: this test fails on jGnoetry, which does NOT have lines???
     // let poem = new Poetifier({ options: { config: { method: 'jgnoetry' } } }).poem({})
-    let poem = newpoetifier.poem({})
-    console.log(`IN THE TEST`, JSON.stringify(poem, null, 2))
+    config.method = 'incrementingLines' // need to test every method, of course.....
+    config.reduce = true
+    config.corporaFilter = 'eliot'
+    config.transform = false
+    // TODO: set a NON jGnoetry method
+    // incrementngLines
+    newpoetifier = new Poetifier({ config: config })
+    poem = newpoetifier.poem({})
+    console.log(`IN POETIFIER TEST`, JSON.stringify(poem, null, 2))
+  })
+  describe(`functional tests`, () => {
     it(`returns an object`, () => {
       expect(poem).to.be.an(`object`)
     })

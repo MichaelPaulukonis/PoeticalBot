@@ -4,15 +4,15 @@ var expect = chai.expect
 
 chai.use(dirtyChai)
 
-let util = new (require(`../lib/util.js`))()
-let newcorpora = new (require(`common-corpus`))()
-let BucketRunner = require(`../lib/bucketRunner.js`)
+const util = new (require(`../lib/util.js`))()
+const newcorpora = new (require(`common-corpus`))()
+const BucketRunner = require(`../lib/bucketRunner.js`)
 
 // must provide util AND texts
 // texts 0 (history of art, > 2000ms) ,1 are a bit long. ugh. this is awkward
 // 2 is Ginsberg's Howl
 
-let bucketRunner = new BucketRunner({ util: util, config: {}, texts: [newcorpora.texts[2]] })
+const bucketRunner = new BucketRunner({ util: util, config: {}, texts: [newcorpora.texts[2]] })
 
 describe(`bucketRunner tests`, function () {
   describe(`API`, function () {

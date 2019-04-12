@@ -9,42 +9,45 @@ let queneauBuckets = require(`../lib/queneau-buckets-modified`)
 //     // 2 is Ginsberg's Howl
 //     bucketRunner = new BucketRunner({util: util, texts: [newcorpora.texts[2]]});
 
-describe(`queneau-buckets-modified core tests`, function () {
-  describe(`API`, function () {
+describe(`queneau-buckets-modified core tests`, () => {
+  describe(`API`, () => {
     var qb = queneauBuckets(config)
 
-    it(`should return a function`, function () {
+    it(`should return a function`, () => {
       expect(queneauBuckets).to.be.a(`function`)
     })
 
-    it(`the function should return an object`, function () {
+    it(`the function should return an object`, () => {
       expect(qb).to.be.a(`object`)
     })
 
-    it(`should throw a custom error if not provided with a util`, function () {
+    it(`should throw a custom error if not provided with a util`, () => {
       expect(() => queneauBuckets()).to.throw(`util.pick must be supplied as part of config`)
     })
 
-    it(`should expose a seed method`, function () {
+    it(`should expose a seed method`, () => {
       expect(qb.seed).to.be.a(`function`)
     })
 
-    it(`should expose a fill method`, function () {
+    it(`should expose a fill method`, () => {
       expect(qb.fill).to.be.a(`function`)
     })
   })
 
-  describe(`fill tests`, function () {
-    var qb = queneauBuckets(config)
-    describe(`test seed of single line, multi-word sentence`, function () {
-      qb.seed([`This is a sentence.`])
-      it(`request 3 words should return 3 words`, function () {
+  describe(`fill tests`, () => {
+    let qb
+    describe(`test seed of single line, multi-word sentence`, () => {
+      before(() => {
+        qb = queneauBuckets(config)
+        qb.seed([`This is a sentence.`])
+      })
+      it(`request 3 words should return 3 words`, () => {
         let poem = qb.fill(3)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length.above(0)
         expect(poem.split(` `)).to.have.length(3)
       })
-      it(`request 0 words should return empty string`, function () {
+      it(`request 0 words should return empty string`, () => {
         let poem = qb.fill(0)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length(0)
@@ -54,17 +57,20 @@ describe(`queneau-buckets-modified core tests`, function () {
 
     // test 1,2,3, 3+ words on single-line
     // original implementation would fail on 1- and 2-word sentences
-    describe(`test seed of single line, single-word sentence`, function () {
-      var qb = queneauBuckets(config)
-      let sentence = `Dreamers`
-      qb.seed([sentence])
-      it(`request 5 words should return 5 words`, function () {
+    describe(`test seed of single line, single-word sentence`, () => {
+      let qb
+      const sentence = `Dreamers`
+      before(() => {
+        qb = queneauBuckets(config)
+        qb.seed([sentence])
+      })
+      it(`request 5 words should return 5 words`, () => {
         let poem = qb.fill(5)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length.above(sentence.length)
         expect(poem.split(` `)).to.have.length(5)
       })
-      it(`request 0 words should return empty string`, function () {
+      it(`request 0 words should return empty string`, () => {
         let poem = qb.fill(0)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length(0)
@@ -72,17 +78,17 @@ describe(`queneau-buckets-modified core tests`, function () {
       })
     })
 
-    describe(`test seed of single line, two-word sentence`, function () {
+    describe(`test seed of single line, two-word sentence`, () => {
       var qb = queneauBuckets(config)
       let sentence = `Dreamers dream!`
       qb.seed([sentence])
-      it(`request 5 words should return 5 words`, function () {
+      it(`request 5 words should return 5 words`, () => {
         let poem = qb.fill(5)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length.above(sentence.length)
         expect(poem.split(` `)).to.have.length(5)
       })
-      it(`request 0 words should return empty string`, function () {
+      it(`request 0 words should return empty string`, () => {
         let poem = qb.fill(0)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length(0)
@@ -90,17 +96,17 @@ describe(`queneau-buckets-modified core tests`, function () {
       })
     })
 
-    describe(`test seed of single line, three-word sentence`, function () {
+    describe(`test seed of single line, three-word sentence`, () => {
       var qb = queneauBuckets(config)
       let sentence = `Dreamers can dream!`
       qb.seed([sentence])
-      it(`request 5 words should return 5 words`, function () {
+      it(`request 5 words should return 5 words`, () => {
         let poem = qb.fill(5)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length.above(0)
         expect(poem.split(` `)).to.have.length(5)
       })
-      it(`request 0 words should return empty string`, function () {
+      it(`request 0 words should return empty string`, () => {
         let poem = qb.fill(0)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length(0)
@@ -108,17 +114,17 @@ describe(`queneau-buckets-modified core tests`, function () {
       })
     })
 
-    describe(`test seed of multi-line sentences`, function () {
+    describe(`test seed of multi-line sentences`, () => {
       var qb = queneauBuckets(config)
       let sentences = [`Dreamers can dream!`, `Tests can be run automatically.`]
       qb.seed(sentences)
-      it(`request 5 words should return 5 words`, function () {
+      it(`request 5 words should return 5 words`, () => {
         let poem = qb.fill(5)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length.above(0)
         expect(poem.split(` `)).to.have.length(5)
       })
-      it(`request 0 words should return empty string`, function () {
+      it(`request 0 words should return empty string`, () => {
         let poem = qb.fill(0)
         expect(poem).to.be.a(`string`)
         expect(poem).to.have.length(0)

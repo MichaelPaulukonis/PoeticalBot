@@ -12,7 +12,7 @@
     "cover:js": "nyc mocha --recursive ./test/*.tests.js",
     "coretest": "mocha test/poetifier.tests.js",
     "test": "standard --fix && npm run test:js",
-    "test:js": "mocha --timeout 50000 --recursive ./test/*.tests.js",
+    "test:js": "mocha --timeout 50000 ./test/*.tests.js",
     "update": "npx npm-check -u"
   },
   "repository": {

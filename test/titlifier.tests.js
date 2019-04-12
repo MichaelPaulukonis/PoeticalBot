@@ -53,11 +53,8 @@ describe(`titlefier tests`, function () {
       `...............`,
       `..........`,
       `.....`]
-
     let punctpoem = puncts.join(`\n`)
-
     let firstLine = puncts[0]
-
     let lastLine = puncts[puncts.length - 1]
 
     it(`should return the first line when indicated`, function () {

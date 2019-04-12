@@ -6,7 +6,7 @@ chai.use(dirtyChai)
 
 var textutils = require(`../lib/textutil.js`)
 
-describe.only(`textutil`, function () {
+describe(`textutil`, function () {
   describe(`API`, function () {
     it(`Util should expose a wordfreqs method`, function () {
       expect(textutils.wordfreqs).to.be.a(`function`)
@@ -63,10 +63,12 @@ describe.only(`textutil`, function () {
   })
 
   describe(`wordbag`, function () {
-    let bag = textutils.wordbag(`Hey we're the monkeys. Aren't we?`)
-
-    let keys = Object.keys(bag)
-
+    let bag
+    let keys
+    before(() => {
+      bag = textutils.wordbag(`Hey we're the monkeys. Aren't we?`)
+      keys = Object.keys(bag)
+    })
     it(`should return an object`, function () {
       expect(bag).to.be.an(`object`)
     })
@@ -101,13 +103,16 @@ describe.only(`textutil`, function () {
   })
 
   describe(`cleaner`, function () {
-    var unbalancedParens = `some text(that needs[cleaning]`
-
-    var unbalancedBrackets = `some text(that needs[cleaning)`
-
-    var cleanParens = textutils.cleaner(unbalancedParens)
-
-    var cleanBrackets = textutils.cleaner(unbalancedBrackets)
+    let unbalancedParens
+    let unbalancedBrackets
+    let cleanParens
+    let cleanBrackets
+    before(() => {
+      unbalancedParens = `some text(that needs[cleaning]`
+      unbalancedBrackets = `some text(that needs[cleaning)`
+      cleanParens = textutils.cleaner(unbalancedParens)
+      cleanBrackets = textutils.cleaner(unbalancedBrackets)
+    })
     it(`should return a string`, function () {
       expect(cleanParens).to.be.a(`string`)
       expect(cleanBrackets).to.be.a(`string`)
