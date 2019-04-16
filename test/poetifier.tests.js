@@ -29,11 +29,9 @@ describe(`poetifier`, () => {
   })
 
   before(() => {
-    // TODO: do I have tests for the config object?
-    // TODO: this test fails on jGnoetry, which does NOT have lines???
-    // let poem = new Poetifier({ options: { config: { method: 'jgnoetry' } } }).poem({})
-    config.method = 'incrementingLines' // need to test every method, of course.....
-    config.reduce = true
+    // TODO: does this file test anything unique, anymore?
+    config.method = `queneau-buckets` // need to test every method, of course..... (poorly named)
+    config.subStrategy = `diamond`
     config.corporaFilter = 'eliot'
     config.transform = false
     // TODO: set a NON jGnoetry method

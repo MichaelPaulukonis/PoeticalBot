@@ -6,6 +6,7 @@ chai.use(dirtyChai)
 
 // const { linereduce: lr } = require('../lib/')
 const { LineReduce, types } = require('../lib').linereduce
+let { textutil } = require(`../lib/`)
 
 describe(`linereduce `, () => {
   describe(`API`, () => {
@@ -33,7 +34,7 @@ describe(`linereduce `, () => {
     let linereduce, blob
     before(() => {
       linereduce = new LineReduce({ util })
-      blob = `This is some text.
+      const text = `This is some text.
 This is some more.
 Another line of text.
 How many lines?
@@ -42,6 +43,7 @@ Not enough text.
 This is maybe enough.
 Enough text?
 This is probably not.`
+      blob = textutil.sentencify(text)
     })
     it('... will get a set of sentences that start with the same word', () => {
       const firsts = linereduce.filter({ type: types.start, text: blob })

@@ -1,21 +1,21 @@
-var chai = require('chai')
-var dirtyChai = require('dirty-chai')
-var expect = chai.expect
+const chai = require('chai')
+const dirtyChai = require('dirty-chai')
+const expect = chai.expect
 chai.use(dirtyChai)
 
-let Poetifier = require(`../lib/poetifier.js`)
-
+const Poetifier = require(`../lib/`).poetifier
 let config = require(`../config.js`)
 
-describe.skip(`poetifier incrementingLines with lrRunner`, () => {
+describe(`poetifier incrementingLines with lrRunner`, () => {
   describe(`functional tests`, () => {
     let newpoetifier
     let poem
     before(() => {
       config.method = `drone` // need to test every method, of course..... (poorly named)
-      config.reduce = true
+      config.reduce = false
       config.corporaFilter = 'eliot'
       config.transform = false
+      // config.seed = '6ukuy4s.073l' // temp: this is a failure!
       // TODO: set a NON jGnoetry method
       // incrementngLines
       newpoetifier = new Poetifier({ config: config })
@@ -23,7 +23,7 @@ describe.skip(`poetifier incrementingLines with lrRunner`, () => {
       // TODO: this test fails on jGnoetry, which does NOT have lines???
       // let poem = new Poetifier({ options: { config: { method: 'jgnoetry' } } }).poem({})
       poem = newpoetifier.poem({})
-      console.log(`IN DRONE TEST`, JSON.stringify(poem, null, 2))
+      console.log(`IN DRONE TEST`, poem.seed, poem.lines.length)
     })
 
     it(`returns an object`, () => {

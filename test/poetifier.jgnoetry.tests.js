@@ -6,7 +6,7 @@ chai.use(dirtyChai)
 let Poetifier = require(`../lib/poetifier.js`)
 let config = require(`../config.js`)
 
-describe.skip(`poetifier incrementingLines with lrRunner`, () => {
+describe(`poetifier jGnoetry`, () => {
   let newpoetifier
   let poem
   before(() => {
@@ -14,7 +14,7 @@ describe.skip(`poetifier incrementingLines with lrRunner`, () => {
     // TODO: this test fails on jGnoetry, which does NOT have lines???
     // let poem = new Poetifier({ options: { config: { method: 'jgnoetry' } } }).poem({})
     config.method = `jgnoetry` // need to test every method, of course..... (poorly named)
-    config.reduce = true
+    config.reduce = false
     config.corporaFilter = 'eliot'
     config.transform = false
     // TODO: set a NON jGnoetry method
