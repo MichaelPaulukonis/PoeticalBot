@@ -29,7 +29,7 @@ describe(`textutil`, function () {
     })
   })
 
-  describe(`fonetikfix`, function () {
+  describe.only(`fonetikfix`, function () {
     it(`should replace 0s at the beginning of words with 'th'`, function () {
       let ftext = `0e`
 

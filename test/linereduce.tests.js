@@ -4,7 +4,6 @@ var expect = chai.expect
 let util = new (require(`../lib/util.js`))()
 chai.use(dirtyChai)
 
-// const { linereduce: lr } = require('../lib/')
 const { LineReduce, types } = require('../lib').linereduce
 let { textutil } = require(`../lib/`)
 

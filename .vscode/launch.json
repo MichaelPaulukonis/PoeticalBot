@@ -32,7 +32,7 @@
                 "999999",
                 "--colors",
                 "--recursive",
-                "${workspaceFolder}/test/poetifier.queneau-buckets.tests.js"
+                "${workspaceFolder}/test/textutil.tests.js"
             ],
             "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [
