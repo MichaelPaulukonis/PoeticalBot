@@ -23,31 +23,6 @@ describe(`textutil`, function () {
     it(`should expose a splitwords method`, function () {
       expect(textutils.splitwords).to.be.a(`function`)
     })
-
-    it(`should expose a fonetikfix method`, function () {
-      expect(textutils.fonetikfix).to.be.a(`function`)
-    })
-  })
-
-  describe.only(`fonetikfix`, function () {
-    it(`should replace 0s at the beginning of words with 'th'`, function () {
-      let ftext = `0e`
-
-      let cleantext = `the`
-      expect(textutils.fonetikfix(ftext)).to.equal(cleantext)
-    })
-    it(`should replace 0s at the middle of words with 'th'`, function () {
-      let ftext = `o0er`
-
-      let cleantext = `other`
-      expect(textutils.fonetikfix(ftext)).to.equal(cleantext)
-    })
-    it(`should replace 0s at the end of words with 'th'`, function () {
-      let ftext = `wi0`
-
-      let cleantext = `with`
-      expect(textutils.fonetikfix(ftext)).to.equal(cleantext)
-    })
   })
 
   describe(`splitwords`, function () {
