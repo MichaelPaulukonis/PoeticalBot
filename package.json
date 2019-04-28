@@ -26,6 +26,7 @@
     "commander": "^2.19.0",
     "common-corpus": "github:michaelpaulukonis/common-corpus",
     "compromise": "^11.13.2",
+    "corpora-project": "^0.2.0",
     "dotenv": "^7.0.0",
     "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",

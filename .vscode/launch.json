@@ -50,6 +50,17 @@
                 "${workspaceFolder}/node_modules/**/*.js",
                 "<node_internals>/**/*.js"
             ],
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "manual matcher",
+            "program": "${workspaceFolder}/test/manual-runners/pattern-match.runner.js",
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "<node_internals>/**/*.js"
+            ],
         }
     ]
 }
