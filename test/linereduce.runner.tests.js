@@ -5,15 +5,12 @@ let util = new (require(`../lib/util.js`))()
 chai.use(dirtyChai)
 const { linereduceRunner: LinereduceRunner } = require('../lib')
 const testData = require('./testdata')
+const { types } = require(`../lib/linereduce.js`)
+const nlp = require('compromise')
 
-// ganked from poetifier
-// let lr = new (require(`./lrRunner.js`))({ util: util, texts: texts })
-// let text = lr.text
-// source = [{
-//   name: texts.reduce((p, c) => p + ` ` + c.name, ``),
-//   text: () => text,
-//   sentences: () => textutils.sentencify(text)
-// }]
+// extracted from linereduce itself
+// so... maybe it's a utility?
+const stripPunct = (t) => t.replace(/^[^a-z0-9-]|[^a-z0-9-]$/ig, ``)
 
 describe(`linereduceRunner `, () => {
   describe(`API`, () => {
@@ -23,8 +20,8 @@ describe(`linereduceRunner `, () => {
   })
 
   describe('... in action', () => {
-    it('... will get a set of sentences', () => {
-      const reduced = new LinereduceRunner({ util, texts: [testData.corporaDummy] })
+    it('... will get a set of sentences that START with the same word', () => {
+      const reduced = new LinereduceRunner({ util, texts: [testData.corporaDummy], reduceType: types.start })
       expect(reduced).to.be.an('object')
       expect(reduced).to.have.property('lines')
       expect(reduced).to.have.property('text')
@@ -37,34 +34,106 @@ describe(`linereduceRunner `, () => {
       expect(reduced.lines.length).to.be.greaterThan(0)
       expect(reduced.text.length).to.be.greaterThan(0)
 
-      // const firstWord = firsts.lines[0].split(' ')[0]
-      // const allSame = firsts.lines.reduce((p, line) => p && line.startsWith(firstWord), true)
-      // expect(allSame).to.be.true()
+      const firstWord = stripPunct(reduced.lines[0].split(' ')[0])
+      const allSame = reduced.lines.reduce((p, line) => p && stripPunct(line).startsWith(firstWord), true)
+      expect(allSame).to.be.true()
     })
 
-    // it('... will get a set of sentences that END with the same word', () => {
-    //   const lasts = runner.filter({ type: types.end, text: blob })
-    //   expect(lasts).to.be.an('object')
-    //   expect(lasts).to.have.property('lines')
-    //   expect(lasts).to.have.property('text')
+    it('... will get a set of sentences that END with the same word', () => {
+      const reduced = new LinereduceRunner({ util, texts: [testData.corporaDummy], reduceType: types.end })
+      expect(reduced).to.be.an('object')
+      expect(reduced).to.have.property('lines')
+      expect(reduced).to.have.property('text')
+      expect(reduced).to.have.property('name')
 
-    //   expect(lasts.lines.length).to.be.greaterThan(0)
+      expect(reduced.name).to.be.a('string')
+      expect(reduced.text).to.be.a('string')
+      expect(reduced.lines).to.be.an('array')
 
-    //   const lastWord = lasts.lines[0].split(' ').slice(-1)[0]
-    //   const allSame = lasts.lines.reduce((p, line) => p && line.endsWith(lastWord), true)
-    //   expect(allSame).to.be.true()
-    // })
+      expect(reduced.lines.length).to.be.greaterThan(0)
+      expect(reduced.text.length).to.be.greaterThan(0)
 
-    // it('... will get a set of sentences that match some pattern', () => {
-    //   const matches = runner.filter({ type: types.search, text: blob, search: / is / })
-    //   expect(matches).to.be.an('object')
-    //   expect(matches).to.have.property('lines')
-    //   expect(matches).to.have.property('text')
+      const lastWord = stripPunct(reduced.lines[0].split(' ').slice(-1)[0])
+      const allSame = reduced.lines.reduce((p, line) => p && stripPunct(line).endsWith(lastWord), true)
+      expect(allSame).to.be.true()
+    })
 
-    //   expect(matches.lines.length).to.be.greaterThan(0)
+    it('... will get a set of sentences that contain a 2+ word sequence', () => {
+      const reduced = new LinereduceRunner({ util, texts: [testData.corporaDummy], reduceType: types.search })
+      expect(reduced).to.be.an('object')
+      expect(reduced).to.have.property('lines')
+      expect(reduced).to.have.property('text')
+      expect(reduced).to.have.property('name')
 
-    //   const allSame = matches.lines.reduce((p, line) => p && line.indexOf(' is ') > -1, true)
-    //   expect(allSame).to.be.true()
-    // })
+      expect(reduced.name).to.be.a('string')
+      expect(reduced.text).to.be.a('string')
+      expect(reduced.lines).to.be.an('array')
+
+      expect(reduced.lines.length).to.be.greaterThan(0)
+      expect(reduced.text.length).to.be.greaterThan(0)
+
+      const ngrams = nlp(reduced.text).ngrams()
+      expect(ngrams.length).to.be.greaterThan(0)
+    })
+
+    it('... will get a set of sentences that match a pattern (nouns)', () => {
+      const config = {
+        util,
+        texts: [testData.corporaDummy],
+        reduceType: types.pattern,
+        matchPattern: '#noun'
+      }
+      const reduced = new LinereduceRunner(config)
+      expect(reduced).to.be.an('object')
+      expect(reduced).to.have.property('lines')
+      expect(reduced).to.have.property('text')
+      expect(reduced).to.have.property('name')
+
+      expect(reduced.name).to.be.a('string')
+      expect(reduced.text).to.be.a('string')
+      expect(reduced.lines).to.be.an('array')
+
+      expect(reduced.lines.length).to.equal(25)
+    })
+
+    it('... will get a set of sentences that match a pattern (adjective)', () => {
+      const config = {
+        util,
+        texts: [testData.corporaDummy],
+        reduceType: types.pattern,
+        matchPattern: '#Adjective'
+      }
+      const reduced = new LinereduceRunner(config)
+      expect(reduced).to.be.an('object')
+      expect(reduced).to.have.property('lines')
+      expect(reduced).to.have.property('text')
+      expect(reduced).to.have.property('name')
+
+      expect(reduced.name).to.be.a('string')
+      expect(reduced.text).to.be.a('string')
+      expect(reduced.lines).to.be.an('array')
+
+      expect(reduced.lines.length).to.equal(7)
+    })
+
+    it('... will get a set of sentences that match a pattern (person)', () => {
+      const config = {
+        util,
+        texts: [testData.corporaDummy],
+        reduceType: types.pattern,
+        matchPattern: '#Person'
+      }
+      const reduced = new LinereduceRunner(config)
+      expect(reduced).to.be.an('object')
+      expect(reduced).to.have.property('lines')
+      expect(reduced).to.have.property('text')
+      expect(reduced).to.have.property('name')
+
+      expect(reduced.name).to.be.a('string')
+      expect(reduced.text).to.be.a('string')
+      expect(reduced.lines).to.be.an('array')
+
+      expect(reduced.lines.length).to.equal(3)
+    })
   })
 })

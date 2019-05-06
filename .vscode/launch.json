@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha Tests",
+            "name": "Mocha All",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
                 "--timeout",
@@ -25,14 +25,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha adhoc",
+            "name": "Mocha linereduce.runner",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
                 "--timeout",
                 "999999",
                 "--colors",
                 "--recursive",
-                "${workspaceFolder}/test/textutil.tests.js"
+                "${workspaceFolder}/test/linereduce.runner.tests.js"
             ],
             "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [
@@ -45,6 +45,14 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/index.js",
+            "args": [
+                "--reduceType",
+                "pattern",
+                "--method",
+                "buckets",
+                "--corporaFilter",
+                "metrophage"
+            ],
             "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",
@@ -56,6 +64,9 @@
             "request": "launch",
             "name": "manual matcher",
             "program": "${workspaceFolder}/test/manual-runners/pattern-match.runner.js",
+            "args": [
+                // "--reduceType", "pattern"
+            ],
             "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",

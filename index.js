@@ -72,6 +72,7 @@ program
   .option(`-c, --corporaFilter [string]`, `filename substring filter (non-case sensitive)`)
   .option(`-s --seed [string]`, `seed for random generator`)
   .option(`-r --reduce`, `force line-reduce`)
+  .option(`--reduceType [string]`, `reduce type`)
   .option(`-f --file [string]`, `external source file`)
   .option(`--subStrategy [string]`, `method strategy`)
   .option(`--no-publish`, `do NOT publish (live)`)
@@ -108,6 +109,11 @@ if (program.seed) {
 
 if (program.reduce) {
   config.reduce = true
+}
+
+if (program.reduceType) {
+  config.reduce = true
+  config.reduceType = program.reduceType
 }
 
 if (program.file) {

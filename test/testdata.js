@@ -11,7 +11,19 @@ const sentences = [
   `No, not nearly enough lines.`,
   `How many times do I have to write enough text?`,
   `Is this enough text?`,
-  `This is not enough text, well, probably not anyway.`
+  `This is not enough text, well, probably not anyway.`,
+  'Whose line is it anyway?',
+  'How many lines?',
+  'How many lines is enough lines?',
+  'Do you really want more?',
+  'Not text?',
+  'If not text, what lines?',
+  'If not lines, what do you want?',
+  'Do you want some more text?',
+  'Do you have enough text?',
+  'John has some green text.',
+  'Mary has purple lines.',
+  'Mary has more text than John'
 ]
 
 const text = sentences.join(' ')

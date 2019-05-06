@@ -241,16 +241,11 @@ describe(`poetifier Queneau-Buckets diamond substrategy`, () => {
   let newpoetifier
   let poem
   before(() => {
-    // TODO: do I have tests for the config object?
-    // TODO: this test fails on jGnoetry, which does NOT have lines???
-    // let poem = new Poetifier({ options: { config: { method: 'jgnoetry' } } }).poem({})
-    config.method = `queneau-buckets` // need to test every method, of course..... (poorly named)
+    config.method = `queneau-buckets`
     config.subStrategy = `diamond`
     config.reduce = false
     config.corporaFilter = 'eliot'
     config.transform = false
-    // TODO: set a NON jGnoetry method
-    // incrementngLines
     newpoetifier = new Poetifier({ config: config })
     poem = newpoetifier.poem({})
     console.log(`IN QB TEST`, JSON.stringify(poem, null, 2))
@@ -272,15 +267,8 @@ describe(`poetifier Queneau-Buckets diamond substrategy`, () => {
       it(`has a "source" property`, () => {
         expect(poem.source).to.exist()
       })
-      // TODO: sometimes it DOES have a "config" property
-      // WHEN using the bucketRunner (at least)
-      // contains meta-data on the strategy
-      // not a bad thing, but not consistent. hunh.
-      // "config": {
-      //   "strategy": "decrementinglines",
-      //   "lineCount": 15
-      // },
     })
+
     describe(`lines`, () => {
       it(`are an array`, () => {
         expect(poem.lines).to.be.an(`array`)
