@@ -135,5 +135,26 @@ describe(`linereduceRunner `, () => {
 
       expect(reduced.lines.length).to.equal(3)
     })
+
+    it.only('... will try a second time on a failure with a specified pattern', () => {
+      const config = {
+        util,
+        texts: [testData.corporaDummy],
+        reduceType: types.pattern,
+        matchPattern: '#Grundig'
+      }
+      // TODO: sinon spy to track calls?
+      const reduced = new LinereduceRunner(config)
+      expect(reduced).to.be.an('object')
+      expect(reduced).to.have.property('lines')
+      expect(reduced).to.have.property('text')
+      expect(reduced).to.have.property('name')
+
+      expect(reduced.name).to.be.a('string')
+      expect(reduced.text).to.be.a('string')
+      expect(reduced.lines).to.be.an('array')
+
+      expect(reduced.lines.length).to.be.greaterThan(0)
+    })
   })
 })
