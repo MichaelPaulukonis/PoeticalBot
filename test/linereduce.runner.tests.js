@@ -93,7 +93,7 @@ describe(`linereduceRunner `, () => {
       expect(reduced.text).to.be.a('string')
       expect(reduced.lines).to.be.an('array')
 
-      expect(reduced.lines.length).to.equal(25)
+      expect(reduced.lines.length).to.be.greaterThan(25)
     })
 
     it('... will get a set of sentences that match a pattern (adjective)', () => {
@@ -113,7 +113,7 @@ describe(`linereduceRunner `, () => {
       expect(reduced.text).to.be.a('string')
       expect(reduced.lines).to.be.an('array')
 
-      expect(reduced.lines.length).to.equal(7)
+      expect(reduced.lines.length).to.be.greaterThan(7)
     })
 
     it('... will get a set of sentences that match a pattern (person)', () => {
@@ -133,10 +133,10 @@ describe(`linereduceRunner `, () => {
       expect(reduced.text).to.be.a('string')
       expect(reduced.lines).to.be.an('array')
 
-      expect(reduced.lines.length).to.equal(3)
+      expect(reduced.lines.length).to.be.greaterThan(3)
     })
 
-    it.only('... will try a second time on a failure with a specified pattern', () => {
+    it('... will try more than one on a failure with a specified pattern', () => {
       const config = {
         util,
         texts: [testData.corporaDummy],
