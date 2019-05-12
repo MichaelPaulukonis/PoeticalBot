@@ -73,6 +73,7 @@ program
   .option(`-s --seed [string]`, `seed for random generator`)
   .option(`-r --reduce`, `force line-reduce`)
   .option(`--reduceType [string]`, `reduce type`)
+  .option(`-p, --patternMatch [string]`, `nlp-compromise matchPattern for list elements`)
   .option(`-f --file [string]`, `external source file`)
   .option(`--subStrategy [string]`, `method strategy`)
   .option(`--no-publish`, `do NOT publish (live)`)

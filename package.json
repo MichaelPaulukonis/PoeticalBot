@@ -13,7 +13,8 @@
     "coretest": "mocha test/poetifier.tests.js",
     "test": "standard --fix && npm run test:js",
     "test:js": "mocha --timeout 50000 ./test/*.tests.js",
-    "update": "npx npm-check -u"
+    "update": "npx npm-check -u",
+    "sample": "node index.js -r --reduceType pattern -p '#Person . #PastTense' -m drone -c kadrey"
   },
   "repository": {
     "type": "git",
