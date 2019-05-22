@@ -1,58 +1,44 @@
-var chai = require(`chai`)
-var expect = chai.expect
-var Util = require(`../lib/util.js`)
-var util = new Util()
-var JGnoetry = require(`../lib/jgnoetry.headless.js`)
-var jg = new JGnoetry(util)
+const chai = require(`chai`)
+const expect = chai.expect
+const Util = require(`../lib/util.js`)
+const util = new Util()
+const JGnoetry = require(`../lib/jgnoetry/jgnoetry.headless.js`)
+const jg = new JGnoetry(util)
 
-describe(`jGnoetry.headless tests`, function () {
-  describe(`API tests`, function () {
-    it(`should return a new instance with new`, function () {
-      var jg = new JGnoetry(util)
+describe(`jGnoetry.headless tests`, () => {
+  describe(`API tests`, () => {
+    it(`should return a new instance with new`, () => {
+      const jg = new JGnoetry(util)
       expect(jg).to.be.a(`object`)
       expect(jg).to.be.an.instanceof(JGnoetry)
     })
 
-    it(`should return a new instance even without new`, function () {
-      var jg = JGnoetry(util)
+    it(`should return a new instance even without new`, () => {
+      const jg = JGnoetry(util)
       expect(jg).to.be.a(`object`)
       expect(jg).to.be.an.instanceof(JGnoetry)
     })
 
-    it(`should expose a generate method`, function () {
+    it(`should expose a generate method`, () => {
       expect(jg.generate).to.be.a(`function`)
-    })
-
-    // TODO: makeTemplate exposure
-    it(`should expose a makeTemplate method`, function () {
-      expect(jg.makeTemplate).to.be.a(`function`)
-    })
-
-    it(`should expose a countSyllables method`, function () {
-      expect(jg.countSyllables).to.be.a(`function`)
     })
   })
 
-  describe(`generate()`, function () {
-    it(`should return a string when called with proper params`, function () {
-      // TODO: this setup is a pain in the ass!
-      // can't there some sort of default stuff built in?
-
-      var options = { 'handlePunctuation': `noParen`, 'byNewlineOrPunctuation': `punctuation`, 'capitalize': { 'method': `capitalizeCustom`, 'customSentence': true, 'customLine': true, 'customI': true }, 'appendToPoem': `appendPeriod`, 'areWordsSelectedBegin': `startSelected`, 'thisWordSelectedBegin': `startSelected`, 'changeSelectionEffect': `requiresClick`, 'statusVerbosity': 1 }
-
-      var corpora = { texts: [`this is the cat that was over there with the mill.`], weights: [100] }
-
-      var template = `[s] [n] `
-
-      var existingText = ``
+  describe(`generate()`, () => {
+    it(`should return a string when called with proper params`, () => {
+      // NOTE: if you don't want to set all this up, use the runner!
+      const options = { 'handlePunctuation': `noParen`, 'byNewlineOrPunctuation': `punctuation`, 'capitalize': { 'method': `capitalizeCustom`, 'customSentence': true, 'customLine': true, 'customI': true }, 'appendToPoem': `appendPeriod`, 'areWordsSelectedBegin': `startSelected`, 'thisWordSelectedBegin': `startSelected`, 'changeSelectionEffect': `requiresClick`, 'statusVerbosity': 1 }
+      const corpora = { texts: [`this is the cat that was over there with the mill.`], weights: [100] }
+      const template = `[s] [n] `
+      const existingText = ``
 
       // corpora.texts = reduceCorpora(corpora.texts);
       // corpora.weights = assignWeights(corpora.texts.length);
-      // var templateName = util.pick(Object.keys(templates));
+      // const templateName = util.pick(Object.keys(templates));
       // options.capitalize = assignCapitalization();
       // options.appendToPoem = util.pick(endPuncts);
 
-      var output = jg.generate(template, options, corpora, existingText)
+      const output = jg.generate(template, options, corpora, existingText)
 
       expect(output).to.be.an(`object`)
     })
@@ -66,44 +52,21 @@ describe(`jGnoetry.headless tests`, function () {
      need to wire-up a random-seed thing, and then trap a random seed for an instance when it happens
      NOTE: I'm reproducing this in the GUI version, so need to get tests in here once random-seed is set up
      */
-    it(`should keep existingText when told`, function () {
-      var options = { 'handlePunctuation': `noParen`, 'byNewlineOrPunctuation': `punctuation`, 'capitalize': { 'method': `capitalizeCustom`, 'customSentence': true, 'customLine': true, 'customI': true }, 'appendToPoem': `appendPeriod`, 'areWordsSelectedBegin': `startSelected`, 'thisWordSelectedBegin': `startSelected`, 'changeSelectionEffect': `requiresClick`, 'statusVerbosity': 1 }
-
-      var corpora = { texts: [`the cat the dog the oboe and the mill were in the dob barn with the rat`], weights: [100] }
-
-      var template = `[s] [s] [n] `
-
-      var existingText = [{ text: `the`, keep: true }, { text: `the`, keep: false }]
-
-      var output = jg.generate(template, options, corpora, existingText)
+    it(`should keep existingText when told`, () => {
+      const options = { 'handlePunctuation': `noParen`, 'byNewlineOrPunctuation': `punctuation`, 'capitalize': { 'method': `capitalizeCustom`, 'customSentence': true, 'customLine': true, 'customI': true }, 'appendToPoem': `appendPeriod`, 'areWordsSelectedBegin': `startSelected`, 'thisWordSelectedBegin': `startSelected`, 'changeSelectionEffect': `requiresClick`, 'statusVerbosity': 1 }
+      const corpora = { texts: [`the cat the dog the oboe and the mill were in the dob barn with the rat`], weights: [100] }
+      const template = `[s] [s] [n] `
+      const existingText = [{ text: `the`, keep: true }, { text: `the`, keep: false }]
+      const output = jg.generate(template, options, corpora, existingText)
 
       // hrm. we've got a leading-space issue in jgnoetry....
       // hey... displayText is a STUPID NAME for a headless module...
 
-      var words = output.displayText.trim().split(` `)
+      const words = output.displayText.trim().split(` `)
 
       expect(output).to.be.an(`object`)
       expect(output.displayText).to.be.a(`string`)
       expect(words[0].toLowerCase()).to.equal(existingText[0].text.toLowerCase())
     })
-  })
-
-  describe(`syllableCount tests`, function () {
-    // expect(jg.countSyllables).to.be.a('function');
-    let sylbs = [[`and`, 1], [`but`, 1], [`hate`, 1]]
-    for (let i = 0, len = sylbs.length; i < len; i++) {
-      let s = sylbs[i]
-      it(`should count syllables correctly for '${s[0]}' with algorithm (non-exception words)`, function () {
-        expect(jg.countSyllables(s[0])).to.equal(s[1])
-      })
-    }
-
-    let knownFailSylbs = [[`apple`, 1]]
-    for (let i = 0, len = knownFailSylbs.length; i < len; i++) {
-      let s = knownFailSylbs[i]
-      it(`counts the wrong syllable count for '${s[0]}' := ${s[1]} with algorithm (non-exception words)`, function () {
-        expect(jg.countSyllables(s[0])).to.equal(s[1])
-      })
-    }
   })
 })

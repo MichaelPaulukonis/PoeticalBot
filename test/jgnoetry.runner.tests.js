@@ -1,37 +1,75 @@
-var chai = require(`chai`)
-var expect = chai.expect
-var util = new (require(`../lib/util.js`))({ statusVerbosity: -1 })
-var Corpora = require(`common-corpus`)
-var texts = new Corpora().texts
-var jgRunner = require(`../lib/jgnoetryRunner.js`)
+const chai = require(`chai`)
+const expect = chai.expect
+const util = new (require(`../lib/util.js`))({ statusVerbosity: -1 })
+const Corpora = require(`common-corpus`)
+const jgRunner = require(`../lib/jgnoetry/jgnoetryRunner.js`)
 
-var samplePoem = jgRunner({
-  config: {},
-  util: util,
-  texts: texts
-})
+describe(`jgnoetry`, () => {
+  describe(`API: runner ...`, () => {
+    let samplePoem
 
-describe(`jgnoetry tests`, function () {
-  // TODO: logging is done explicitly even in test-mode
-  // UGH UGh UGh
-  it(`should return an object`, function () {
-    expect(samplePoem).to.be.an(`object`)
+    before(() => {
+      const texts = new Corpora().texts
+
+      samplePoem = jgRunner({
+        config: {},
+        util: util,
+        texts: texts
+      })
+    })
+    it(`... should return an object`, () => {
+      expect(samplePoem).to.be.an(`object`)
+    })
+
+    // title, text, template (name), corpora (titles)
+    it(`... should return a title property`, () => {
+      expect(samplePoem.title).to.be.a(`string`)
+    })
+
+    it(`... should return a text property (string)`, () => {
+      expect(samplePoem.text).to.be.a(`string`)
+    })
+
+    it(`... should return a template (name) property (string)`, () => {
+      expect(samplePoem.template).to.be.a(`string`)
+    })
+
+    it(`... should return a corpora property [titles]`, () => {
+      expect(samplePoem.corpora).to.be.an(`array`)
+    })
   })
 
-  // title, text, template (name), corpora (titles)
-  it(`should return a title property`, function () {
-    expect(samplePoem.title).to.be.a(`string`)
-  })
+  describe(`running the runner ...`, () => {
+    let samplePoem
 
-  it(`should return a text property (string)`, function () {
-    expect(samplePoem.text).to.be.a(`string`)
-  })
+    before(() => {
+      const texts = new Corpora().texts
 
-  it(`should return a template (name) property (string)`, function () {
-    expect(samplePoem.template).to.be.a(`string`)
-  })
+      samplePoem = jgRunner({
+        config: {},
+        util: util,
+        texts: texts
+      })
+    })
+    it(`... should return an object`, () => {
+      expect(samplePoem).to.be.an(`object`)
+    })
 
-  it(`should return a corpora property [titles]`, function () {
-    expect(samplePoem.corpora).to.be.an(`array`)
+    // title, text, template (name), corpora (titles)
+    it(`... should return a title property`, () => {
+      expect(samplePoem.title).to.be.a(`string`)
+    })
+
+    it(`... should return a text property (string)`, () => {
+      expect(samplePoem.text).to.be.a(`string`)
+    })
+
+    it(`... should return a template (name) property (string)`, () => {
+      expect(samplePoem.template).to.be.a(`string`)
+    })
+
+    it(`... should return a corpora property [titles]`, () => {
+      expect(samplePoem.corpora).to.be.an(`array`)
+    })
   })
 })
