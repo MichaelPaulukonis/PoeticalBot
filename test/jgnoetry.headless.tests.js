@@ -27,7 +27,21 @@ describe(`jGnoetry.headless tests`, () => {
   describe(`generate()`, () => {
     it(`should return a string when called with proper params`, () => {
       // NOTE: if you don't want to set all this up, use the runner!
-      const options = { 'handlePunctuation': `noParen`, 'byNewlineOrPunctuation': `punctuation`, 'capitalize': { 'method': `capitalizeCustom`, 'customSentence': true, 'customLine': true, 'customI': true }, 'appendToPoem': `appendPeriod`, 'areWordsSelectedBegin': `startSelected`, 'thisWordSelectedBegin': `startSelected`, 'changeSelectionEffect': `requiresClick`, 'statusVerbosity': 1 }
+      const options = {
+        'handlePunctuation': `noParen`,
+        'byNewlineOrPunctuation': `punctuation`,
+        'capitalize': {
+          'method': `capitalizeCustom`,
+          'customSentence': true,
+          'customLine': true,
+          'customI': true
+        },
+        'appendToPoem': `appendPeriod`,
+        'areWordsSelectedBegin': `startSelected`,
+        'thisWordSelectedBegin': `startSelected`,
+        'changeSelectionEffect': `requiresClick`,
+        'statusVerbosity': 1
+      }
       const corpora = { texts: [`this is the cat that was over there with the mill.`], weights: [100] }
       const template = `[s] [n] `
       const existingText = ``
@@ -53,7 +67,21 @@ describe(`jGnoetry.headless tests`, () => {
      NOTE: I'm reproducing this in the GUI version, so need to get tests in here once random-seed is set up
      */
     it(`should keep existingText when told`, () => {
-      const options = { 'handlePunctuation': `noParen`, 'byNewlineOrPunctuation': `punctuation`, 'capitalize': { 'method': `capitalizeCustom`, 'customSentence': true, 'customLine': true, 'customI': true }, 'appendToPoem': `appendPeriod`, 'areWordsSelectedBegin': `startSelected`, 'thisWordSelectedBegin': `startSelected`, 'changeSelectionEffect': `requiresClick`, 'statusVerbosity': 1 }
+      const options = {
+        'handlePunctuation': `noParen`,
+        'byNewlineOrPunctuation': `punctuation`,
+        'capitalize': {
+          'method': `capitalizeCustom`,
+          'customSentence': true,
+          'customLine': true,
+          'customI': true
+        },
+        'appendToPoem': `appendPeriod`,
+        'areWordsSelectedBegin': `startSelected`,
+        'thisWordSelectedBegin': `startSelected`,
+        'changeSelectionEffect': `requiresClick`,
+        'statusVerbosity': 1
+      }
       const corpora = { texts: [`the cat the dog the oboe and the mill were in the dob barn with the rat`], weights: [100] }
       const template = `[s] [s] [n] `
       const existingText = [{ text: `the`, keep: true }, { text: `the`, keep: false }]
