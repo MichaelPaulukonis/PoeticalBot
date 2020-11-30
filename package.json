@@ -14,7 +14,10 @@
     "test": "standard --fix && npm run test:js",
     "test:js": "mocha --timeout 50000 ./test/*.tests.js",
     "update": "npx npm-check -u",
-    "sample": "node index.js -r --reduceType pattern -p '#Person . #PastTense' -m drone -c giants"
+    "sample": "node index.js -r --reduceType pattern -p '#Person . #PastTense' -m drone -c giants",
+    "heroku:login": "heroku login",
+    "heroku:scheduler": "heroku addons:open scheduler",
+    "heroku:config": "heroku conig"
   },
   "repository": {
     "type": "git",

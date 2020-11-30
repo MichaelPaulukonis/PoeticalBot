@@ -7,6 +7,46 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/index.js",
+            "args": [
+                "--reduceType",
+                "pattern",
+                "--method",
+                "buckets",
+                "--corporaFilter",
+                "metrophage",
+                "--xform",
+                "0"
+            ],
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "<node_internals>/**/*.js"
+            ],
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "drone reduction",
+            "program": "${workspaceFolder}/index.js",
+            "args": [
+                "--reduceType",
+                "pattern",
+                "--method",
+                "drone",
+                "--xform",
+                "0"
+            ],
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "<node_internals>/**/*.js"
+            ],
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Mocha All",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
@@ -51,25 +91,6 @@
                 "--colors",
                 "--recursive",
                 "${workspaceFolder}/test/poetifier.drone.linereduceRunner.tests.js"
-            ],
-            "internalConsoleOptions": "openOnSessionStart",
-            "skipFiles": [
-                "${workspaceFolder}/node_modules/**/*.js",
-                "<node_internals>/**/*.js"
-            ],
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/index.js",
-            "args": [
-                "--reduceType",
-                "pattern",
-                "--method",
-                "buckets",
-                "--corporaFilter",
-                "metrophage"
             ],
             "internalConsoleOptions": "openOnSessionStart",
             "skipFiles": [

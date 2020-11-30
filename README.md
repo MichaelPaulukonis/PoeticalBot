@@ -1,5 +1,6 @@
 # NaPoGenMo2016
-See output @ http://poeticalbot.tumblr.com/
+
+See output @ <http://poeticalbot.tumblr.com/>
 
 [National Poetry Generation Month 2016](https://github.com/NaPoGenMo/NaPoGenMo2016)
 
@@ -14,24 +15,39 @@ TODO: index should take option to NOT publish
 TODO: some things log, some things don't - it's erratic and the logs can be confusing
 
 ## testing
+
 `npm t`
 
 ## publishing
+
 `git push heroku master`
 
 TODO: look into automatic github hooks - https://devcenter.heroku.com/articles/github-integration
 
+### tumblr connection in `.env`
+
+Must get   from Tumblr applications
+
+```env
+consumer_key=<OAuth consumer key>
+consumer_secret=<OAuth consumer secret>
+token=foo
+token_secret=foo
+```
+
 ## poem generators
- - queaneau-buckets
- - jgnoetry (headless)
-  - custom templates
+
+- queaneau-buckets
+- jgnoetry (headless)
+- custom templates
   - TODO: on-the-fly generated templates
   - TODO: templates can have pre-populated text and spacing ?
   - TODO: rewire for multi-pass with saved-text (and post sequences)
 - [Harvard Sentences](http://www.cs.cmu.edu/afs/cs.cmu.edu/project/fgdata/OldFiles/Recorder.app/utterances/Type1/harvsents.txt) drone
- - TODO: the drone structure seems like it would work for other generators, if they output sentences/lines.
+  - TODO: the drone structure seems like it would work for other generators, if they output sentences/lines.
 
 ## transformers
+
  - random leading spaces
  - sort (ascending/descending)
  - mispelr
@@ -41,12 +57,14 @@ TODO: look into automatic github hooks - https://devcenter.heroku.com/articles/g
    - existing implementation is sub-optimal
 
 ## titles
+
  - first/last/random line
  - random-selection from most common words in poem
  - summary sentence (summary algorithm picks sentence)
   -  fails poorly when there aren't enough sentences
 
 ## corpus
+
  - lots of texts
  - sorted into folders
  - select with regex
@@ -54,6 +72,7 @@ TODO: look into automatic github hooks - https://devcenter.heroku.com/articles/g
  - randomize percentages for the jGnoetry model
 
 ## Plans
+
  - Hybridizer
  - heijinian leading spaces
  - mesostics
@@ -61,13 +80,12 @@ TODO: look into automatic github hooks - https://devcenter.heroku.com/articles/g
  - (optionally) replace the syllable-detection algorithm in jgnoetry
   - at a minimum, extract it for unit-testing
 
-
 Boringly, I continue to work with unit-tests and code-coverage, and other dull things instead of the "cool" poetry generation _all the time_. So sue me.
 
 It usually pays off in the long run, when I return to a project after a while not remembering how it works -- boom, the tests document usage! Also they run through so many scenarios I know when I do or do not break stuff (depending upon coverage).
 
-
 ### some things to look at
+
  - https://github.com/rossgoodwin/poetry-solver
  - https://github.com/rossgoodwin/poetizer
  - https://github.com/rossgoodwin/sonnetizer
@@ -82,8 +100,6 @@ It usually pays off in the long run, when I return to a project after a while no
  - I tried using nlp-compromise's simple-english module, but it didn't do much, very often
  - more meta-data on the poems/words/etc. So transforms can be done with more granularity?
   - at the very least, try to keep re-processing the texts and poems into sentences and words multiple times.
-
-
 
 ## Original ideas that did and did not work
 

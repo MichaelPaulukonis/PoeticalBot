@@ -36,7 +36,7 @@ var prepForPublish = (poem) => {
   })
   let dataline = `<!-- config: ${JSON.stringify(data)} -->`
 
-  return clean.join(`\n`) + dataline
+  return clean.join(`<br />`) + dataline
 }
 
 let teller = function () {
