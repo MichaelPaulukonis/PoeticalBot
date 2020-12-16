@@ -17,7 +17,7 @@
     "sample": "node index.js -r --reduceType pattern -p '#Person . #PastTense' -m drone -c giants",
     "heroku:login": "heroku login",
     "heroku:scheduler": "heroku addons:open scheduler",
-    "heroku:config": "heroku conig"
+    "heroku:config": "heroku config"
   },
   "repository": {
     "type": "git",
@@ -27,19 +27,19 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "commander": "^2.19.0",
+    "commander": "^6.2.1",
     "common-corpus": "github:michaelpaulukonis/common-corpus",
     "compromise": "^11.13.2",
     "corpora-project": "^0.2.0",
     "dotenv": "^7.0.0",
     "fuzzy-matching": "0.4.3",
     "htmlencode": "0.0.4",
-    "iconv-lite": "0.4.13",
+    "iconv-lite": "^0.6.2",
     "in-a-nutshell": "0.1.2",
     "natural": "^0.6.3",
     "node-mispelr": "0.0.1",
-    "pos": "~0.1.7-2",
-    "ramda": "^0.26.1",
+    "pos": "^0.4.2",
+    "ramda": "^0.27.1",
     "random-seed": "0.3.0",
     "rhymes": "^1.0.2",
     "simple-timer": "0.0.5",
@@ -47,7 +47,7 @@
     "tumblrwks": "0.3.0"
   },
   "engines": {
-    "node": "6.1.0"
+    "node": "13.8.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

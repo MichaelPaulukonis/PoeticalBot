@@ -26,7 +26,10 @@ TODO: look into automatic github hooks - https://devcenter.heroku.com/articles/g
 
 ### tumblr connection in `.env`
 
-Must get   from Tumblr applications
+These config vars are used for local running.
+On Heroku itself, they will be config vars.
+
+You can gt them from the heroku applications config, or from Tumblr
 
 ```env
 consumer_key=<OAuth consumer key>
@@ -48,13 +51,13 @@ token_secret=foo
 
 ## transformers
 
- - random leading spaces
- - sort (ascending/descending)
- - mispelr
- - phonetic
- - rhyme appender
-   - more proof-of-concept than anything.
-   - existing implementation is sub-optimal
+- random leading spaces
+- sort (ascending/descending)
+- mispelr
+- phonetic
+- rhyme appender
+  - more proof-of-concept than anything.
+  - existing implementation is sub-optimal
 
 ## titles
 
