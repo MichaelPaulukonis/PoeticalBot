@@ -1,16 +1,14 @@
-var config = (function () {
-  require(`dotenv`).config()
+require(`dotenv`).config()
 
-  return {
-    consumerKey: process.env.consumer_key,
-    consumerSecret: process.env.consumer_secret,
-    accessToken: process.env.token,
-    accessSecret: process.env.token_secret,
+const config = {
+  consumerKey: process.env.CONSUMER_KEY,
+  consumerSecret: process.env.CONSUMER_SECRET,
+  accessToken: process.env.TOKEN,
+  accessSecret: process.env.TOKEN_SECRET,
 
-    postLive: (process.env.post_live.toLowerCase() === `true`),
+  postLive: (process.env.POST_LIVE.toLowerCase() === `true`),
 
-    transform: true
-  }
-}())
+  transform: true
+}
 
 module.exports = config
