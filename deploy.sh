@@ -2,12 +2,6 @@
 
 set -e
 
-echo "Building Lambda Layer..."
-cd lambda-layer
-npm install --production
-cd ..
-zip -r terraform/common-corpus-layer.zip lambda-layer/
-
 echo "Building Lambda Function..."
 # Copy necessary files to lambda directory
 cp -r lib lambda/

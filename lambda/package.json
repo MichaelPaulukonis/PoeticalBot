@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "description": "Tumblr Poetry Generator Lambda Function",
   "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*.tests.js --timeout 10000",
+    "test:debug": "mocha test/poetifier.tests.js --timeout 10000 --inspect-brk",
+    "test:verbose": "mocha test/poetifier.tests.js --timeout 10000 --reporter spec",
+    "test:manual": "node test-local.js",
+    "dev-install": "npm install"
+  },
   "dependencies": {
     "commander": "^6.2.1",
     "compromise": "^11.13.2",
@@ -21,5 +28,11 @@
   },
   "engines": {
     "node": "18.x"
+  },
+  "devDependencies": {
+    "common-corpus": "github:michaelpaulukonis/common-corpus",
+    "chai": "^4.2.0",
+    "dirty-chai": "^2.0.1",
+    "mocha": "^6.1.4"
   }
 }

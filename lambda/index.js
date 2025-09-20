@@ -61,7 +61,7 @@ exports.handler = async (event, context) => {
       } else {
         logger(JSON.stringify(poem))
         logger(poem.text)
-        return { statusCode: 200, body: 'Poem generated (test mode)' }
+        return { statusCode: 200, body: 'Poem generated (no-post mode)' }
       }
     } else {
       return { statusCode: 200, body: 'No poem generated' }

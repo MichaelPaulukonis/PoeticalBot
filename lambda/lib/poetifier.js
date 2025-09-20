@@ -195,7 +195,9 @@ class Poetifier {
     }
     let onePoem = function () {
       try {
-        let corpora = new (require(`common-corpus`))()
+        const layerRequire = require('./layer-require')
+        const Corpora = layerRequire('common-corpus')
+        let corpora = new Corpora()
         let strategy
         let texts
         let drone = () => `drone`

@@ -18,7 +18,7 @@ describe(`poetifier with lrRunner`, () => {
       config.transform = false
       newpoetifier = new Poetifier({ config: config })
       poem = newpoetifier.poem({})
-      console.log(`IN DRONE TEST`, poem.seed, poem.lines.length)
+      console.log(`IN DRONE TEST`, poem.seed, poem.lines?.length)
     })
 
     it(`returns an object`, () => {

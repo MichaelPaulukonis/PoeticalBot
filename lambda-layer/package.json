@@ -1,7 +1,0 @@
-{
-  "name": "poeticalbot-layer",
-  "version": "1.0.0",
-  "dependencies": {
-    "common-corpus": "github:michaelpaulukonis/common-corpus"
-  }
-}

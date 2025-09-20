@@ -5,4 +5,9 @@ coverage/
 demo.js
 wn.js
 *.log
-.nyc_output/
+.nyc_output/# Terra
+form artifacts
+terraform/*.zip
+terraform/poeticalbot-lambda/
+terraform/.terraform/
+terraform/terraform.tfstate*
