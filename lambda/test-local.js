@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Local test script for Lambda function
-require('dotenv').config({ path: '../.env' })
+// require('dotenv').config({ path: '../.env' })
 
 const handler = require('./index').handler
 
