@@ -12,6 +12,6 @@ terraform/poeticalbot-lambda/
 terraform/.terraform/
 terraform/terraform.tfstate*
 terraform/terraform.tfstate
-
+*.zip
 
 *.hard-coded.BEWARE.js
