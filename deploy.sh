@@ -5,6 +5,7 @@ set -e
 echo "Building Lambda Function..."
 # Copy necessary files to lambda directory
 cp -r lib lambda/
+cp -r filter lambda/
 cp config.js lambda/
 
 cd lambda

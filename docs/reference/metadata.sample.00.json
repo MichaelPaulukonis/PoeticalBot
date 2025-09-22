@@ -1,0 +1,23 @@
+{
+  "title": "LOVE GO COME STILL HONEST OLD STOPPED BOOKS HAWAII BATTERY",
+  "template": "blankSonnet ",
+  "corpora": [
+    "quotations/the.lincoln.year.book.axioms.and.aphorisms.from.the.great.emancipator",
+    "spam/sms.00"
+  ],
+  "options": {
+    "method": "jgnoetry",
+    "handlePunctuation": "noParen",
+    "byNewlineOrPunctuation": "punctuation",
+    "capitalize": {
+      "method": "capitalizeNone",
+      "customSentence": false,
+      "customLine": false,
+      "customI": false
+    },
+    "appendToPoem": "appendPeriod",
+    "statusVerbosity": 0
+  },
+  "seed": "sw85h80.seae",
+  "source": "quotations/the.lincoln.year.book.axioms.and.aphorisms.from.the.great.emancipator spam/sms.00"
+}

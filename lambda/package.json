@@ -24,14 +24,14 @@
     "rhymes": "^1.0.2",
     "simple-timer": "0.0.5",
     "tagspewer": "0.3.1",
-    "tumblrwks": "0.3.0"
+    "tumblr.js": "^5.0.0"
   },
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "devDependencies": {
-    "common-corpus": "github:michaelpaulukonis/common-corpus",
     "chai": "^4.2.0",
+    "common-corpus": "github:michaelpaulukonis/common-corpus",
     "dirty-chai": "^2.0.1",
     "mocha": "^6.1.4"
   }

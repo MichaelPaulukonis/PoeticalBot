@@ -1,5 +1,5 @@
 class Poetifier {
-  constructor (options) {
+  constructor(options) {
     let util = new (require(`./util.js`))({ statusVerbosity: 0, seed: options.config.seed })
     options.util = util
     // TODO: pass in util (for randomization) to jgnoetry and mispelr

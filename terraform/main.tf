@@ -24,7 +24,7 @@ resource "aws_lambda_function" "poeticalbot" {
   role            = aws_iam_role.lambda_role.arn
   handler         = "index.handler"
   source_code_hash = filebase64sha256("poeticalbot-lambda.zip")
-  runtime         = "nodejs18.x"
+  runtime         = "nodejs22.x"
   timeout         = 30
 
   layers = ["arn:aws:lambda:us-east-1:129701576546:layer:common-corpus-layer-dev:1"]
