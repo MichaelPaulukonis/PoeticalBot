@@ -15,6 +15,8 @@ const logger = (msg) => {
 }
 util.log = logger
 
+const { convertPoemToNPF, validateNPF } = require('./lib/npf-formatter')
+
 const prepForPublish = (poem) => {
   const lines = poem.text.split('\n')
   const leadingspacere = /^ */
@@ -33,44 +35,67 @@ const prepForPublish = (poem) => {
   return clean.join('<br />') + dataline
 }
 
+const prepForNPF = (poem) => {
+  const npfPost = convertPoemToNPF(poem)
+
+  if (!validateNPF(npfPost)) {
+    throw new Error('Invalid NPF structure generated')
+  }
+
+  return npfPost
+}
+
 exports.handler = async (event, context) => {
   try {
     const poetifier = new (require('./lib/poetifier.js'))({ config: config })
     const poem = poetifier.poem()
 
     if (poem && poem.title && poem.text) {
-      poem.printable = prepForPublish(poem)
-
       if (config.postLive) {
         try {
-          const response = await client.createPost('poeticalbot.tumblr.com', {
-            content: [
-              {
-                type: 'text',
-                text: poem.printable
-              }
-            ],
-            // Add title if available
-            ...(poem.title && {
+          // Use NPF format for posting
+          const npfPost = prepForNPF(poem)
+
+          const response = await client.createPost('poeticalbot.tumblr.com', npfPost)
+
+          logger('Posted successfully with NPF format')
+          logger('Post ID: ' + response.id)
+          logger('Poem metadata: ' + JSON.stringify({
+            seed: poem.seed,
+            source: poem.source,
+            template: poem.template,
+            method: poem.method
+          }))
+
+          return { statusCode: 200, body: 'Poem posted successfully' }
+        } catch (err) {
+          logger('NPF post failed: ' + err.message)
+
+          // Fallback to HTML format if NPF fails
+          try {
+            poem.printable = prepForPublish(poem)
+            const response = await client.createPost('poeticalbot.tumblr.com', {
               content: [
                 {
                   type: 'text',
-                  text: `<h1>${poem.title}</h1>\n${poem.printable}`
+                  text: `${poem.title}\n\n${poem.printable}`
                 }
               ]
             })
-          })
 
-          logger('Posted successfully')
-          logger('Post ID: ' + response.id)
-          return { statusCode: 200, body: 'Poem posted successfully' }
-        } catch (err) {
-          logger('Post failed: ' + err.message)
-          return { statusCode: 500, body: 'Failed to post poem' }
+            logger('Posted successfully with HTML fallback')
+            logger('Post ID: ' + response.id)
+            return { statusCode: 200, body: 'Poem posted successfully (HTML fallback)' }
+          } catch (fallbackErr) {
+            logger('Both NPF and HTML posting failed: ' + fallbackErr.message)
+            return { statusCode: 500, body: 'Failed to post poem' }
+          }
         }
       } else {
-        logger(JSON.stringify(poem))
-        logger(poem.text)
+        // Test mode - show both formats
+        const npfPost = prepForNPF(poem)
+        logger('NPF format: ' + JSON.stringify(npfPost, null, 2))
+        logger('Original poem: ' + JSON.stringify(poem, null, 2))
         return { statusCode: 200, body: 'Poem generated (no-post mode)' }
       }
     } else {

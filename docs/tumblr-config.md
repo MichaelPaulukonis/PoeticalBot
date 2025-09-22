@@ -60,6 +60,10 @@ TOKEN_SECRET=your_oauth_token_secret_here
 POST_LIVE=false
 ```
 
+## Step 4: use the `tumblr.js` library
+
+Because it is updated and works better than `tumblrwrks` I used to to
+Especially for Node 22+
 **Important**: Keep `POST_LIVE=false` until you're ready to post live to Tumblr!
 
 ## Step 4: Test Your Configuration
